@@ -1,0 +1,20 @@
+PODS:
+  - FBSnapshotTestCase (1.5)
+  - URBNAlert (0.1.0)
+  - URBNConvenience (0.6)
+
+DEPENDENCIES:
+  - FBSnapshotTestCase
+  - URBNAlert (from `../`)
+  - URBNConvenience
+
+EXTERNAL SOURCES:
+  URBNAlert:
+    :path: ../
+
+SPEC CHECKSUMS:
+  FBSnapshotTestCase: e2914fbaabccea1dcc773d6a16b1c24540642488
+  URBNAlert: 871e6bbb5b862368614d4bfa777e98386814653b
+  URBNConvenience: 71fcf03d7a1ccc3c8ce17265afc87812fd859175
+
+COCOAPODS: 0.35.0

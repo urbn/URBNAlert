@@ -7,6 +7,7 @@
 //
 
 #import "URBNViewController.h"
+#import <URBNAlert/URBNAlertController.h>
 
 @interface URBNViewController ()
 
@@ -14,16 +15,35 @@
 
 @implementation URBNViewController
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (IBAction)activeAlertTouch:(id)sender {
+    URBNAlertController *alertContoller = [[URBNAlertController alloc] initActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:YES buttons:@[@"Yes"]];
+    alertContoller.touchOutsideToDismiss = NO;
+    
+    __weak typeof(URBNAlertController) *weakAlertController = alertContoller;
+    [alertContoller setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+        NSLog(@"button touch at index: %ld", index);
+        [weakAlertController dismissAlert];
+    }];
+    
+    [alertContoller showAlert];
+}
+
+- (IBAction)activeAlertTwoButtonTouch:(id)sender {
+    URBNAlertController *alertContoller = [[URBNAlertController alloc] initActiveAlertWithTitle:@"My Alert Title" message:@"Message and message and message and going on forever and ever." hasInput:YES buttons:@[@"Yes", @"No"]];
+    alertContoller.touchOutsideToDismiss = NO;
+    alertContoller.buttonBackgroundColor = [UIColor redColor];
+    
+    __weak typeof(URBNAlertController) *weakAlertController = alertContoller;
+    [alertContoller setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+        NSLog(@"button touch at index: %ld", index);
+        [weakAlertController dismissAlert];
+    }];
+    
+    [alertContoller showAlert];
 }
 
 @end
