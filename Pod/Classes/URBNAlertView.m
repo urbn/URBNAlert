@@ -23,7 +23,7 @@
     if (self) {
         self.alertController = controller;
         
-        self.backgroundColor = [UIColor whiteColor];
+        self.backgroundColor = self.alertController.backgroundColor ?: [UIColor whiteColor];
         self.layer.cornerRadius = 8;
         
         self.titleLabel = [UILabel new];
@@ -31,11 +31,13 @@
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.adjustsFontSizeToFitWidth = YES;
         self.titleLabel.font = self.alertController.titleFont ?: [UIFont boldSystemFontOfSize:14];
+        self.titleLabel.textColor = self.alertController.titleColor ?: [UIColor blackColor];
         self.titleLabel.text = self.alertController.title;
         
         self.messageLabel = [UILabel new];
         self.messageLabel.numberOfLines = 0;
         self.messageLabel.font = self.alertController.messageFont ?: [UIFont systemFontOfSize:12];
+        self.messageLabel.textColor = self.alertController.messageColor ?: [UIColor blackColor];
         self.messageLabel.text = self.alertController.message;
         
         [self addSubview:self.titleLabel];
@@ -54,10 +56,10 @@
 
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.translatesAutoresizingMaskIntoConstraints = NO;
-            btn.backgroundColor = (idx == 0 && weakSelf.alertController.buttonTitles.count > 1) ? bgColor : bgDenialColor;
+            btn.backgroundColor = (idx == 0 && weakSelf.alertController.buttonTitles.count > 1) ? bgDenialColor : bgColor;
             btn.titleLabel.font = weakSelf.alertController.buttonFont ?: [UIFont boldSystemFontOfSize:14];
             btn.layer.cornerRadius = 4;
-            btn.tag = idx ?: 0;
+            btn.tag = idx;
 
             [btn setTitle:buttonTitle forState:UIControlStateNormal];
             [btn setTitleColor:titleColor forState:UIControlStateNormal];
