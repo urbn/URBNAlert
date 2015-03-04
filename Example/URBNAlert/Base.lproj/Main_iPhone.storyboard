@@ -17,12 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Active Alerts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3N-s1-lnJ">
-                                <rect key="frame" x="48" y="20" width="225" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77V-c2-MXI">
                                 <rect key="frame" x="100" y="56" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.5790663975" green="0.5870681405" blue="0.61107336960000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -35,7 +29,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTd-jZ-uUh">
-                                <rect key="frame" x="100" y="91" width="120" height="30"/>
+                                <rect key="frame" x="100" y="94" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.5790663975" green="0.5870681405" blue="0.61107336960000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Two Buttons">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -43,6 +37,23 @@
                                 </state>
                                 <connections>
                                     <action selector="activeAlertTwoButtonTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="DrA-7S-nGP"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Active Alerts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3N-s1-lnJ">
+                                <rect key="frame" x="48" y="20" width="225" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Dd-gt-0H2">
+                                <rect key="frame" x="100" y="132" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.5790663975" green="0.5870681405" blue="0.61107336960000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Colorful">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="activeAlertColoredTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="u1I-Zy-g8k"/>
                                 </connections>
                             </button>
                         </subviews>
