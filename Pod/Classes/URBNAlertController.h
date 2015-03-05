@@ -27,6 +27,8 @@ typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSIn
 - (void)dismissAlert;
 
 // Customizable Properties
+@property (nonatomic, strong) UIView *customView;
+
 @property (nonatomic, assign) BOOL touchOutsideToDismiss;
 @property (nonatomic, assign) BOOL hasInput;
 
