@@ -20,6 +20,7 @@
 
 @implementation URBNAlertController
 
+#pragma mark - Initilization
 - (instancetype)initActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray {
     NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment");
     NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button");
@@ -30,11 +31,31 @@
         self.title = title;
         self.message = message;
         self.hasInput = hasInput;
-        self.window = [[UIApplication sharedApplication] windows][0];
+        [self sharedInit];
     }
     return self;
 }
 
+- (instancetype)initActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray {
+    NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment");
+    NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button");
+    NSAssert(view, @"URBNAlertController: You need to pass a view to initActiveAlertWithView. C'mon bro.");
+    
+    self = [super init];
+    if (self) {
+        self.buttonTitles = buttonArray;
+        self.customView = view;
+        [self sharedInit];
+    }
+    
+    return self;
+}
+
+- (void)sharedInit {
+    self.window = [[UIApplication sharedApplication] windows][0];
+}
+
+#pragma mark - Methods
 - (void)showAlert {
     self.alertViewController = [[URBNAlertViewController alloc] initWithAlertController:self];
     
