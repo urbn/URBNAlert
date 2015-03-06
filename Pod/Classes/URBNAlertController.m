@@ -82,7 +82,6 @@
     config.isActiveAlert = NO;
     config.title = title;
     config.message = message;
-
 }
 
 - (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
@@ -103,7 +102,6 @@
     config.isActiveAlert = NO;
     config.customView = view;
     [config setPassiveViewTouched:viewTouchedBlock];
-
 }
 
 #pragma mark - Setters
