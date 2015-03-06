@@ -36,7 +36,7 @@ static NSMutableArray *queue;
     return instance;
 }
 
-- (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray {
+- (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
     NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment");
     NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button");
 
@@ -47,11 +47,12 @@ static NSMutableArray *queue;
     config.hasInput = hasInput;
     config.isActiveAlert = YES;
     config.customView = nil;
+    [config setButtonTouchedBlock:buttonTouchedBlock];
     
     [self showAlertWithConfig:config];
 }
 
-- (void)showActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray {
+- (void)showActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
     NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment");
     NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button");
     NSAssert(view, @"URBNAlertController: You need to pass a view to initActiveAlertWithView. C'mon bro.");
@@ -60,7 +61,8 @@ static NSMutableArray *queue;
     config.buttonTitles = buttonArray;
     config.customView = view;
     config.isActiveAlert = YES;
-    
+    [config setButtonTouchedBlock:buttonTouchedBlock];
+
     [self showAlertWithConfig:config];
 }
 
@@ -79,10 +81,11 @@ static NSMutableArray *queue;
     if (!self.alertIsVisible) {
         self.alertViewController = [[URBNAlertViewController alloc] initWithAlertConfig:config alertController:self];
         self.alertIsVisible = YES;
+
         __weak typeof(self) weakSelf = self;
         [self.alertViewController.alertView setButtonTouchedBlock:^(NSInteger index) {
-            if (weakSelf.buttonTouchedBlock) {
-                weakSelf.buttonTouchedBlock(weakSelf, index);
+            if (config.buttonTouchedBlock) {
+                config.buttonTouchedBlock(weakSelf, index);
             }
         }];
         
@@ -90,11 +93,7 @@ static NSMutableArray *queue;
         [self.window.rootViewController.view addSubview:self.alertViewController.view];
     }
     else {
-        if (!queue) {
-            queue = [[NSMutableArray alloc] init];
-        }
-        
-        [queue addObject:config];
+        [self queueAlert:config];
     }
 }
 
@@ -102,6 +101,19 @@ static NSMutableArray *queue;
     [self.alertViewController dismissAlert];
     self.alertIsVisible = NO;
     
+    [self dequeueAlert];
+}
+
+#pragma mark - Queueing
+- (void)queueAlert:(URBNAlertConfig *)config {
+    if (!queue) {
+        queue = [[NSMutableArray alloc] init];
+    }
+    
+    [queue addObject:config];
+}
+
+- (void)dequeueAlert {
     URBNAlertConfig *config = queue.firstObject;
     if (config) {
         [queue removeObjectAtIndex:0];

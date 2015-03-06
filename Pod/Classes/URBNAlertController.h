@@ -19,8 +19,8 @@ typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSIn
 + (instancetype)sharedInstance;
 
 // Active Alert inits
-- (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray;
-- (void)showActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray;
+- (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock;
+- (void)showActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock;
 
 // Passive Alert Inits
 - (instancetype)initPassiveAlertWithTitle:(NSString *)title message:(NSString *)message duration:(CGFloat)duration;
@@ -33,9 +33,5 @@ typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSIn
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
 
 @property (nonatomic, assign) UIEdgeInsets contentInsets;
-
-// Callback blocks
-@property (nonatomic, copy) URBNAlertButtonTouched buttonTouchedBlock;
-- (void)setButtonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock;
 
 @end
