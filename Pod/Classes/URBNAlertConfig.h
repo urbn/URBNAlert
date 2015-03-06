@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "URBNAlertController.h"
+
+typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSInteger index);
 
 @interface URBNAlertConfig : NSObject
 
@@ -17,5 +20,8 @@
 @property (nonatomic, assign) BOOL touchOutsideToDismiss;
 @property (nonatomic, assign) BOOL hasInput;
 @property (nonatomic, assign) BOOL isActiveAlert;
+
+@property (nonatomic, copy) URBNAlertButtonTouched buttonTouchedBlock;
+- (void)setButtonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock;
 
 @end
