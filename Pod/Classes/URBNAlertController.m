@@ -9,12 +9,15 @@
 #import "URBNAlertController.h"
 #import "URBNAlertViewController.h"
 #import "URBNAlertView.h"
+#import "URBNAlertConfig.h"
+
+static NSMutableArray *queue;
 
 @interface URBNAlertController ()
 
 @property (nonatomic, strong) URBNAlertViewController *alertViewController;
 @property (nonatomic, strong) UIWindow *window;
-
+@property (nonatomic, assign) BOOL alertIsVisible;
 
 @end
 
@@ -26,72 +29,84 @@
     static URBNAlertController *instance;
     dispatch_once(&onceToken, ^{
         instance = [[URBNAlertController alloc] init];
+        [instance setAlertStyler:[URBNAlertStyle new]];
+        instance.window = [[UIApplication sharedApplication] windows][0];
     });
     
     return instance;
 }
 
-- (instancetype)initActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray {
+- (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray {
     NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment");
     NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button");
 
-    self = [super init];
-    if (self) {
-        self.buttonTitles = buttonArray;
-        self.title = title;
-        self.message = message;
-        self.hasInput = hasInput;
-        self.isActiveAlert = YES;
-        [self sharedInit];
-    }
+    URBNAlertConfig *config = [URBNAlertConfig new];
+    config.buttonTitles = buttonArray;
+    config.title = title;
+    config.message = message;
+    config.hasInput = hasInput;
+    config.isActiveAlert = YES;
+    config.customView = nil;
     
-    return self;
+    [self showAlertWithConfig:config];
 }
 
-- (instancetype)initActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray {
+- (void)showActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray {
     NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment");
     NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button");
     NSAssert(view, @"URBNAlertController: You need to pass a view to initActiveAlertWithView. C'mon bro.");
     
-    self = [super init];
-    if (self) {
-        self.buttonTitles = buttonArray;
-        self.customView = view;
-        self.isActiveAlert = YES;
-        [self sharedInit];
-    }
+    URBNAlertConfig *config = [URBNAlertConfig new];
+    config.buttonTitles = buttonArray;
+    config.customView = view;
+    config.isActiveAlert = YES;
     
-    return self;
-}
-
-- (void)sharedInit {
-    self.window = [[UIApplication sharedApplication] windows][0];
+    [self showAlertWithConfig:config];
 }
 
 #pragma mark - Setters
-- (void)setAlertStyle:(URBNAlertStyle *)alertStyle {
-    if (_alertStyle != alertStyle) {
-        _alertStyle = alertStyle;
+- (void)setAlertStyler:(URBNAlertStyle *)alertStyler {
+    if (!alertStyler) {
+        _alertStyler = [URBNAlertStyle new];
+    }
+    else {
+        _alertStyler = alertStyler;
     }
 }
 
 #pragma mark - Methods
-- (void)showAlert {
-    self.alertViewController = [[URBNAlertViewController alloc] initWithAlertController:self];
-    
-    __weak typeof(self) weakSelf = self;
-    [self.alertViewController.alertView setButtonTouchedBlock:^(NSInteger index) {
-        if (weakSelf.buttonTouchedBlock) {
-            weakSelf.buttonTouchedBlock(weakSelf, index);
+- (void)showAlertWithConfig:(URBNAlertConfig *)config {
+    if (!self.alertIsVisible) {
+        self.alertViewController = [[URBNAlertViewController alloc] initWithAlertConfig:config alertController:self];
+        self.alertIsVisible = YES;
+        __weak typeof(self) weakSelf = self;
+        [self.alertViewController.alertView setButtonTouchedBlock:^(NSInteger index) {
+            if (weakSelf.buttonTouchedBlock) {
+                weakSelf.buttonTouchedBlock(weakSelf, index);
+            }
+        }];
+        
+        [self.window.rootViewController addChildViewController:self.alertViewController];
+        [self.window.rootViewController.view addSubview:self.alertViewController.view];
+    }
+    else {
+        if (!queue) {
+            queue = [[NSMutableArray alloc] init];
         }
-    }];
-    
-    [self.window.rootViewController addChildViewController:self.alertViewController];
-    [self.window.rootViewController.view addSubview:self.alertViewController.view];
+        
+        [queue addObject:config];
+    }
 }
 
 - (void)dismissAlert {
     [self.alertViewController dismissAlert];
+    self.alertIsVisible = NO;
+    
+    URBNAlertConfig *config = queue.firstObject;
+    if (config) {
+        [queue removeObjectAtIndex:0];
+        [self showAlertWithConfig:config];
+    }
 }
 
 @end

@@ -14,7 +14,7 @@
 
 @interface URBNAlertViewController : UIViewController
 
-- (instancetype)initWithAlertController:(URBNAlertController *)controller;
+- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller;
 
 @property (nonatomic, strong) URBNAlertView *alertView;
 

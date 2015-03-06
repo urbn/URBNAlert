@@ -10,12 +10,13 @@
 
 @class URBNAlertController;
 @class URBNAlertView;
+@class URBNAlertConfig;
 
 typedef void(^URBNAlertViewButtonTouched)(NSInteger index);
 
 @interface URBNAlertView : UIView
 
-- (instancetype)initWithAlertController:(URBNAlertController *)controller;
+- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller;
 
 // Blocks
 @property (nonatomic, copy) URBNAlertViewButtonTouched buttonTouchedBlock;

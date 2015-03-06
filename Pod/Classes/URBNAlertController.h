@@ -8,9 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "URBNAlertStyle.h"
 
 @class URBNAlertController;
-@class URBNAlertStyle;
 
 typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSInteger index);
 
@@ -19,8 +19,8 @@ typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSIn
 + (instancetype)sharedInstance;
 
 // Active Alert inits
-- (instancetype)initActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray;
-- (instancetype)initActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray;
+- (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray;
+- (void)showActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray;
 
 // Passive Alert Inits
 - (instancetype)initPassiveAlertWithTitle:(NSString *)title message:(NSString *)message duration:(CGFloat)duration;
@@ -30,17 +30,7 @@ typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSIn
 - (void)dismissAlert;
 
 // Customizable Properties
-@property (nonatomic, strong) URBNAlertStyle *alertStyle;
-
-@property (nonatomic, strong) UIView *customView;
-
-@property (nonatomic, assign) BOOL touchOutsideToDismiss;
-@property (nonatomic, assign) BOOL hasInput;
-@property (nonatomic, assign) BOOL isActiveAlert;
-
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *message;
-@property (nonatomic, strong) NSArray *buttonTitles;
+@property (nonatomic, strong) URBNAlertStyle *alertStyler;
 
 @property (nonatomic, assign) UIEdgeInsets contentInsets;
 

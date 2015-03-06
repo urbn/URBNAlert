@@ -9,10 +9,12 @@
 #import "URBNAlertViewController.h"
 #import "URBNAlertView.h"
 #import "URBNAlertController.h"
+#import "URBNAlertConfig.h"
 
 @interface URBNAlertViewController ()
 
 @property (nonatomic, strong) URBNAlertController *alertController;
+@property (nonatomic, strong) URBNAlertConfig *alertConfig;
 @property (nonatomic, assign) BOOL visible;
 
 @end
@@ -20,12 +22,13 @@
 @implementation URBNAlertViewController
 
 #pragma mark - Initalizers
-- (instancetype)initWithAlertController:(URBNAlertController *)controller {
+- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller {
     self = [super init];
     if (self) {
         self.alertController = controller;
+        self.alertConfig = config;
         
-        self.alertView = [[URBNAlertView alloc] initWithAlertController:controller];
+        self.alertView = [[URBNAlertView alloc] initWithAlertConfig:config alertController:controller];
         self.alertView.alpha = 0;
         self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -48,7 +51,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.alertController.touchOutsideToDismiss) {
+    if (self.alertConfig.touchOutsideToDismiss) {
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAlert)];
         [self.view addGestureRecognizer:tapGesture];
     }
