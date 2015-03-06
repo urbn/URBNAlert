@@ -10,6 +10,7 @@
 
 @implementation URBNAlertStyle
 
+#pragma mark - Title
 - (UIColor *)titleColor {
     return _titleColor ?: [UIColor blackColor];
 }
@@ -18,6 +19,7 @@
     return _titleFont ?: [UIFont boldSystemFontOfSize:14];
 }
 
+#pragma mark - Message
 - (UIColor *)messageColor {
     return _messageColor ?: [UIColor blackColor];
 }
@@ -26,6 +28,7 @@
     return _messageFont ?: [UIFont systemFontOfSize:14];
 }
 
+#pragma mark - Buttons
 - (UIColor *)buttonTitleColor {
     return _buttonTitleColor ?: [UIColor whiteColor];
 }
@@ -46,6 +49,7 @@
     return _buttonCornerRadius ?: @8;
 }
 
+#pragma mark - Alert View
 - (NSNumber *)alertCornerRadius {
     return _alertCornerRadius ?: @8;
 }
