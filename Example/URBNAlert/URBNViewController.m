@@ -23,53 +23,50 @@
     [super viewDidLoad];
     
     self.alertController = [URBNAlertController sharedInstance];
-    self.alertController.touchOutsideToDismiss = NO;
 
 }
 
 - (IBAction)activeAlertTouch:(id)sender {
-    URBNAlertController *alertContoller = [[URBNAlertController alloc] initActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:YES buttons:@[@"Yes"]];
+    [self.alertController setAlertStyler:nil];
+    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes"]];
     
-    __weak typeof(URBNAlertController) *weakAlertController = alertContoller;
-    [alertContoller setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    __weak typeof(URBNAlertController) *weakAlertController = self.alertController;
+    [self.alertController setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [weakAlertController dismissAlert];
     }];
-    
-    [alertContoller showAlert];
 }
 
 - (IBAction)activeAlertTwoButtonTouch:(id)sender {
-    URBNAlertController *alertContoller = [[URBNAlertController alloc] initActiveAlertWithTitle:@"My Alert Title" message:@"Message and message and message and going on forever and ever." hasInput:YES buttons:@[@"Yes", @"No"]];
+    [self.alertController setAlertStyler:nil];
+    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"]];
     
-    __weak typeof(URBNAlertController) *weakAlertController = alertContoller;
-    [alertContoller setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    __weak typeof(URBNAlertController) *weakAlertController = self.alertController;
+    [self.alertController setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [weakAlertController dismissAlert];
     }];
-    
-    [alertContoller showAlert];
 }
 
 - (IBAction)activeAlertColoredTouch:(id)sender {
-    URBNAlertController *alertContoller = [[URBNAlertController alloc] initActiveAlertWithTitle:@"Colorful Alert" message:@"Message and message and message and going on forever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever." hasInput:YES buttons:@[@"Yes", @"No"]];
-    
     URBNAlertStyle *alertStyle = [URBNAlertStyle new];
-    alertStyle.buttonBackgroundColor = [UIColor redColor];
-    alertStyle.buttonDenialBackgroundColor = [UIColor greenColor];
+    alertStyle.buttonBackgroundColor = [UIColor yellowColor];
+    alertStyle.buttonDenialBackgroundColor = [UIColor blueColor];
     alertStyle.backgroundColor = [UIColor orangeColor];
+    alertStyle.buttonTitleColor = [UIColor blackColor];
     alertStyle.titleColor = [UIColor purpleColor];
-    alertStyle.messageColor = [UIColor blueColor];
+    alertStyle.messageColor = [UIColor magentaColor];
+    [self.alertController setAlertStyler:alertStyle];
     
-    [self.alertController setAlertStyle:alertStyle];
+    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"]];
 
-    __weak typeof(URBNAlertController) *weakAlertController = alertContoller;
-    [alertContoller setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    __weak typeof(URBNAlertController) *weakAlertController = self.alertController;
+    [self.alertController setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [weakAlertController dismissAlert];
     }];
-    
-    [alertContoller showAlert];
 }
 
 - (IBAction)activeAlertCustomViewTouch:(id)sender {
+    [self.alertController setAlertStyler:nil];
+    
     UIView *customView = [[UIView alloc] init];
     customView.translatesAutoresizingMaskIntoConstraints = NO;
     customView.backgroundColor = [UIColor greenColor];
@@ -84,14 +81,31 @@
     [customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[imgView]-|" options:0 metrics:nil views:views]];
     [customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[imgView]-|" options:0 metrics:nil views:views]];
     
-    URBNAlertController *alertContoller = [[URBNAlertController alloc] initActiveAlertWithView:customView buttons:@[@"So Cute"]];
+    [self.alertController showActiveAlertWithView:customView buttons:@[@"Dismiss"]];
     
-    __weak typeof(URBNAlertController) *weakAlertController = alertContoller;
-    [alertContoller setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    __weak typeof(URBNAlertController) *weakAlertController = self.alertController;
+    [self.alertController setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [weakAlertController dismissAlert];
     }];
-    
-    [alertContoller showAlert];
+}
+
+- (IBAction)activeAlertMultipleAlertsTouch:(id)sender {
+    [self.alertController showActiveAlertWithTitle:@"The First Alert" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes"]];
+    [self.alertController showActiveAlertWithTitle:@"#2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"]];
+    [self.alertController showActiveAlertWithTitle:@"#3" message:@"The third and final alert" hasInput:NO buttons:@[@"Done", @"Do it again!"]];
+
+    __weak typeof(URBNAlertController) *weakAlertController = self.alertController;
+    __weak typeof(self) weakSelf = self;
+    [self.alertController setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+        switch (index) {
+            case 1:
+                [weakSelf activeAlertMultipleAlertsTouch:nil];
+            case 0:
+                [weakAlertController dismissAlert];
+                break;
+
+        }
+    }];
 }
 
 @end

@@ -8,9 +8,11 @@
 
 #import "URBNAlertView.h"
 #import "URBNAlertController.h"
+#import "URBNAlertConfig.h"
 
 @interface URBNAlertView()
 
+@property (nonatomic, strong) URBNAlertConfig *alertConfig;
 @property (nonatomic, strong) URBNAlertController *alertController;
 @property (nonatomic, strong) NSArray *buttons;
 @property (nonatomic, strong) UILabel *titleLabel;
@@ -21,20 +23,21 @@
 
 @implementation URBNAlertView
 
-- (instancetype)initWithAlertController:(URBNAlertController *)controller {
+- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller {
     self = [super init];
     if (self) {
+        self.alertConfig = config;
         self.alertController = controller;
         
-        self.backgroundColor = self.alertController.backgroundColor ?: [UIColor whiteColor];
+        self.backgroundColor = self.alertController.alertStyler.backgroundColor ?: [UIColor whiteColor];
         self.layer.cornerRadius = 8;
         
         UIView *buttonContainer = [UIView new];
         NSDictionary *views;
-        if (self.alertController.customView) {
+        if (self.alertConfig.customView) {
             //self.alertController.customView.translatesAutoresizingMaskIntoConstraints = NO;
-            [self addSubview:self.alertController.customView];
-            views = @{@"customView" : self.alertController.customView, @"buttonContainer" : buttonContainer};
+            [self addSubview:self.alertConfig.customView];
+            views = @{@"customView" : self.alertConfig.customView, @"buttonContainer" : buttonContainer};
         }
         else {
             [self addAlertViewLabels];
@@ -46,7 +49,7 @@
         buttonContainer.translatesAutoresizingMaskIntoConstraints = NO;
         
         __weak typeof(self) weakSelf = self;
-        [self.alertController.buttonTitles enumerateObjectsUsingBlock:^(NSString *buttonTitle, NSUInteger idx, BOOL *stop) {
+        [self.alertConfig.buttonTitles enumerateObjectsUsingBlock:^(NSString *buttonTitle, NSUInteger idx, BOOL *stop) {
             UIButton *btn = [weakSelf createAlertViewButtonWithTitle:buttonTitle atIndex:idx];
             [buttonContainer addSubview:btn];
             [btns addObject:btn];
@@ -77,7 +80,7 @@
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
         
-        if (self.alertController.customView) {
+        if (self.alertConfig.customView) {
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[customView]-sectionMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[customView]-|" options:0 metrics:metrics views:views]];
         }
@@ -102,29 +105,29 @@
     self.titleLabel.numberOfLines = 2;
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.adjustsFontSizeToFitWidth = YES;
-    self.titleLabel.font = self.alertController.titleFont ?: [UIFont boldSystemFontOfSize:14];
-    self.titleLabel.textColor = self.alertController.titleColor ?: [UIColor blackColor];
-    self.titleLabel.text = self.alertController.title;
+    self.titleLabel.font = self.alertController.alertStyler.titleFont;
+    self.titleLabel.textColor = self.alertController.alertStyler.titleColor;
+    self.titleLabel.text = self.alertConfig.title;
     
     self.messageLabel = [UILabel new];
     self.messageLabel.numberOfLines = 0;
-    self.messageLabel.font = self.alertController.messageFont ?: [UIFont systemFontOfSize:12];
-    self.messageLabel.textColor = self.alertController.messageColor ?: [UIColor blackColor];
-    self.messageLabel.text = self.alertController.message;
+    self.messageLabel.font = self.alertController.alertStyler.messageFont;
+    self.messageLabel.textColor = self.alertController.alertStyler.messageColor;
+    self.messageLabel.text = self.alertConfig.message;
     
     [self addSubview:self.titleLabel];
     [self addSubview:self.messageLabel];
 }
 
 - (UIButton *)createAlertViewButtonWithTitle:(NSString *)title atIndex:(NSInteger)index {
-    UIColor *bgColor = self.alertController.buttonBackgroundColor ?: [UIColor lightGrayColor];
-    UIColor *bgDenialColor = self.alertController.buttonDenialBackgroundColor ?: [UIColor blueColor];
-    UIColor *titleColor = self.alertController.buttonTitleColor ?: [UIColor whiteColor];
+    UIColor *bgColor = self.alertController.alertStyler.buttonBackgroundColor;///self.alertController.buttonBackgroundColor ?: [UIColor lightGrayColor];
+    UIColor *bgDenialColor = self.alertController.alertStyler.buttonDenialBackgroundColor;//self.alertController.buttonDenialBackgroundColor ?: [UIColor blueColor];
+    UIColor *titleColor = self.alertController.alertStyler.buttonTitleColor;//self.alertController.buttonTitleColor ?: [UIColor whiteColor];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.translatesAutoresizingMaskIntoConstraints = NO;
-    btn.backgroundColor = (index == 0 && self.alertController.buttonTitles.count > 1) ? bgDenialColor : bgColor;
-    btn.titleLabel.font = self.alertController.buttonFont ?: [UIFont boldSystemFontOfSize:14];
+    btn.backgroundColor = (index == 0 && self.alertConfig.buttonTitles.count > 1) ? bgDenialColor : bgColor;
+    btn.titleLabel.font = self.alertController.alertStyler.buttonFont;//self.alertController.buttonFont ?: [UIFont boldSystemFontOfSize:14];
     btn.layer.cornerRadius = 4;
     btn.tag = index;
     
