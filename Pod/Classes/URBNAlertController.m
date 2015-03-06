@@ -11,13 +11,12 @@
 #import "URBNAlertView.h"
 #import "URBNAlertConfig.h"
 
-static NSMutableArray *queue;
-
 @interface URBNAlertController ()
 
 @property (nonatomic, strong) URBNAlertViewController *alertViewController;
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, assign) BOOL alertIsVisible;
+@property (nonatomic, strong) NSMutableArray *queue;
 
 @end
 
@@ -36,9 +35,11 @@ static NSMutableArray *queue;
     return instance;
 }
 
+#pragma mark - Acive Alerts
 - (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
     NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment");
     NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button");
+    NSAssert(buttonTouchedBlock, @"URBNAlertController: You must implemented the buttonTouchedBlock so you can dismiss the alert somehow. Use a Passive alert if you want an alert that will dismiss after a period of time.");
 
     URBNAlertConfig *config = [URBNAlertConfig new];
     config.buttonTitles = buttonArray;
@@ -64,6 +65,23 @@ static NSMutableArray *queue;
     [config setButtonTouchedBlock:buttonTouchedBlock];
 
     [self showAlertWithConfig:config];
+}
+
+#pragma mark - Passive Alerts
+- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message duration:(CGFloat)duration buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
+
+}
+
+- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
+    
+}
+
+- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration viewTouchedBlock:(URBNAlertButtonTouched)viewTouchedBlock {
+    
+}
+
+- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss viewTouchedBlock:(URBNAlertButtonTouched)viewTouchedBlock {
+    
 }
 
 #pragma mark - Setters
@@ -106,17 +124,17 @@ static NSMutableArray *queue;
 
 #pragma mark - Queueing
 - (void)queueAlert:(URBNAlertConfig *)config {
-    if (!queue) {
-        queue = [[NSMutableArray alloc] init];
+    if (!self.queue) {
+        self.queue = [[NSMutableArray alloc] init];
     }
     
-    [queue addObject:config];
+    [self.queue addObject:config];
 }
 
 - (void)dequeueAlert {
-    URBNAlertConfig *config = queue.firstObject;
+    URBNAlertConfig *config = self.queue.firstObject;
     if (config) {
-        [queue removeObjectAtIndex:0];
+        [self.queue removeObjectAtIndex:0];
         [self showAlertWithConfig:config];
     }
 }

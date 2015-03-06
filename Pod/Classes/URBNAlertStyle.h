@@ -22,4 +22,12 @@
 @property (nonatomic, strong) UIFont *messageFont;
 @property (nonatomic, strong) UIFont *buttonFont;
 
+@property (nonatomic, strong) NSNumber *buttonCornerRadius;
+@property (nonatomic, strong) NSNumber *alertCornerRadius;
+
+@property (nonatomic, assign) UIEdgeInsets buttonInsets;
+@property (nonatomic, assign) UIEdgeInsets titleInsets;
+@property (nonatomic, assign) UIEdgeInsets messageInsets;
+@property (nonatomic, assign) UIEdgeInsets viewInsets;
+
 @end

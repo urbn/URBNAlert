@@ -9,8 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "URBNAlertController.h"
 
-typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSInteger index);
-
 @interface URBNAlertConfig : NSObject
 
 @property (nonatomic, strong) NSString *title;
