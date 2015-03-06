@@ -10,10 +10,13 @@
 #import <UIKit/UIKit.h>
 
 @class URBNAlertController;
+@class URBNAlertStyle;
 
 typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSInteger index);
 
 @interface URBNAlertController : NSObject
+
++ (instancetype)sharedInstance;
 
 // Active Alert inits
 - (instancetype)initActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray;
@@ -27,25 +30,17 @@ typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSIn
 - (void)dismissAlert;
 
 // Customizable Properties
+@property (nonatomic, strong) URBNAlertStyle *alertStyle;
+
 @property (nonatomic, strong) UIView *customView;
 
 @property (nonatomic, assign) BOOL touchOutsideToDismiss;
 @property (nonatomic, assign) BOOL hasInput;
+@property (nonatomic, assign) BOOL isActiveAlert;
 
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *message;
 @property (nonatomic, strong) NSArray *buttonTitles;
-
-@property (nonatomic, strong) UIColor *buttonBackgroundColor;
-@property (nonatomic, strong) UIColor *buttonDenialBackgroundColor;
-@property (nonatomic, strong) UIColor *buttonTitleColor;
-@property (nonatomic, strong) UIColor *backgroundColor;
-@property (nonatomic, strong) UIColor *titleColor;
-@property (nonatomic, strong) UIColor *messageColor;
-
-@property (nonatomic, strong) UIFont *titleFont;
-@property (nonatomic, strong) UIFont *messageFont;
-@property (nonatomic, strong) UIFont *buttonFont;
 
 @property (nonatomic, assign) UIEdgeInsets contentInsets;
 

@@ -9,8 +9,11 @@
 #import "URBNViewController.h"
 #import <URBNAlert/URBNAlertController.h>
 #import <URBNConvenience/UIView+URBNLayout.h>
+#import <URBNAlert/URBNAlertStyle.h>
 
 @interface URBNViewController ()
+
+@property (nonatomic, strong) URBNAlertController *alertController;
 
 @end
 
@@ -18,6 +21,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.alertController = [URBNAlertController sharedInstance];
+    self.alertController.touchOutsideToDismiss = NO;
+
 }
 
 - (IBAction)activeAlertTouch:(id)sender {
@@ -44,12 +51,15 @@
 
 - (IBAction)activeAlertColoredTouch:(id)sender {
     URBNAlertController *alertContoller = [[URBNAlertController alloc] initActiveAlertWithTitle:@"Colorful Alert" message:@"Message and message and message and going on forever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever and ever." hasInput:YES buttons:@[@"Yes", @"No"]];
-    alertContoller.touchOutsideToDismiss = NO;
-    alertContoller.buttonBackgroundColor = [UIColor redColor];
-    alertContoller.buttonDenialBackgroundColor = [UIColor greenColor];
-    alertContoller.backgroundColor = [UIColor orangeColor];
-    alertContoller.titleColor = [UIColor purpleColor];
-    alertContoller.messageColor = [UIColor blueColor];
+    
+    URBNAlertStyle *alertStyle = [URBNAlertStyle new];
+    alertStyle.buttonBackgroundColor = [UIColor redColor];
+    alertStyle.buttonDenialBackgroundColor = [UIColor greenColor];
+    alertStyle.backgroundColor = [UIColor orangeColor];
+    alertStyle.titleColor = [UIColor purpleColor];
+    alertStyle.messageColor = [UIColor blueColor];
+    
+    [self.alertController setAlertStyle:alertStyle];
 
     __weak typeof(URBNAlertController) *weakAlertController = alertContoller;
     [alertContoller setButtonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
