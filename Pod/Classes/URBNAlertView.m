@@ -30,7 +30,7 @@
         self.alertController = controller;
         
         self.backgroundColor = self.alertController.alertStyler.backgroundColor ?: [UIColor whiteColor];
-        self.layer.cornerRadius = 8;
+        self.layer.cornerRadius = self.alertController.alertStyler.alertCornerRadius.floatValue;
         
         UIView *buttonContainer = [UIView new];
         NSDictionary *views;
@@ -128,7 +128,7 @@
     btn.translatesAutoresizingMaskIntoConstraints = NO;
     btn.backgroundColor = (index == 0 && self.alertConfig.buttonTitles.count > 1) ? bgDenialColor : bgColor;
     btn.titleLabel.font = self.alertController.alertStyler.buttonFont;//self.alertController.buttonFont ?: [UIFont boldSystemFontOfSize:14];
-    btn.layer.cornerRadius = 4;
+    btn.layer.cornerRadius = self.alertController.alertStyler.buttonCornerRadius.floatValue;
     btn.tag = index;
     
     [btn setTitle:title forState:UIControlStateNormal];

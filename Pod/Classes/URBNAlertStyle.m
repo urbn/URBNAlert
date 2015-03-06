@@ -42,4 +42,12 @@
     return _buttonDenialBackgroundColor ?: [UIColor redColor];
 }
 
+- (NSNumber *)buttonCornerRadius {
+    return _buttonCornerRadius ?: @8;
+}
+
+- (NSNumber *)alertCornerRadius {
+    return _alertCornerRadius ?: @8;
+}
+
 @end

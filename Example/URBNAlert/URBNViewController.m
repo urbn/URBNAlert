@@ -23,11 +23,11 @@
     [super viewDidLoad];
     
     self.alertController = [URBNAlertController sharedInstance];
-
 }
 
 - (IBAction)activeAlertTouch:(id)sender {
     [self.alertController setAlertStyler:nil];
+    
     [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
@@ -35,6 +35,7 @@
 
 - (IBAction)activeAlertTwoButtonTouch:(id)sender {
     [self.alertController setAlertStyler:nil];
+    
     [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
@@ -48,6 +49,8 @@
     alertStyle.buttonTitleColor = [UIColor blackColor];
     alertStyle.titleColor = [UIColor purpleColor];
     alertStyle.messageColor = [UIColor magentaColor];
+    alertStyle.buttonCornerRadius = @0;
+    alertStyle.alertCornerRadius = @20;
     [self.alertController setAlertStyler:alertStyle];
     
     [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {

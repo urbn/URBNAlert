@@ -13,25 +13,24 @@
 @class URBNAlertController;
 
 typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSInteger index);
+typedef void(^URBNAlertViewTouched)(URBNAlertController *alertController);
 
 @interface URBNAlertController : NSObject
 
 + (instancetype)sharedInstance;
 
-// Active Alert inits
+// Active Alert
 - (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock;
 - (void)showActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock;
 
-// Passive Alert Inits
-- (instancetype)initPassiveAlertWithTitle:(NSString *)title message:(NSString *)message duration:(CGFloat)duration;
-- (instancetype)initPassiveAlertView:(UIView *)view duration:(CGFloat)duration;
+// Passive Alert
+- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message duration:(CGFloat)duration buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock;
+- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock;
+- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration viewTouchedBlock:(URBNAlertButtonTouched)viewTouchedBlock;
+- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss viewTouchedBlock:(URBNAlertButtonTouched)viewTouchedBlock;
 
-- (void)showAlert;
 - (void)dismissAlert;
 
-// Customizable Properties
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
-
-@property (nonatomic, assign) UIEdgeInsets contentInsets;
 
 @end
