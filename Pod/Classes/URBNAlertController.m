@@ -21,6 +21,16 @@
 @implementation URBNAlertController
 
 #pragma mark - Initilization
++ (instancetype)sharedInstance {
+    static dispatch_once_t onceToken;
+    static URBNAlertController *instance;
+    dispatch_once(&onceToken, ^{
+        instance = [[URBNAlertController alloc] init];
+    });
+    
+    return instance;
+}
+
 - (instancetype)initActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray {
     NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment");
     NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button");
@@ -31,8 +41,10 @@
         self.title = title;
         self.message = message;
         self.hasInput = hasInput;
+        self.isActiveAlert = YES;
         [self sharedInit];
     }
+    
     return self;
 }
 
@@ -45,6 +57,7 @@
     if (self) {
         self.buttonTitles = buttonArray;
         self.customView = view;
+        self.isActiveAlert = YES;
         [self sharedInit];
     }
     
@@ -53,6 +66,13 @@
 
 - (void)sharedInit {
     self.window = [[UIApplication sharedApplication] windows][0];
+}
+
+#pragma mark - Setters
+- (void)setAlertStyle:(URBNAlertStyle *)alertStyle {
+    if (_alertStyle != alertStyle) {
+        _alertStyle = alertStyle;
+    }
 }
 
 #pragma mark - Methods

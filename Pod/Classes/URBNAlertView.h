@@ -17,11 +17,6 @@ typedef void(^URBNAlertViewButtonTouched)(NSInteger index);
 
 - (instancetype)initWithAlertController:(URBNAlertController *)controller;
 
-@property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *messageLabel;
-@property (nonatomic, strong) NSArray *buttonsArray;
-@property (nonatomic, strong) UIView *customView;
-
 // Blocks
 @property (nonatomic, copy) URBNAlertViewButtonTouched buttonTouchedBlock;
 - (void)setButtonTouchedBlock:(URBNAlertViewButtonTouched)buttonTouchedBlock;

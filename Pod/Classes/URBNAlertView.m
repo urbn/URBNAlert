@@ -13,6 +13,9 @@
 
 @property (nonatomic, strong) URBNAlertController *alertController;
 @property (nonatomic, strong) NSArray *buttons;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *messageLabel;
+@property (nonatomic, strong) UITextField *textField;
 
 @end
 
@@ -53,16 +56,17 @@
         
         NSDictionary *metrics = @{@"sectionMargin" : @24, @"btnH" : @44, @"lblMargin" : @16, @"btnMargin" : @8};
         
-        self.buttonsArray = [btns copy];
-        if (self.buttonsArray.count == 1) {
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[btnOne]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttonsArray.firstObject}]];
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnOne(btnH)]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttonsArray.firstObject}]];
+        self.buttons = [btns copy];
+        if (self.buttons.count == 1) {
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[btnOne]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnOne(btnH)]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
         }
-        else if (self.buttonsArray.count == 2) {
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[btnOne]-[btnTwo(==btnOne)]|" options:0 metrics:nil views:@{@"btnOne" : self.buttonsArray.firstObject, @"btnTwo" : self.buttonsArray[1]}]];
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnOne(btnH)]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttonsArray.firstObject}]];
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnTwo(btnH)]|" options:0 metrics:metrics views:@{@"btnTwo" : self.buttonsArray[1]}]];
+        else if (self.buttons.count == 2) {
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[btnOne]-[btnTwo(==btnOne)]|" options:0 metrics:nil views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons[1]}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnOne(btnH)]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnTwo(btnH)]|" options:0 metrics:metrics views:@{@"btnTwo" : self.buttons[1]}]];
         }
+        // TODO: Handle 3+ buttons
         
         if (self.titleLabel && self.messageLabel) {
             for (UILabel *lbl in @[self.titleLabel, self.messageLabel]) {
@@ -110,10 +114,6 @@
     
     [self addSubview:self.titleLabel];
     [self addSubview:self.messageLabel];
-}
-
-- (void)addAlertViewButtons {
-    
 }
 
 - (UIButton *)createAlertViewButtonWithTitle:(NSString *)title atIndex:(NSInteger)index {
