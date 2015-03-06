@@ -68,20 +68,42 @@
 }
 
 #pragma mark - Passive Alerts
-- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message duration:(CGFloat)duration buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
+- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message duration:(CGFloat)duration viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
+    URBNAlertConfig *config = [URBNAlertConfig new];
+    config.isActiveAlert = NO;
+    config.duration = duration;
+    config.title = title;
+    config.message = message;
+    [config setPassiveViewTouched:viewTouchedBlock];
+}
+
+- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
+    URBNAlertConfig *config = [URBNAlertConfig new];
+    config.isActiveAlert = NO;
+    config.title = title;
+    config.message = message;
 
 }
 
-- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
+- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
+    NSAssert(view, @"URBNAlertController: You need to pass a view to initActiveAlertWithView. C'mon bro.");
     
+    URBNAlertConfig *config = [URBNAlertConfig new];
+    config.isActiveAlert = NO;
+    config.duration = duration;
+    config.customView = view;
+    [config setPassiveViewTouched:viewTouchedBlock];
+
 }
 
-- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration viewTouchedBlock:(URBNAlertButtonTouched)viewTouchedBlock {
+- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
+    NSAssert(view, @"URBNAlertController: You need to pass a view to initActiveAlertWithView. C'mon bro.");
     
-}
+    URBNAlertConfig *config = [URBNAlertConfig new];
+    config.isActiveAlert = NO;
+    config.customView = view;
+    [config setPassiveViewTouched:viewTouchedBlock];
 
-- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss viewTouchedBlock:(URBNAlertButtonTouched)viewTouchedBlock {
-    
 }
 
 #pragma mark - Setters
