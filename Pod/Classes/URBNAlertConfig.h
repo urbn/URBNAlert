@@ -11,9 +11,9 @@
 
 @interface URBNAlertConfig : NSObject
 
-@property (nonatomic, strong) NSString *title;
-@property (nonatomic, strong) NSString *message;
-@property (nonatomic, strong) NSArray *buttonTitles;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *message;
+@property (nonatomic, copy) NSArray *buttonTitles;
 @property (nonatomic, strong) UIView *customView;
 
 @property (nonatomic, assign) BOOL touchOutsideToDismiss;

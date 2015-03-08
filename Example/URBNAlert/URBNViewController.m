@@ -101,4 +101,17 @@
     }];
 }
 
+- (IBAction)activeAlertInputTouch:(id)sender {
+    [self.alertController setAlertStyler:nil];
+    
+    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:YES buttons:@[@"Yes"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+        [alertController dismissAlert];
+    }];
+}
+
+#pragma mark - Passive Alerts
+- (IBAction)passiveAlertSimpleTouch:(id)sender {
+    
+}
+
 @end
