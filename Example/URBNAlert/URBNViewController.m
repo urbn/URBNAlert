@@ -101,6 +101,7 @@
     }];
 }
 
+<<<<<<< HEAD
 - (IBAction)activeAlertInputTouch:(id)sender {
     [self.alertController setAlertStyler:nil];
     
@@ -114,4 +115,6 @@
     
 }
 
+=======
+>>>>>>> 0595b69b1e0e728619d0b7928588c04166baecce
 @end
