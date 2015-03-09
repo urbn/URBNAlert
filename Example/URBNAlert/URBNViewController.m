@@ -14,6 +14,7 @@
 @interface URBNViewController ()
 
 @property (nonatomic, strong) URBNAlertController *alertController;
+@property (nonatomic, strong) UIView *customView;
 
 @end
 
@@ -25,6 +26,28 @@
     self.alertController = [URBNAlertController sharedInstance];
 }
 
+#pragma mark - Getters
+- (UIView *)customView {
+    if (!_customView) {
+        _customView = [[UIView alloc] init];
+        _customView.translatesAutoresizingMaskIntoConstraints = NO;
+        _customView.backgroundColor = [UIColor greenColor];
+        
+        UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beagle"]];
+        imgView.contentMode = UIViewContentModeScaleAspectFit;
+        imgView.translatesAutoresizingMaskIntoConstraints = NO;
+        imgView.backgroundColor = [UIColor redColor];
+        [_customView addSubview:imgView];
+        
+        NSDictionary *views = NSDictionaryOfVariableBindings(imgView);
+        [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[imgView]-|" options:0 metrics:nil views:views]];
+        [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[imgView]-|" options:0 metrics:nil views:views]];
+    }
+    
+    return _customView;
+}
+
+#pragma mark - Active Alert Touches
 - (IBAction)activeAlertTouch:(id)sender {
     [self.alertController setAlertStyler:nil];
     
@@ -61,21 +84,7 @@
 - (IBAction)activeAlertCustomViewTouch:(id)sender {
     [self.alertController setAlertStyler:nil];
     
-    UIView *customView = [[UIView alloc] init];
-    customView.translatesAutoresizingMaskIntoConstraints = NO;
-    customView.backgroundColor = [UIColor greenColor];
-    
-    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beagle"]];
-    imgView.contentMode = UIViewContentModeScaleAspectFit;
-    imgView.translatesAutoresizingMaskIntoConstraints = NO;
-    imgView.backgroundColor = [UIColor redColor];
-    [customView addSubview:imgView];
-    
-    NSDictionary *views = NSDictionaryOfVariableBindings(imgView);
-    [customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[imgView]-|" options:0 metrics:nil views:views]];
-    [customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[imgView]-|" options:0 metrics:nil views:views]];
-    
-    [self.alertController showActiveAlertWithView:customView buttons:@[@"Dismiss"] touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    [self.alertController showActiveAlertWithView:self.customView buttons:@[@"Dismiss"] touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
 }
@@ -112,20 +121,26 @@
     }];
 }
 
-#pragma mark - Passive Alerts
+#pragma mark - Passive Alert Touches
 - (IBAction)passiveAlertSimpleTouch:(id)sender {
     [self.alertController setAlertStyler:nil];
 
-    [self.alertController showPassiveAlertWithTitle:@"Passive alerts!" message:@"Hopefully you can read all of this text before the alert dismisses. If no duration is supplied than it is calculated based on the number of words in the message & title. If you are an extremely slow reader.. sorry bro.\n\nThe 2nd paragraph starts here for this passive alert with a long message. It keeps on going and going. You can always touch to dismiss." touchOutsideToDismiss:YES viewTouchedBlock:^(URBNAlertController *alertController) {
-        NSLog(@"alert touched!");
+    [self.alertController showPassiveAlertWithTitle:@"Passive alerts!" message:@"Hopefully you can read all of this text before the alert dismisses. If no duration is supplied than it is calculated based on the number of words in the message & title. If you are an extremely slow reader.. sorry bro.\n\nThe 2nd paragraph starts here for this passive alert with a long message. It keeps on going and going. You can always touch outside the alert, or on the alert to dismiss." touchOutsideToDismiss:YES alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
+        [alertController dismissAlert];
     }];
 }
 
 - (IBAction)passiveAlertsSimleTouchShort:(id)sender {
     [self.alertController setAlertStyler:nil];
     
-    [self.alertController showPassiveAlertWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration." touchOutsideToDismiss:NO viewTouchedBlock:^(URBNAlertController *alertController) {
-        NSLog(@"alert touched!");
+    [self.alertController showPassiveAlertWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration." touchOutsideToDismiss:NO alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
+    }];
+}
+
+- (IBAction)passiveAlertCustomViewTouch:(id)sender {
+    [self.alertController setAlertStyler:nil];
+
+    [self.alertController showPassiveAlertWithView:self.customView touchOutsideToDismiss:YES duration:2.f alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
     }];
 }
 

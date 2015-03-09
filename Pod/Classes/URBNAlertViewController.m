@@ -66,6 +66,12 @@
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAlert:)];
         [self.view addGestureRecognizer:tapGesture];
     }
+    
+    // If passive alert, need call back when alert was touched
+    if (!self.alertConfig.isActiveAlert) {
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(passiveAlertViewTouched)];
+        [self.alertView addGestureRecognizer:tapGesture];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -85,13 +91,14 @@
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)(URBNAlertViewController *alertVC, BOOL finished))complete {
     self.visible = visible;
     
+    CGFloat animationConstant = 0.3f;
     if (visible) {
         self.alertView.alpha = 0.0;
-        self.alertView.transform = CGAffineTransformMakeScale(0.3, 0.3);
+        self.alertView.transform = CGAffineTransformMakeScale(animationConstant, animationConstant);
     }
     
     CGFloat alpha = visible ? 1.0 : 0.0;
-    CGAffineTransform transform = visible ? CGAffineTransformIdentity : CGAffineTransformMakeScale(0.3, 0.3);
+    CGAffineTransform transform = visible ? CGAffineTransformIdentity : CGAffineTransformMakeScale(animationConstant, animationConstant);
     CGFloat initialSpringVelocity = visible ? 0 : -10;
     
     void (^bounceAnimation)() = ^(void) {
@@ -104,13 +111,14 @@
     };
     
     if (animated) {
-        [UIView animateWithDuration:(0.3 * 2) delay:0 usingSpringWithDamping:0.6 initialSpringVelocity:initialSpringVelocity options:0 animations:bounceAnimation completion:^(BOOL finished) {
+        CGFloat durationDamping = animationConstant * 2;
+        [UIView animateWithDuration:durationDamping delay:0 usingSpringWithDamping:durationDamping initialSpringVelocity:initialSpringVelocity options:0 animations:bounceAnimation completion:^(BOOL finished) {
             if (complete) {
                 complete(self, finished);
             }
         }];
         
-        [UIView animateWithDuration:0.3 animations:fadeAnimation completion:nil];
+        [UIView animateWithDuration:animationConstant animations:fadeAnimation completion:nil];
     }
     else {
         fadeAnimation();
@@ -135,6 +143,13 @@
         
         [weakSelf.view removeFromSuperview];
     }];
+}
+
+- (void)passiveAlertViewTouched {
+    __weak typeof(self) weakSelf = self;
+    if (self.alertConfig.passiveAlertDismissedBlock) {
+        weakSelf.alertConfig.passiveAlertDismissedBlock(weakSelf.alertController, YES);
+    }
 }
 
 #pragma mark - Keyboard Notifications

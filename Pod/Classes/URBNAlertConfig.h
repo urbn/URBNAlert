@@ -25,7 +25,7 @@
 @property (nonatomic, copy) URBNAlertButtonTouched buttonTouchedBlock;
 - (void)setButtonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock;
 
-@property (nonatomic, copy) URBNAlertPassiveViewTouched passiveViewTouched;
-- (void)setPassiveViewTouched:(URBNAlertPassiveViewTouched)passiveViewTouched;
+@property (nonatomic, copy) URBNAlertPassiveAlertDismissed passiveAlertDismissedBlock;
+- (void)setPassiveAlertDismissed:(URBNAlertPassiveAlertDismissed)passiveAlertDismissedBlock;
 
 @end

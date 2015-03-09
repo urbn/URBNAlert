@@ -70,31 +70,31 @@
 }
 
 #pragma mark - Passive Alerts
-- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
+- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration alertDismissedBlock:(URBNAlertPassiveAlertDismissed)alertDismissedBlock {
     URBNAlertConfig *config = [URBNAlertConfig new];
     config.isActiveAlert = NO;
     config.duration = duration;
     config.title = title;
     config.message = message;
     config.touchOutsideToDismiss = touchOutsideToDismiss;
-    [config setPassiveViewTouched:viewTouchedBlock];
+    [config setPassiveAlertDismissedBlock:alertDismissedBlock];
     
     [self showAlertWithConfig:config];
 }
 
-- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
+- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss alertDismissedBlock:(URBNAlertPassiveAlertDismissed)alertDismissedBlock {
     URBNAlertConfig *config = [URBNAlertConfig new];
     config.isActiveAlert = NO;
     config.title = title;
     config.message = message;
     config.duration = [self calculateDuration:config];
     config.touchOutsideToDismiss = touchOutsideToDismiss;
-    [config setPassiveViewTouched:viewTouchedBlock];
+    [config setPassiveAlertDismissedBlock:alertDismissedBlock];
     
     [self showAlertWithConfig:config];
 }
 
-- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
+- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration alertDismissedBlock:(URBNAlertPassiveAlertDismissed)alertDismissedBlock {
     NSAssert(view, @"URBNAlertController: You need to pass a view to initActiveAlertWithView. C'mon bro.");
     
     URBNAlertConfig *config = [URBNAlertConfig new];
@@ -102,20 +102,7 @@
     config.duration = duration;
     config.customView = view;
     config.touchOutsideToDismiss = touchOutsideToDismiss;
-    [config setPassiveViewTouched:viewTouchedBlock];
-    
-    [self showAlertWithConfig:config];
-}
-
-- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
-    NSAssert(view, @"URBNAlertController: You need to pass a view to initActiveAlertWithView. C'mon bro.");
-    
-    URBNAlertConfig *config = [URBNAlertConfig new];
-    config.isActiveAlert = NO;
-    config.customView = view;
-    config.duration = [self calculateDuration:config];
-    config.touchOutsideToDismiss = touchOutsideToDismiss;
-    [config setPassiveViewTouched:viewTouchedBlock];
+    [config setPassiveAlertDismissedBlock:alertDismissedBlock];
     
     [self showAlertWithConfig:config];
 }
@@ -140,6 +127,10 @@
         
         [self.alertViewController setTouchedOutsideBlock:^{
             weakSelf.alertIsVisible = NO;
+            
+            if (config.passiveAlertDismissedBlock) {
+                config.passiveAlertDismissedBlock(weakSelf, NO);
+            }
         }];
         
         [self.window.rootViewController addChildViewController:self.alertViewController];
