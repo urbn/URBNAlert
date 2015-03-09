@@ -56,14 +56,14 @@
     [self.view addSubview:self.alertView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     if (self.alertConfig.touchOutsideToDismiss) {
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAlert)];
+        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAlert:)];
         [self.view addGestureRecognizer:tapGesture];
     }
 }
@@ -121,11 +121,18 @@
     }
 }
 
-- (void)dismissAlert {
+- (void)dismissAlert:(id)sender {
     [self.view endEditing:YES];
     
     __weak typeof(self) weakSelf = self;
     [self setVisible:NO animated:YES completion:^(URBNAlertViewController *alertVC, BOOL finished) {
+        // Must let the controller know if alert was dismissed via touching outside
+        if ([sender isKindOfClass:[UITapGestureRecognizer class]]) {
+            if (weakSelf.touchedOutsideBlock) {
+                weakSelf.touchedOutsideBlock();
+            }
+        }
+        
         [weakSelf.view removeFromSuperview];
     }];
 }

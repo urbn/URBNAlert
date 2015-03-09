@@ -36,7 +36,7 @@
 }
 
 #pragma mark - Acive Alerts
-- (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
+- (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray touchOutsideToDismiss:(BOOL)touchOutsideToDismiss buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
     NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment");
     NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button");
     NSAssert(buttonTouchedBlock, @"URBNAlertController: You must implemented the buttonTouchedBlock so you can dismiss the alert somehow. Use a Passive alert if you want an alert that will dismiss after a period of time.");
@@ -48,12 +48,13 @@
     config.hasInput = hasInput;
     config.isActiveAlert = YES;
     config.customView = nil;
+    config.touchOutsideToDismiss = touchOutsideToDismiss;
     [config setButtonTouchedBlock:buttonTouchedBlock];
     
     [self showAlertWithConfig:config];
 }
 
-- (void)showActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
+- (void)showActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray touchOutsideToDismiss:(BOOL)touchOutsideToDismiss buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
     NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment");
     NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button");
     NSAssert(view, @"URBNAlertController: You need to pass a view to initActiveAlertWithView. C'mon bro.");
@@ -62,26 +63,35 @@
     config.buttonTitles = buttonArray;
     config.customView = view;
     config.isActiveAlert = YES;
+    config.touchOutsideToDismiss = touchOutsideToDismiss;
     [config setButtonTouchedBlock:buttonTouchedBlock];
 
     [self showAlertWithConfig:config];
 }
 
 #pragma mark - Passive Alerts
-- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message duration:(CGFloat)duration viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
+- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
     URBNAlertConfig *config = [URBNAlertConfig new];
     config.isActiveAlert = NO;
     config.duration = duration;
     config.title = title;
     config.message = message;
+    config.touchOutsideToDismiss = touchOutsideToDismiss;
     [config setPassiveViewTouched:viewTouchedBlock];
+    
+    [self showAlertWithConfig:config];
 }
 
-- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
+- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
     URBNAlertConfig *config = [URBNAlertConfig new];
     config.isActiveAlert = NO;
     config.title = title;
     config.message = message;
+    config.duration = [self calculateDuration:config];
+    config.touchOutsideToDismiss = touchOutsideToDismiss;
+    [config setPassiveViewTouched:viewTouchedBlock];
+    
+    [self showAlertWithConfig:config];
 }
 
 - (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
@@ -91,8 +101,10 @@
     config.isActiveAlert = NO;
     config.duration = duration;
     config.customView = view;
+    config.touchOutsideToDismiss = touchOutsideToDismiss;
     [config setPassiveViewTouched:viewTouchedBlock];
-
+    
+    [self showAlertWithConfig:config];
 }
 
 - (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock {
@@ -101,17 +113,16 @@
     URBNAlertConfig *config = [URBNAlertConfig new];
     config.isActiveAlert = NO;
     config.customView = view;
+    config.duration = [self calculateDuration:config];
+    config.touchOutsideToDismiss = touchOutsideToDismiss;
     [config setPassiveViewTouched:viewTouchedBlock];
+    
+    [self showAlertWithConfig:config];
 }
 
 #pragma mark - Setters
 - (void)setAlertStyler:(URBNAlertStyle *)alertStyler {
-    if (!alertStyler) {
-        _alertStyler = [URBNAlertStyle new];
-    }
-    else {
-        _alertStyler = alertStyler;
-    }
+    _alertStyler = alertStyler ?: [URBNAlertStyle new];
 }
 
 #pragma mark - Methods
@@ -127,8 +138,16 @@
             }
         }];
         
+        [self.alertViewController setTouchedOutsideBlock:^{
+            weakSelf.alertIsVisible = NO;
+        }];
+        
         [self.window.rootViewController addChildViewController:self.alertViewController];
         [self.window.rootViewController.view addSubview:self.alertViewController.view];
+        
+        if (!config.isActiveAlert) {
+            [self performSelector:@selector(dismissAlert) withObject:nil afterDelay:config.duration];
+        }
     }
     else {
         [self queueAlert:config];
@@ -136,10 +155,21 @@
 }
 
 - (void)dismissAlert {
-    [self.alertViewController dismissAlert];
+    [self.alertViewController dismissAlert:nil];
     self.alertIsVisible = NO;
     
     [self dequeueAlert];
+}
+
+- (CGFloat)calculateDuration:(URBNAlertConfig *)config {
+    // The average number of words a person can read for minute is 250 - 300
+    NSInteger wordCount = [[config.title componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] count];
+    wordCount += [[config.message componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] count];
+    
+    NSInteger wordsPerSecond = 300 / 60;
+    CGFloat calculatedDuration = ((wordCount / wordsPerSecond) < 2.f) ? 2.f : (wordCount / wordsPerSecond);
+    
+    return calculatedDuration;
 }
 
 #pragma mark - Queueing

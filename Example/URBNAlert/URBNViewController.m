@@ -28,7 +28,7 @@
 - (IBAction)activeAlertTouch:(id)sender {
     [self.alertController setAlertStyler:nil];
     
-    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever. You can also touch outside to dismiss this alert." hasInput:NO buttons:@[@"Yes"] touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
 }
@@ -36,7 +36,7 @@
 - (IBAction)activeAlertTwoButtonTouch:(id)sender {
     [self.alertController setAlertStyler:nil];
     
-    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
 }
@@ -53,7 +53,7 @@
     alertStyle.alertCornerRadius = @20;
     [self.alertController setAlertStyler:alertStyle];
     
-    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
 }
@@ -75,22 +75,22 @@
     [customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[imgView]-|" options:0 metrics:nil views:views]];
     [customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[imgView]-|" options:0 metrics:nil views:views]];
     
-    [self.alertController showActiveAlertWithView:customView buttons:@[@"Dismiss"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    [self.alertController showActiveAlertWithView:customView buttons:@[@"Dismiss"] touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
 }
 
 - (IBAction)activeAlertMultipleAlertsTouch:(id)sender {
-    [self.alertController showActiveAlertWithTitle:@"The First Alert" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Next"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    [self.alertController showActiveAlertWithTitle:@"The First Alert" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Next"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
     
-    [self.alertController showActiveAlertWithTitle:@"#2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Next"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    [self.alertController showActiveAlertWithTitle:@"#2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Next"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
     
     __weak typeof(self) weakSelf = self;
-    [self.alertController showActiveAlertWithTitle:@"#3" message:@"The third and final alert" hasInput:NO buttons:@[@"Done", @"Do it again!"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    [self.alertController showActiveAlertWithTitle:@"#3" message:@"The third and final alert" hasInput:NO buttons:@[@"Done", @"Do it again!"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         switch (index) {
             case 1:
                 [weakSelf activeAlertMultipleAlertsTouch:nil];
@@ -107,14 +107,26 @@
     alertStyle.inputKeyboardType = UIKeyboardTypeEmailAddress;
     [self.alertController setAlertStyler:alertStyle];
     
-    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. and message and message and going on forever and ever.and message and message and going on forever and ever.and message and message and going on forever and ever.and message and message and going on forever and ever." hasInput:YES buttons:@[@"Yes"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. and message and message and going on forever and ever." hasInput:YES buttons:@[@"Yes"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
 }
 
 #pragma mark - Passive Alerts
 - (IBAction)passiveAlertSimpleTouch:(id)sender {
+    [self.alertController setAlertStyler:nil];
+
+    [self.alertController showPassiveAlertWithTitle:@"Passive alerts!" message:@"Hopefully you can read all of this text before the alert dismisses. If no duration is supplied than it is calculated based on the number of words in the message & title. If you are an extremely slow reader.. sorry bro.\n\nThe 2nd paragraph starts here for this passive alert with a long message. It keeps on going and going. You can always touch to dismiss." touchOutsideToDismiss:YES viewTouchedBlock:^(URBNAlertController *alertController) {
+        NSLog(@"alert touched!");
+    }];
+}
+
+- (IBAction)passiveAlertsSimleTouchShort:(id)sender {
+    [self.alertController setAlertStyler:nil];
     
+    [self.alertController showPassiveAlertWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration." touchOutsideToDismiss:NO viewTouchedBlock:^(URBNAlertController *alertController) {
+        NSLog(@"alert touched!");
+    }];
 }
 
 @end
