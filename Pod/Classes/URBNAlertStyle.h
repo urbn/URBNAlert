@@ -100,6 +100,11 @@
  */
 @property (nonatomic, strong) NSNumber *animationDuration;
 
+@property (nonatomic, strong) NSNumber *alertViewShadowOpacity;
+@property (nonatomic, strong) NSNumber *alertViewShadowRadius;
+@property (nonatomic, strong) UIColor *alertViewShadowColor;
+@property (nonatomic, assign) CGSize alertShadowOffset;
+
 /**
  * Keyboard type for the text field
  */

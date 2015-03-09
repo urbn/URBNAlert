@@ -119,12 +119,12 @@
     
     self.messageLabel.preferredMaxLayoutWidth = self.messageLabel.frame.size.width;
     self.titleLabel.preferredMaxLayoutWidth = self.titleLabel.frame.size.width;
-    
-    self.layer.shadowOffset = CGSizeMake(1, 1);
-    self.layer.shadowColor = [[UIColor blackColor] CGColor];
-    self.layer.shadowRadius = 4.0f;
-    self.layer.shadowOpacity = 0.80f;
-    self.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
+
+    self.layer.shadowColor = self.alertController.alertStyler.alertViewShadowColor.CGColor;
+    self.layer.shadowOffset = self.alertController.alertStyler.alertShadowOffset;
+    self.layer.shadowOpacity = self.alertController.alertStyler.alertViewShadowOpacity.floatValue;
+    self.layer.shadowRadius = self.alertController.alertStyler.alertViewShadowRadius.floatValue;
+    [self.layer setActions:@{@"shadowPath" : [NSNull null]}];
 }
 
 #pragma mark - Getters

@@ -83,4 +83,22 @@
     return _textFieldMaxLength ?: @25;
 }
 
+#pragma mark - Shadow
+- (NSNumber *)alertViewShadowRadius {
+    return _alertViewShadowRadius ?: @2;
+}
+
+- (NSNumber *)alertViewShadowOpacity {
+    return _alertViewShadowOpacity ?: @0.3f;
+}
+
+- (UIColor *)alertViewShadowColor {
+    return _alertViewShadowColor ?: [UIColor blackColor];
+}
+
+- (CGSize)alertShadowOffset {
+    return CGSizeEqualToSize(_alertShadowOffset, CGSizeZero) ? CGSizeMake(1, 1) : _alertShadowOffset;
+}
+
+
 @end
