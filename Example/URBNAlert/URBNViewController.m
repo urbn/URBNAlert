@@ -90,6 +90,8 @@
 }
 
 - (IBAction)activeAlertMultipleAlertsTouch:(id)sender {
+    [self.alertController setAlertStyler:nil];
+
     [self.alertController showActiveAlertWithTitle:@"The First Alert" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Next"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
@@ -133,14 +135,28 @@
 - (IBAction)passiveAlertsSimleTouchShort:(id)sender {
     [self.alertController setAlertStyler:nil];
     
-    [self.alertController showPassiveAlertWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration." touchOutsideToDismiss:NO alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
-    }];
+    [self.alertController showPassiveAlertWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration." touchOutsideToDismiss:NO alertDismissedBlock:nil];
 }
 
 - (IBAction)passiveAlertCustomViewTouch:(id)sender {
     [self.alertController setAlertStyler:nil];
 
     [self.alertController showPassiveAlertWithView:self.customView touchOutsideToDismiss:YES duration:2.f alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
+        [alertController dismissAlert];
+    }];
+}
+
+- (IBAction)passiveAlertQueuedTouched:(id)sender {
+    [self.alertController setAlertStyler:nil];
+
+    [self.alertController showPassiveAlertWithTitle:@"#1" message:@"Hopefully you can read all of this text before the alert dismisses. If no duration is supplied than it is calculated based on the number of words in the message & title. If you are an extremely slow reader.. sorry bro.\n\nThe 2nd paragraph starts here for this passive alert with a long message. It keeps on going and going. You can always touch outside the alert, or on the alert to dismiss." touchOutsideToDismiss:YES alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
+        [alertController dismissAlert];
+    }];
+    
+    [self.alertController showPassiveAlertWithTitle:@"#2" message:@"Very short alert. Minimum 2 second duration." touchOutsideToDismiss:NO alertDismissedBlock:nil];
+
+    [self.alertController showPassiveAlertWithView:self.customView touchOutsideToDismiss:YES duration:2.f alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
+        [alertController dismissAlert];
     }];
 }
 
