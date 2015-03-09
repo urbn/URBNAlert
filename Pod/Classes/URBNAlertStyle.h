@@ -25,13 +25,14 @@
 @property (nonatomic, strong) NSNumber *buttonCornerRadius;
 @property (nonatomic, strong) NSNumber *alertCornerRadius;
 @property (nonatomic, strong) NSNumber *textFieldMaxLength;
+@property (nonatomic, strong) NSNumber *buttonHeight;
+@property (nonatomic, strong) NSNumber *sectionVerticalMargin;
+@property (nonatomic, strong) NSNumber *labelHorizontalMargin;
+@property (nonatomic, strong) NSNumber *buttonHorizontalMargin;
+@property (nonatomic, strong) NSNumber *customViewMargin;
+@property (nonatomic, strong) NSNumber *animationDuration;
 
 @property (nonatomic, assign) UIKeyboardType inputKeyboardType;
 @property (nonatomic, assign) UIReturnKeyType inputReturnKeyType;
-
-@property (nonatomic, assign) UIEdgeInsets buttonInsets;
-@property (nonatomic, assign) UIEdgeInsets titleInsets;
-@property (nonatomic, assign) UIEdgeInsets messageInsets;
-@property (nonatomic, assign) UIEdgeInsets viewInsets;
 
 @end

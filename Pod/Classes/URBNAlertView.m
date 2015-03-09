@@ -65,7 +65,7 @@
 
         [self addSubview:buttonContainer];
         
-        NSDictionary *metrics = @{@"sectionMargin" : @24, @"btnH" : @44, @"lblMargin" : @16, @"btnMargin" : @8};
+        NSDictionary *metrics = @{@"sectionMargin" : self.alertController.alertStyler.sectionVerticalMargin, @"btnH" : self.alertController.alertStyler.buttonHeight, @"lblMargin" : self.alertController.alertStyler.labelHorizontalMargin, @"btnMargin" : self.alertController.alertStyler.buttonHorizontalMargin, @"cvMargin" : self.alertController.alertStyler.customViewMargin};
         
         self.buttons = [btns copy];
         if (self.buttons.count == 1) {
@@ -83,8 +83,15 @@
         
         // Custom view constarints
         if (self.alertConfig.customView) {
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[customView]-sectionMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[customView]-|" options:0 metrics:metrics views:views]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-cvMargin-[customView]-cvMargin-|" options:0 metrics:metrics views:views]];
+            
+            if (self.alertConfig.isActiveAlert) {
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-cvMargin-[customView]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+            }
+            // Passive alert, dont added margins for buttonContainer
+            else {
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-cvMargin-[customView]-cvMargin-|" options:0 metrics:metrics views:views]];
+            }
         }
         else {
             // Title & message label constarints
@@ -96,7 +103,6 @@
             // Textfield input constarints
             if (self.alertConfig.hasInput) {
                 [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblMargin-[_textField]-lblMargin-|" options:0 metrics:metrics views:views]];
-                
                 [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-sectionMargin-[_titleLabel]-sectionMargin-[_messageLabel]-sectionMargin-[_textField]-sectionMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
             }
             else {
@@ -125,6 +131,7 @@
         self.textField.keyboardType = self.alertController.alertStyler.inputKeyboardType;
         self.textField.returnKeyType = self.alertController.alertStyler.inputReturnKeyType;
     }
+    
     return _textField;
 }
 

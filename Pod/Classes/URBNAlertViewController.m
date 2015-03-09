@@ -91,14 +91,15 @@
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)(URBNAlertViewController *alertVC, BOOL finished))complete {
     self.visible = visible;
     
-    CGFloat animationConstant = 0.3f;
+    CGFloat animationDuration = self.alertController.alertStyler.animationDuration.floatValue;
+    CGFloat scaler = 0.3f;
     if (visible) {
         self.alertView.alpha = 0.0;
-        self.alertView.transform = CGAffineTransformMakeScale(animationConstant, animationConstant);
+        self.alertView.transform = CGAffineTransformMakeScale(scaler, scaler);
     }
     
     CGFloat alpha = visible ? 1.0 : 0.0;
-    CGAffineTransform transform = visible ? CGAffineTransformIdentity : CGAffineTransformMakeScale(animationConstant, animationConstant);
+    CGAffineTransform transform = visible ? CGAffineTransformIdentity : CGAffineTransformMakeScale(scaler, scaler);
     CGFloat initialSpringVelocity = visible ? 0 : -10;
     
     void (^bounceAnimation)() = ^(void) {
@@ -111,14 +112,14 @@
     };
     
     if (animated) {
-        CGFloat durationDamping = animationConstant * 2;
-        [UIView animateWithDuration:durationDamping delay:0 usingSpringWithDamping:durationDamping initialSpringVelocity:initialSpringVelocity options:0 animations:bounceAnimation completion:^(BOOL finished) {
+        CGFloat doubleDuration = animationDuration * 2;
+        [UIView animateWithDuration:doubleDuration delay:0 usingSpringWithDamping:doubleDuration initialSpringVelocity:initialSpringVelocity options:0 animations:bounceAnimation completion:^(BOOL finished) {
             if (complete) {
                 complete(self, finished);
             }
         }];
         
-        [UIView animateWithDuration:animationConstant animations:fadeAnimation completion:nil];
+        [UIView animateWithDuration:animationDuration animations:fadeAnimation completion:nil];
     }
     else {
         fadeAnimation();

@@ -49,9 +49,33 @@
     return _buttonCornerRadius ?: @8;
 }
 
+- (NSNumber *)buttonHeight {
+    return _buttonHeight ?: @44;
+}
+
+- (NSNumber *)buttonHorizontalMargin {
+    return _buttonHorizontalMargin ?: @8;
+}
+
 #pragma mark - Alert View
 - (NSNumber *)alertCornerRadius {
     return _alertCornerRadius ?: @8;
+}
+
+- (NSNumber *)sectionVerticalMargin {
+    return _sectionVerticalMargin ?: @24;
+}
+
+- (NSNumber *)labelHorizontalMargin {
+    return _labelHorizontalMargin ?: @16;
+}
+
+- (NSNumber *)animationDuration {
+    return _animationDuration ?: @0.3f;
+}
+
+- (NSNumber *)customViewMargin {
+    return _customViewMargin ?: @8;
 }
 
 #pragma mark - Text Field

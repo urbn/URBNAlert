@@ -74,6 +74,8 @@
     alertStyle.messageColor = [UIColor magentaColor];
     alertStyle.buttonCornerRadius = @0;
     alertStyle.alertCornerRadius = @20;
+    alertStyle.buttonHeight = @30;
+    alertStyle.animationDuration = @0.2f;
     [self.alertController setAlertStyler:alertStyle];
     
     [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
@@ -139,7 +141,9 @@
 }
 
 - (IBAction)passiveAlertCustomViewTouch:(id)sender {
-    [self.alertController setAlertStyler:nil];
+    URBNAlertStyle *alertStyle = [URBNAlertStyle new];
+    alertStyle.customViewMargin = @0;
+    [self.alertController setAlertStyler:alertStyle];
 
     [self.alertController showPassiveAlertWithView:self.customView touchOutsideToDismiss:YES duration:2.f alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
         [alertController dismissAlert];
