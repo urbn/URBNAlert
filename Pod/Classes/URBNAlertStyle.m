@@ -100,5 +100,17 @@
     return CGSizeEqualToSize(_alertShadowOffset, CGSizeZero) ? CGSizeMake(1, 1) : _alertShadowOffset;
 }
 
+#pragma mark - Blur
+- (NSNumber *)blurRadius {
+    return _blurRadius ?: @5;
+}
+
+- (NSNumber *)blurSaturationDelta {
+    return _blurSaturationDelta ?: @1;
+}
+
+- (UIColor *)blurTintColor {
+    return _blurTintColor ?: [UIColor clearColor];
+}
 
 @end

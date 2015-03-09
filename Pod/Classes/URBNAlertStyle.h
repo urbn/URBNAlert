@@ -121,6 +121,21 @@
 @property (nonatomic, assign) CGSize alertShadowOffset;
 
 /**
+ * Tint color of the blurred snapshot
+ */
+@property (nonatomic, strong) UIColor *blurTintColor;
+
+/**
+ * Radius of the blurred snapshot
+ */
+@property (nonatomic, strong) NSNumber *blurRadius;
+
+/**
+ * Saturation blur factor of the blurred snapshot. 1 is normal. < 1 removes color, > 1 adds color
+ */
+@property (nonatomic, strong) NSNumber *blurSaturationDelta;
+
+/**
  * Keyboard type for the text field
  */
 @property (nonatomic, assign) UIKeyboardType inputKeyboardType;

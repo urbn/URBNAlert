@@ -53,7 +53,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIImage *blurImage = [self.alertConfig.backgroundViewSnapshot applyBlurWithRadius:5 tintColor:[UIColor clearColor] saturationDeltaFactor:1 maskImage:nil];
+    UIImage *blurImage = [self.alertConfig.backgroundViewSnapshot applyBlurWithRadius:self.alertController.alertStyler.blurRadius.floatValue tintColor:self.alertController.alertStyler.blurTintColor saturationDeltaFactor:self.alertController.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
     UIImageView *blurImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [blurImageView setImage:blurImage];
     
