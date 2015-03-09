@@ -16,7 +16,7 @@
 @property (nonatomic, strong) URBNAlertViewController *alertViewController;
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, assign) BOOL alertIsVisible;
-@property (nonatomic, strong) NSMutableArray *queue;
+@property (nonatomic, copy) NSArray *queue;
 
 @end
 
@@ -166,17 +166,21 @@
 
 #pragma mark - Queueing
 - (void)queueAlert:(URBNAlertConfig *)config {
-    if (!self.queue) {
-        self.queue = [[NSMutableArray alloc] init];
+    NSMutableArray *mutableQueue = self.queue.mutableCopy;
+    if (!mutableQueue) {
+        mutableQueue = [NSMutableArray new];
     }
     
-    [self.queue addObject:config];
+    [mutableQueue addObject:config];
+    self.queue = mutableQueue.copy;
 }
 
 - (void)dequeueAlert {
     URBNAlertConfig *config = self.queue.firstObject;
     if (config) {
-        [self.queue removeObjectAtIndex:0];
+        NSMutableArray *mutableQueue = self.queue.mutableCopy;
+        [mutableQueue removeObjectAtIndex:0];
+        self.queue = mutableQueue.copy;
         [self showAlertWithConfig:config];
     }
 }
