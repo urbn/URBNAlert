@@ -19,6 +19,7 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 - (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller;
 
 @property (nonatomic, strong) URBNAlertView *alertView;
+@property (nonatomic, strong) UIImage *viewSnapShot;
 
 - (void)dismissAlert:(id)sender;
 

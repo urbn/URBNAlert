@@ -11,6 +11,7 @@
 #import "URBNAlertController.h"
 #import "URBNAlertConfig.h"
 #import <URBNConvenience/URBNMacros.h>
+#import "UIImage+ImageEffects.h"
 
 @interface URBNAlertViewController ()
 
@@ -52,7 +53,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
+    UIWindow *window = [[UIApplication sharedApplication] windows][0];
+    UIImage *snapshow = [self takeSnapshotOfView:window.rootViewController.view];
+    UIImage *blurImage = [snapshow applyBlurWithRadius:3 tintColor:[UIColor clearColor] saturationDeltaFactor:1 maskImage:nil];
+    UIImageView *blurImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
+    [blurImageView setImage:blurImage];
+    
+    [self.view addSubview:blurImageView];
     [self.view addSubview:self.alertView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -151,6 +158,15 @@
     if (self.alertConfig.passiveAlertDismissedBlock) {
         weakSelf.alertConfig.passiveAlertDismissedBlock(weakSelf.alertController, YES);
     }
+}
+
+- (UIImage *)takeSnapshotOfView:(UIView *)view {
+    UIGraphicsBeginImageContext(CGSizeMake(view.frame.size.width, view.frame.size.height));
+    [view drawViewHierarchyInRect:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height) afterScreenUpdates:YES];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
 }
 
 #pragma mark - Keyboard Notifications

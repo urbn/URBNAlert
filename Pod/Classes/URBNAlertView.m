@@ -31,7 +31,7 @@
         
         self.backgroundColor = self.alertController.alertStyler.backgroundColor ?: [UIColor whiteColor];
         self.layer.cornerRadius = self.alertController.alertStyler.alertCornerRadius.floatValue;
-        
+    
         UIView *buttonContainer = [UIView new];
         NSDictionary *views;
         
@@ -119,6 +119,12 @@
     
     self.messageLabel.preferredMaxLayoutWidth = self.messageLabel.frame.size.width;
     self.titleLabel.preferredMaxLayoutWidth = self.titleLabel.frame.size.width;
+    
+    self.layer.shadowOffset = CGSizeMake(1, 1);
+    self.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.layer.shadowRadius = 4.0f;
+    self.layer.shadowOpacity = 0.80f;
+    self.layer.shadowPath = [UIBezierPath bezierPathWithRect:self.bounds].CGPath;
 }
 
 #pragma mark - Getters
