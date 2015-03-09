@@ -24,6 +24,10 @@
 
 @property (nonatomic, strong) NSNumber *buttonCornerRadius;
 @property (nonatomic, strong) NSNumber *alertCornerRadius;
+@property (nonatomic, strong) NSNumber *textFieldMaxLength;
+
+@property (nonatomic, assign) UIKeyboardType inputKeyboardType;
+@property (nonatomic, assign) UIReturnKeyType inputReturnKeyType;
 
 @property (nonatomic, assign) UIEdgeInsets buttonInsets;
 @property (nonatomic, assign) UIEdgeInsets titleInsets;

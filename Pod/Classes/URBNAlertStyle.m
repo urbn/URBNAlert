@@ -54,4 +54,9 @@
     return _alertCornerRadius ?: @8;
 }
 
+#pragma mark - Text Field
+- (NSNumber *)textFieldMaxLength {
+    return _textFieldMaxLength ?: @25;
+}
+
 @end

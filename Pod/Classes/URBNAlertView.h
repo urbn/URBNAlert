@@ -14,7 +14,7 @@
 
 typedef void(^URBNAlertViewButtonTouched)(NSInteger index);
 
-@interface URBNAlertView : UIView
+@interface URBNAlertView : UIView <UITextFieldDelegate>
 
 - (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller;
 

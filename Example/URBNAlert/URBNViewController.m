@@ -102,9 +102,12 @@
 }
 
 - (IBAction)activeAlertInputTouch:(id)sender {
-    [self.alertController setAlertStyler:nil];
+    URBNAlertStyle *alertStyle = [URBNAlertStyle new];
+    alertStyle.inputReturnKeyType = UIReturnKeyDone;
+    alertStyle.inputKeyboardType = UIKeyboardTypeEmailAddress;
+    [self.alertController setAlertStyler:alertStyle];
     
-    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:YES buttons:@[@"Yes"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. and message and message and going on forever and ever.and message and message and going on forever and ever.and message and message and going on forever and ever.and message and message and going on forever and ever." hasInput:YES buttons:@[@"Yes"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
 }

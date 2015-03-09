@@ -10,11 +10,13 @@
 #import "URBNAlertView.h"
 #import "URBNAlertController.h"
 #import "URBNAlertConfig.h"
+#import <URBNConvenience/URBNMacros.h>
 
 @interface URBNAlertViewController ()
 
 @property (nonatomic, strong) URBNAlertController *alertController;
 @property (nonatomic, strong) URBNAlertConfig *alertConfig;
+@property (nonatomic, strong) NSLayoutConstraint *yPosConstraint;
 @property (nonatomic, assign) BOOL visible;
 
 @end
@@ -32,8 +34,14 @@
         self.alertView.alpha = 0;
         self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
         
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:[_alertView(205)]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_alertView)]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0]];
+        CGFloat screenWdith = [UIScreen mainScreen].nativeBounds.size.width;
+        CGFloat sideMargins = IS_IPHONE_6P ? screenWdith * 0.1 : screenWdith * 0.05;
+
+        NSDictionary *metrics = @{@"sideMargins" : @(sideMargins)};
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-sideMargins-[_alertView]-sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
+        
+        self.yPosConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
+        [self.view addConstraint:self.yPosConstraint];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     }
     
@@ -46,6 +54,9 @@
     
     self.view.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
     [self.view addSubview:self.alertView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -61,6 +72,13 @@
     [super viewDidAppear:animated];
     
     [self setVisible:YES animated:YES completion:nil];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
 }
 
 #pragma mark - Methods
@@ -104,9 +122,31 @@
 }
 
 - (void)dismissAlert {
+    [self.view endEditing:YES];
+    
     __weak typeof(self) weakSelf = self;
     [self setVisible:NO animated:YES completion:^(URBNAlertViewController *alertVC, BOOL finished) {
         [weakSelf.view removeFromSuperview];
+    }];
+}
+
+#pragma mark - Keyboard Notifications
+- (void)keyboardWillShow:(NSNotification *)sender {
+    CGRect keyboardFrame = [sender.userInfo [UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    CGFloat alertViewBottomYPos = self.alertView.frame.size.height + (self.alertView.frame.origin.y);
+    
+    self.yPosConstraint.constant = -(alertViewBottomYPos - keyboardFrame.origin.y);
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        [self.view layoutIfNeeded];
+    }];
+}
+
+- (void)keyboardWillHide:(NSNotification *)sender {
+    self.yPosConstraint.constant = 0;
+    
+    [UIView animateWithDuration:0.3f animations:^{
+        [self.view layoutIfNeeded];
     }];
 }
 
