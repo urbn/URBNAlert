@@ -53,9 +53,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIWindow *window = [[UIApplication sharedApplication] windows][0];
-    UIImage *snapshow = [self takeSnapshotOfView:window.rootViewController.view];
-    UIImage *blurImage = [snapshow applyBlurWithRadius:5 tintColor:[UIColor clearColor] saturationDeltaFactor:1 maskImage:nil];
+    UIImage *blurImage = [self.alertConfig.backgroundViewSnapshot applyBlurWithRadius:5 tintColor:[UIColor clearColor] saturationDeltaFactor:1 maskImage:nil];
     UIImageView *blurImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [blurImageView setImage:blurImage];
     
@@ -158,15 +156,6 @@
     if (self.alertConfig.passiveAlertDismissedBlock) {
         weakSelf.alertConfig.passiveAlertDismissedBlock(weakSelf.alertController, YES);
     }
-}
-
-- (UIImage *)takeSnapshotOfView:(UIView *)view {
-    UIGraphicsBeginImageContext(CGSizeMake(view.frame.size.width, view.frame.size.height));
-    [view drawViewHierarchyInRect:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height) afterScreenUpdates:NO];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
 }
 
 #pragma mark - Keyboard Notifications
