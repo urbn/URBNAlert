@@ -100,9 +100,24 @@
  */
 @property (nonatomic, strong) NSNumber *animationDuration;
 
+/**
+ * Opacity of the alert view's shadow
+ */
 @property (nonatomic, strong) NSNumber *alertViewShadowOpacity;
+
+/**
+ * Radius of the alert view's shadow
+ */
 @property (nonatomic, strong) NSNumber *alertViewShadowRadius;
+
+/**
+ * Color of the alert view's shadow
+ */
 @property (nonatomic, strong) UIColor *alertViewShadowColor;
+
+/**
+ * Offset of the alert view's shadow
+ */
 @property (nonatomic, assign) CGSize alertShadowOffset;
 
 /**
