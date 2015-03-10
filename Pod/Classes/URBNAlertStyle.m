@@ -110,7 +110,12 @@
 }
 
 - (UIColor *)blurTintColor {
-    return _blurTintColor ?: [UIColor clearColor];
+    _blurTintColor = _blurTintColor ?: [[UIColor whiteColor] colorWithAlphaComponent:0.4f];
+    CGFloat red, green, blue, alpha;
+    [_blurTintColor getRed:&red green:&green blue:&blue alpha:&alpha];
+    NSAssert(alpha < 1.0f, @"URBNAlertStyle: blurTintColor alpha component must be less than 1.0f to see the blur effect. Please use colorWithAlphaComponent: when setting a custom blurTintColor, for example: [[UIColor whiteColor] colorWithAlphaComponent:0.4f]");
+    
+    return _blurTintColor;
 }
 
 @end

@@ -78,6 +78,7 @@
     alertStyle.animationDuration = @0.2f;
     alertStyle.alertShadowOffset = CGSizeMake(6, 6);
     alertStyle.alertViewShadowColor = [UIColor redColor];
+    alertStyle.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     [self.alertController setAlertStyler:alertStyle];
     
     [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttonTitles:@[@"Yes", @"No"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {

@@ -6,6 +6,4 @@
 
 #ifdef __OBJC__
 
-  #import <FBSnapshotTestCase/FBSnapshotTestCase.h>
-
 #endif

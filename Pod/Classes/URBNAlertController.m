@@ -39,7 +39,7 @@
 #pragma mark - Acive Alerts
 - (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttonTitles:(NSArray *)buttonArray touchOutsideToDismiss:(BOOL)touchOutsideToDismiss buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
     NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment. Please create an issue if you want more!");
-    NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button. Use a Passive alert if you want an alert that will dismiss after a period of time.");
+    NSAssert((buttonArray && buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button. Use a Passive alert if you want an alert that will dismiss after a period of time.");
     NSAssert(buttonTouchedBlock, @"URBNAlertController: You must implemented the buttonTouchedBlock so you can dismiss the alert somehow. Use a Passive alert if you want an alert that will dismiss after a period of time.");
 
     URBNAlertConfig *config = [URBNAlertConfig new];

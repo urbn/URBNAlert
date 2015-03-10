@@ -6,8 +6,3 @@ target 'URBNAlert', :exclusive => true do
   pod "URBNAlert", :path => "../"
 end
 
-target 'Tests', :exclusive => true do
-  pod "URBNAlert", :path => "../"
-
-  pod 'FBSnapshotTestCase'
-end
