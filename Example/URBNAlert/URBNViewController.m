@@ -67,21 +67,21 @@
 - (IBAction)activeAlertColoredTouch:(id)sender {
     URBNAlertStyle *alertStyle = [URBNAlertStyle new];
     alertStyle.buttonBackgroundColor = [UIColor yellowColor];
-    alertStyle.buttonDenialBackgroundColor = [UIColor blueColor];
+    alertStyle.buttonDenialBackgroundColor = [UIColor greenColor];
     alertStyle.backgroundColor = [UIColor orangeColor];
     alertStyle.buttonTitleColor = [UIColor blackColor];
     alertStyle.titleColor = [UIColor purpleColor];
-    alertStyle.messageColor = [UIColor magentaColor];
+    alertStyle.messageColor = [UIColor blackColor];
     alertStyle.buttonCornerRadius = @0;
     alertStyle.alertCornerRadius = @20;
     alertStyle.buttonHeight = @30;
     alertStyle.animationDuration = @0.2f;
     alertStyle.alertShadowOffset = CGSizeMake(6, 6);
-    alertStyle.alertViewShadowColor = [UIColor redColor];
+    alertStyle.alertViewShadowColor = [UIColor greenColor];
     alertStyle.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     [self.alertController setAlertStyler:alertStyle];
     
-    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttonTitles:@[@"Yes", @"No"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+    [self.alertController showActiveAlertWithTitle:@"Customized Alert" message:@"You can change the fonts, colors, button size, corner radius, and much more." hasInput:NO buttonTitles:@[@"Yes", @"No"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
         [alertController dismissAlert];
     }];
 }

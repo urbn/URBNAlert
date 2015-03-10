@@ -35,7 +35,14 @@
         self.alertView.alpha = 0;
         self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
         
-        CGFloat screenWdith = [UIScreen mainScreen].nativeBounds.size.width;
+        CGFloat screenWdith;
+        if ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]) {
+            screenWdith = [UIScreen mainScreen].nativeBounds.size.width;
+        }
+        else {
+            screenWdith = [UIScreen mainScreen].bounds.size.width;
+        }
+        
         CGFloat sideMargins = IS_IPHONE_6P ? screenWdith * 0.1 : screenWdith * 0.05;
 
         NSDictionary *metrics = @{@"sideMargins" : @(sideMargins)};
