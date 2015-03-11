@@ -12,12 +12,14 @@
 #import "URBNAlertConfig.h"
 #import <URBNConvenience/URBNMacros.h>
 #import "UIImage+ImageEffects.h"
+#import "URBNAlertButton.h"
 
 @interface URBNAlertViewController ()
 
 @property (nonatomic, strong) URBNAlertController *alertController;
 @property (nonatomic, strong) URBNAlertConfig *alertConfig;
 @property (nonatomic, strong) NSLayoutConstraint *yPosConstraint;
+@property (nonatomic, copy) NSArray *buttonArray;
 @property (nonatomic, assign) BOOL visible;
 
 @end
@@ -25,6 +27,32 @@
 @implementation URBNAlertViewController
 
 #pragma mark - Initalizers
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss {
+    self = [super init];
+    if (self) {
+        self.alertConfig = [URBNAlertConfig new];
+        self.alertConfig.title = title;
+        self.alertConfig.message = message;
+        self.alertConfig.customView = nil;
+        self.alertConfig.touchOutsideToDismiss = touchOutsideToDismiss;
+        self.alertConfig.isActiveAlert = YES;
+        self.alertController = [URBNAlertController sharedInstance];
+    }
+    
+    return self;
+}
+
+- (void)addButton:(URBNAlertButton *)button {
+    NSMutableArray *btns = [self.buttonArray mutableCopy] ?: [NSMutableArray new];
+    [btns addObject:button];
+    self.buttonArray = [btns copy];
+}
+
+- (void)show {
+    [self.alertController showAlertWithConfig:self.alertConfig];
+
+}
+
 - (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller {
     self = [super init];
     if (self) {

@@ -148,6 +148,10 @@
     }
 }
 
+- (void)show {
+    
+}
+
 - (void)dismissAlert {
     [self.alertViewController dismissAlert:nil];
     self.alertIsVisible = NO;

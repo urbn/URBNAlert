@@ -11,6 +11,7 @@
 #import "URBNAlertStyle.h"
 
 @class URBNAlertController;
+@class URBNAlertConfig;
 
 typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSInteger index);
 typedef void(^URBNAlertPassiveAlertDismissed)(URBNAlertController *alertController, BOOL alertWasTouched);
@@ -83,5 +84,6 @@ typedef void(^URBNAlertPassiveAlertDismissed)(URBNAlertController *alertControll
  *  If none is passed, default values are used. See URBNAlertStyle for properties you can configue & default values.
  */
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
+- (void)showAlertWithConfig:(URBNAlertConfig *)config;
 
 @end

@@ -11,6 +11,7 @@
 
 @class URBNAlertController;
 @class URBNAlertViewController;
+@class URBNAlertButton;
 
 typedef void(^URBNAlertViewControllerTouchedOutside)();
 
@@ -18,10 +19,13 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 
 - (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller;
 
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss;
+
 @property (nonatomic, strong) URBNAlertView *alertView;
 @property (nonatomic, strong) UIImage *viewSnapShot;
 
 - (void)dismissAlert:(id)sender;
+- (void)addButton:(URBNAlertButton *)button;
 
 // Blocks
 @property (nonatomic, copy) URBNAlertViewButtonTouched buttonTouchedBlock;
@@ -29,5 +33,7 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 
 @property (nonatomic, copy) URBNAlertViewControllerTouchedOutside touchedOutsideBlock;
 - (void)setTouchedOutsideBlock:(URBNAlertViewControllerTouchedOutside)touchedOutsideBlock;
+
+- (void)show;
 
 @end

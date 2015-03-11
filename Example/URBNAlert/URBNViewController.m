@@ -8,8 +8,10 @@
 
 #import "URBNViewController.h"
 #import <URBNAlert/URBNAlertController.h>
+#import <URBNAlert/URBNAlertViewController.h>
 #import <URBNConvenience/UIView+URBNLayout.h>
 #import <URBNAlert/URBNAlertStyle.h>
+#import <URBNAlert/URBNAlertButton.h>
 
 @interface URBNViewController ()
 
@@ -49,11 +51,16 @@
 
 #pragma mark - Active Alert Touches
 - (IBAction)activeAlertTouch:(id)sender {
-    [self.alertController setAlertStyler:nil];
-    
-    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever. You can also touch outside to dismiss this alert." hasInput:NO buttonTitles:@[@"Yes"] touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-        [alertController dismissAlert];
-    }];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"" message:@"" touchOutsideToDismiss:YES];
+    [uac addButton:[URBNAlertButton buttonWithTitle:@"Testing" buttonTouched:^{
+        NSLog(@"testing");
+    }]];
+    [uac show];
+//    [self.alertController setAlertStyler:nil];
+//    
+//    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever. You can also touch outside to dismiss this alert." hasInput:NO buttonTitles:@[@"Yes"] touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
+//        [alertController dismissAlert];
+//    }];
 }
 
 - (IBAction)activeAlertTwoButtonTouch:(id)sender {
