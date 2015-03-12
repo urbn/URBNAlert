@@ -10,6 +10,7 @@
 #import "URBNAlertViewController.h"
 #import "URBNAlertView.h"
 #import "URBNAlertConfig.h"
+#import "URBNAlertAction.h"
 
 @interface URBNAlertController ()
 
@@ -121,9 +122,9 @@
         self.alertIsVisible = YES;
 
         __weak typeof(self) weakSelf = self;
-        [self.alertViewController.alertView setButtonTouchedBlock:^(NSInteger index) {
-            if (config.buttonTouchedBlock) {
-                config.buttonTouchedBlock(weakSelf, index);
+        [self.alertViewController.alertView setButtonTouchedBlock:^(URBNAlertAction *action) {
+            if (action.completionBlock) {
+                action.completionBlock(weakSelf.alertViewController);
             }
         }];
         

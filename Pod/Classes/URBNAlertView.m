@@ -194,7 +194,7 @@
 - (void)buttonTouch:(id)sender {
     UIButton *btn = (UIButton *)sender;
     if (self.buttonTouchedBlock) {
-        self.buttonTouchedBlock(btn.tag);
+        self.buttonTouchedBlock([self.alertConfig.actions objectAtIndex:btn.tag]);
     }
 }
 

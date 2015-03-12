@@ -35,5 +35,6 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 - (void)setTouchedOutsideBlock:(URBNAlertViewControllerTouchedOutside)touchedOutsideBlock;
 
 - (void)show;
+- (void)dismiss;
 
 @end

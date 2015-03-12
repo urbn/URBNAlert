@@ -53,12 +53,13 @@
 - (IBAction)activeAlertTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text." view:nil];
     
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"Testing" actionType:URBNAlertActionTypeNormal buttonTouched:^{
-        NSLog(@"testing");
+    [uac addAction:[URBNAlertAction buttonWithTitle:@"Testing" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertViewController *alertViewController) {
+        NSLog(@"Ok");
     }]];
     
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive buttonTouched:^{
-        NSLog(@"btn2");
+    [uac addAction:[URBNAlertAction buttonWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive buttonTouched:^(URBNAlertViewController *alertViewController) {
+        NSLog(@"Cancel");
+        [alertViewController dismiss];
     }]];
     
     [uac show];

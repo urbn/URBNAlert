@@ -191,6 +191,10 @@
     }
 }
 
+- (void)dismiss {
+    [self dismissAlert:self];
+}
+
 - (void)dismissAlert:(id)sender {
     [self.view endEditing:YES];
     

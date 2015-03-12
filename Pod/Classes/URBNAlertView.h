@@ -11,8 +11,9 @@
 @class URBNAlertController;
 @class URBNAlertView;
 @class URBNAlertConfig;
+@class URBNAlertAction;
 
-typedef void(^URBNAlertViewButtonTouched)(NSInteger index);
+typedef void(^URBNAlertViewButtonTouched)(URBNAlertAction *action);
 
 @interface URBNAlertView : UIView <UITextFieldDelegate>
 
