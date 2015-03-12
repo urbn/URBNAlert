@@ -9,6 +9,7 @@
 #import "URBNAlertView.h"
 #import "URBNAlertController.h"
 #import "URBNAlertConfig.h"
+#import "URBNAlertAction.h"
 
 @interface URBNAlertView()
 
@@ -57,10 +58,12 @@
         buttonContainer.translatesAutoresizingMaskIntoConstraints = NO;
         
         __weak typeof(self) weakSelf = self;
-        [self.alertConfig.buttonTitles enumerateObjectsUsingBlock:^(NSString *buttonTitle, NSUInteger idx, BOOL *stop) {
-            UIButton *btn = [weakSelf createAlertViewButtonWithTitle:buttonTitle atIndex:idx];
-            [buttonContainer addSubview:btn];
-            [btns addObject:btn];
+        [self.alertConfig.actions enumerateObjectsUsingBlock:^(URBNAlertAction *action, NSUInteger idx, BOOL *stop) {
+            if (action.isButton) {
+                UIButton *btn = [weakSelf createAlertViewButtonWithAction:action atIndex:idx];
+                [buttonContainer addSubview:btn];
+                [btns addObject:btn];
+            }
         }];
 
         [self addSubview:buttonContainer];
@@ -168,19 +171,19 @@
 }
 
 #pragma mark - Methods
-- (UIButton *)createAlertViewButtonWithTitle:(NSString *)title atIndex:(NSInteger)index {
+- (UIButton *)createAlertViewButtonWithAction:(URBNAlertAction *)action atIndex:(NSInteger)index {
     UIColor *bgColor = self.alertController.alertStyler.buttonBackgroundColor;
-    UIColor *bgDenialColor = self.alertController.alertStyler.buttonDenialBackgroundColor;
+    UIColor *bgDestructiveColor = self.alertController.alertStyler.buttonDenialBackgroundColor;
     UIColor *titleColor = self.alertController.alertStyler.buttonTitleColor;
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.translatesAutoresizingMaskIntoConstraints = NO;
-    btn.backgroundColor = (index == 0 && self.alertConfig.buttonTitles.count > 1) ? bgDenialColor : bgColor;
+    btn.backgroundColor = (action.actionType == URBNAlertActionTypeDestructive) ? bgDestructiveColor : bgColor;
     btn.titleLabel.font = self.alertController.alertStyler.buttonFont;
     btn.layer.cornerRadius = self.alertController.alertStyler.buttonCornerRadius.floatValue;
     btn.tag = index;
     
-    [btn setTitle:title forState:UIControlStateNormal];
+    [btn setTitle:action.title forState:UIControlStateNormal];
     [btn setTitleColor:titleColor forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(buttonTouch:) forControlEvents:UIControlEventTouchUpInside];
     

@@ -13,7 +13,7 @@
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *message;
-@property (nonatomic, copy) NSArray *buttonTitles;
+@property (nonatomic, copy) NSArray *actions;
 @property (nonatomic, strong) UIView *customView;
 @property (nonatomic, strong) UIImage *backgroundViewSnapshot;
 

@@ -43,7 +43,7 @@
     NSAssert(buttonTouchedBlock, @"URBNAlertController: You must implemented the buttonTouchedBlock so you can dismiss the alert somehow. Use a Passive alert if you want an alert that will dismiss after a period of time.");
 
     URBNAlertConfig *config = [URBNAlertConfig new];
-    config.buttonTitles = buttonArray;
+    config.actions = buttonArray;
     config.title = title;
     config.message = message;
     config.hasInput = hasInput;
@@ -61,7 +61,7 @@
     NSAssert(view, @"URBNAlertController: You need to pass a view to initActiveAlertWithView. C'mon bro.");
     
     URBNAlertConfig *config = [URBNAlertConfig new];
-    config.buttonTitles = buttonArray;
+    config.actions = buttonArray;
     config.customView = view;
     config.isActiveAlert = YES;
     config.touchOutsideToDismiss = touchOutsideToDismiss;

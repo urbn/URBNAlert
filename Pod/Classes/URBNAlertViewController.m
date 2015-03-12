@@ -12,14 +12,13 @@
 #import "URBNAlertConfig.h"
 #import <URBNConvenience/URBNMacros.h>
 #import "UIImage+ImageEffects.h"
-#import "URBNAlertButton.h"
+#import "URBNAlertAction.h"
 
 @interface URBNAlertViewController ()
 
 @property (nonatomic, strong) URBNAlertController *alertController;
 @property (nonatomic, strong) URBNAlertConfig *alertConfig;
 @property (nonatomic, strong) NSLayoutConstraint *yPosConstraint;
-@property (nonatomic, copy) NSArray *buttonArray;
 @property (nonatomic, assign) BOOL visible;
 
 @end
@@ -27,30 +26,52 @@
 @implementation URBNAlertViewController
 
 #pragma mark - Initalizers
-- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss {
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message view:(UIView *)view {
     self = [super init];
     if (self) {
         self.alertConfig = [URBNAlertConfig new];
         self.alertConfig.title = title;
         self.alertConfig.message = message;
-        self.alertConfig.customView = nil;
-        self.alertConfig.touchOutsideToDismiss = touchOutsideToDismiss;
-        self.alertConfig.isActiveAlert = YES;
+        self.alertConfig.customView = view;
         self.alertController = [URBNAlertController sharedInstance];
     }
     
     return self;
 }
 
-- (void)addButton:(URBNAlertButton *)button {
-    NSMutableArray *btns = [self.buttonArray mutableCopy] ?: [NSMutableArray new];
-    [btns addObject:button];
-    self.buttonArray = [btns copy];
+- (void)addAction:(URBNAlertAction *)action {
+    NSMutableArray *actions = [self.alertConfig.actions mutableCopy] ?: [NSMutableArray new];
+    [actions addObject:action];
+    self.alertConfig.actions = [actions copy];
+    
+    if (action.actionType != URBNAlertActionTypePassive) {
+        self.alertConfig.isActiveAlert = YES;
+    }
 }
 
 - (void)show {
+    self.alertView = [[URBNAlertView alloc] initWithAlertConfig:self.alertConfig alertController:self.alertController];
+    self.alertView.alpha = 0;
+    self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    CGFloat screenWdith;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]) {
+        screenWdith = [UIScreen mainScreen].nativeBounds.size.width;
+    }
+    else {
+        screenWdith = [UIScreen mainScreen].bounds.size.width;
+    }
+    
+    CGFloat sideMargins = IS_IPHONE_6P ? screenWdith * 0.1 : screenWdith * 0.05;
+    
+    NSDictionary *metrics = @{@"sideMargins" : @(sideMargins)};
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-sideMargins-[_alertView]-sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
+    
+    self.yPosConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
+    [self.view addConstraint:self.yPosConstraint];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    
     [self.alertController showAlertWithConfig:self.alertConfig];
-
 }
 
 - (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller {
