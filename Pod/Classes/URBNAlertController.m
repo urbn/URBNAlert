@@ -14,7 +14,6 @@
 
 @interface URBNAlertController ()
 
-@property (nonatomic, strong) UIImage *backgroudViewSnapshot;
 @property (nonatomic, assign) BOOL alertIsVisible;
 @property (nonatomic, copy) NSArray *queue;
 
@@ -35,78 +34,6 @@
     return instance;
 }
 
-#pragma mark - Acive Alerts
-- (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttonTitles:(NSArray *)buttonArray touchOutsideToDismiss:(BOOL)touchOutsideToDismiss buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
-    NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment. Please create an issue if you want more!");
-    NSAssert((buttonArray && buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button. Use a Passive alert if you want an alert that will dismiss after a period of time.");
-    NSAssert(buttonTouchedBlock, @"URBNAlertController: You must implemented the buttonTouchedBlock so you can dismiss the alert somehow. Use a Passive alert if you want an alert that will dismiss after a period of time.");
-
-    URBNAlertConfig *config = [URBNAlertConfig new];
-    config.actions = buttonArray;
-    config.title = title;
-    config.message = message;
-    config.hasInput = hasInput;
-    config.isActiveAlert = YES;
-    config.customView = nil;
-    config.touchOutsideToDismiss = touchOutsideToDismiss;
-    [config setButtonTouchedBlock:buttonTouchedBlock];
-    
-    //[self showAlertWithConfig:config];
-}
-
-- (void)showActiveAlertWithView:(UIView *)view buttonTitles:(NSArray *)buttonArray touchOutsideToDismiss:(BOOL)touchOutsideToDismiss buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
-    NSAssert((buttonArray.count <= 2), @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment. Please create an issue if you want more!");
-    NSAssert((buttonArray.count > 0), @"URBNAlertController: Active alerts require at least one button. Use a Passive alert if you want an alert that will dismiss after a period of time.");
-    NSAssert(view, @"URBNAlertController: You need to pass a view to initActiveAlertWithView. C'mon bro.");
-    
-    URBNAlertConfig *config = [URBNAlertConfig new];
-    config.actions = buttonArray;
-    config.customView = view;
-    config.isActiveAlert = YES;
-    config.touchOutsideToDismiss = touchOutsideToDismiss;
-    [config setButtonTouchedBlock:buttonTouchedBlock];
-
-   // [self showAlertWithConfig:config];
-}
-
-#pragma mark - Passive Alerts
-- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration alertDismissedBlock:(URBNAlertPassiveAlertDismissed)alertDismissedBlock {
-    URBNAlertConfig *config = [URBNAlertConfig new];
-    config.isActiveAlert = NO;
-    config.duration = duration;
-    config.title = title;
-    config.message = message;
-    config.touchOutsideToDismiss = touchOutsideToDismiss;
-    [config setPassiveAlertDismissedBlock:alertDismissedBlock];
-    
-   // [self showAlertWithConfig:config];
-}
-
-- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss alertDismissedBlock:(URBNAlertPassiveAlertDismissed)alertDismissedBlock {
-    URBNAlertConfig *config = [URBNAlertConfig new];
-    config.isActiveAlert = NO;
-    config.title = title;
-    config.message = message;
-    config.duration = [self calculateDuration:config];
-    config.touchOutsideToDismiss = touchOutsideToDismiss;
-    [config setPassiveAlertDismissedBlock:alertDismissedBlock];
-    
-   // [self showAlertWithConfig:config];
-}
-
-- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration alertDismissedBlock:(URBNAlertPassiveAlertDismissed)alertDismissedBlock {
-    NSAssert(view, @"URBNAlertController: You need to pass a view to initActiveAlertWithView. C'mon bro.");
-    
-    URBNAlertConfig *config = [URBNAlertConfig new];
-    config.isActiveAlert = NO;
-    config.duration = duration;
-    config.customView = view;
-    config.touchOutsideToDismiss = touchOutsideToDismiss;
-    [config setPassiveAlertDismissedBlock:alertDismissedBlock];
-    
-    //[self showAlertWithConfig:config];
-}
-
 #pragma mark - Setters
 - (void)setAlertStyler:(URBNAlertStyle *)alertStyler {
     _alertStyler = alertStyler ?: [URBNAlertStyle new];
@@ -121,7 +48,7 @@
         __weak typeof(alertVC) weakAlertVC = alertVC;
         [alertVC.alertView setButtonTouchedBlock:^(URBNAlertAction *action) {
             if (action.completionBlock) {
-                action.completionBlock(weakAlertVC);
+                action.completionBlock(action);
             }
         }];
         
@@ -146,10 +73,6 @@
     }
 }
 
-- (void)show {
-    
-}
-
 - (void)dismissAlert {
     self.alertIsVisible = NO;
     
@@ -172,7 +95,6 @@
     NSMutableArray *mutableQueue = self.queue.mutableCopy;
     if (!mutableQueue) {
         mutableQueue = [NSMutableArray new];
-        //self.backgroudViewSnapshot = [self takeSnapshotOfView:self.window.rootViewController.view];
     }
     
     [mutableQueue addObject:avc];
