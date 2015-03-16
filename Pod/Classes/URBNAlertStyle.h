@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface URBNAlertStyle : NSObject
+@interface URBNAlertStyle : NSObject <NSCopying>
 /**
  * Background color of the buttons for active alerts
  */

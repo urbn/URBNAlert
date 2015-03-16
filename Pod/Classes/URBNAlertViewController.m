@@ -17,7 +17,6 @@
 @interface URBNAlertViewController ()
 
 @property (nonatomic, strong) URBNAlertController *alertController;
-@property (nonatomic, strong) URBNAlertConfig *alertConfig;
 @property (nonatomic, strong) NSLayoutConstraint *yPosConstraint;
 @property (nonatomic, assign) BOOL visible;
 
@@ -34,11 +33,17 @@
         self.alertConfig.message = message;
         self.alertConfig.customView = view;
         self.alertController = [URBNAlertController sharedInstance];
+        self.alertStyler = [self.alertController.alertStyler copy];
     }
     
     return self;
 }
 
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message {
+    return [self initWithTitle:title message:message view:nil];
+}
+
+#pragma mark - Methods
 - (void)addAction:(URBNAlertAction *)action {
     NSMutableArray *actions = [self.alertConfig.actions mutableCopy] ?: [NSMutableArray new];
     [actions addObject:action];
@@ -50,7 +55,7 @@
 }
 
 - (void)show {
-    self.alertView = [[URBNAlertView alloc] initWithAlertConfig:self.alertConfig alertController:self.alertController];
+    self.alertView = [[URBNAlertView alloc] initWithAlertConfig:self.alertConfig alertStyler:self.alertStyler];
     self.alertView.alpha = 0;
     self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -71,7 +76,11 @@
     [self.view addConstraint:self.yPosConstraint];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     
-    [self.alertController showAlertWithConfig:self.alertConfig];
+    [self.alertController showAlertWithAlertViewController:self];
+}
+
+- (void)showInView:(UIView *)view {
+    
 }
 
 - (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller {
@@ -80,7 +89,7 @@
         self.alertController = controller;
         self.alertConfig = config;
         
-        self.alertView = [[URBNAlertView alloc] initWithAlertConfig:config alertController:controller];
+        self.alertView = [[URBNAlertView alloc] initWithAlertConfig:config alertStyler:self.alertStyler];
         self.alertView.alpha = 0;
         self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
         
@@ -109,7 +118,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIImage *blurImage = [self.alertConfig.backgroundViewSnapshot applyBlurWithRadius:self.alertController.alertStyler.blurRadius.floatValue tintColor:[self.alertController.alertStyler.blurTintColor colorWithAlphaComponent:0.4f] saturationDeltaFactor:self.alertController.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
+    UIImage *blurImage = [self.alertConfig.backgroundViewSnapshot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:[self.alertStyler.blurTintColor colorWithAlphaComponent:0.4f] saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
     UIImageView *blurImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [blurImageView setImage:blurImage];
     
@@ -152,7 +161,7 @@
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)(URBNAlertViewController *alertVC, BOOL finished))complete {
     self.visible = visible;
     
-    CGFloat animationDuration = self.alertController.alertStyler.animationDuration.floatValue;
+    CGFloat animationDuration = self.alertStyler.animationDuration.floatValue;
     CGFloat scaler = 0.3f;
     if (visible) {
         self.alertView.alpha = 0.0;
@@ -191,13 +200,9 @@
     }
 }
 
-- (void)dismiss {
-    [self dismissAlert:self];
-}
-
 - (void)dismissAlert:(id)sender {
     [self.view endEditing:YES];
-    
+    [self.alertController dismissAlert];
     __weak typeof(self) weakSelf = self;
     [self setVisible:NO animated:YES completion:^(URBNAlertViewController *alertVC, BOOL finished) {
         // Must let the controller know if alert was dismissed via touching outside

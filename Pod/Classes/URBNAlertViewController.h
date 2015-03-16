@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "URBNAlertView.h"
+#import "URBNAlertStyle.h"
 
 @class URBNAlertController;
 @class URBNAlertViewController;
@@ -20,8 +21,11 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 - (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller;
 
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message view:(UIView *)view;
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message;
 
 @property (nonatomic, strong) URBNAlertView *alertView;
+@property (nonatomic, strong) URBNAlertStyle *alertStyler;
+@property (nonatomic, strong) URBNAlertConfig *alertConfig;
 @property (nonatomic, strong) UIImage *viewSnapShot;
 
 - (void)dismissAlert:(id)sender;
@@ -35,6 +39,5 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 - (void)setTouchedOutsideBlock:(URBNAlertViewControllerTouchedOutside)touchedOutsideBlock;
 
 - (void)show;
-- (void)dismiss;
 
 @end

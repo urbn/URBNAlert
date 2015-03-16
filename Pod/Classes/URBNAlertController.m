@@ -14,7 +14,6 @@
 
 @interface URBNAlertController ()
 
-@property (nonatomic, strong) URBNAlertViewController *alertViewController;
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) UIImage *backgroudViewSnapshot;
 @property (nonatomic, assign) BOOL alertIsVisible;
@@ -53,7 +52,7 @@
     config.touchOutsideToDismiss = touchOutsideToDismiss;
     [config setButtonTouchedBlock:buttonTouchedBlock];
     
-    [self showAlertWithConfig:config];
+    //[self showAlertWithConfig:config];
 }
 
 - (void)showActiveAlertWithView:(UIView *)view buttonTitles:(NSArray *)buttonArray touchOutsideToDismiss:(BOOL)touchOutsideToDismiss buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock {
@@ -68,7 +67,7 @@
     config.touchOutsideToDismiss = touchOutsideToDismiss;
     [config setButtonTouchedBlock:buttonTouchedBlock];
 
-    [self showAlertWithConfig:config];
+   // [self showAlertWithConfig:config];
 }
 
 #pragma mark - Passive Alerts
@@ -81,7 +80,7 @@
     config.touchOutsideToDismiss = touchOutsideToDismiss;
     [config setPassiveAlertDismissedBlock:alertDismissedBlock];
     
-    [self showAlertWithConfig:config];
+   // [self showAlertWithConfig:config];
 }
 
 - (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message touchOutsideToDismiss:(BOOL)touchOutsideToDismiss alertDismissedBlock:(URBNAlertPassiveAlertDismissed)alertDismissedBlock {
@@ -93,7 +92,7 @@
     config.touchOutsideToDismiss = touchOutsideToDismiss;
     [config setPassiveAlertDismissedBlock:alertDismissedBlock];
     
-    [self showAlertWithConfig:config];
+   // [self showAlertWithConfig:config];
 }
 
 - (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration alertDismissedBlock:(URBNAlertPassiveAlertDismissed)alertDismissedBlock {
@@ -106,7 +105,7 @@
     config.touchOutsideToDismiss = touchOutsideToDismiss;
     [config setPassiveAlertDismissedBlock:alertDismissedBlock];
     
-    [self showAlertWithConfig:config];
+    //[self showAlertWithConfig:config];
 }
 
 #pragma mark - Setters
@@ -115,37 +114,38 @@
 }
 
 #pragma mark - Methods
-- (void)showAlertWithConfig:(URBNAlertConfig *)config {
+- (void)showAlertWithAlertViewController:(URBNAlertViewController *)alertVC {
     if (!self.alertIsVisible) {
-        config.backgroundViewSnapshot = self.backgroudViewSnapshot ?: [self takeSnapshotOfView:self.window.rootViewController.view];
-        self.alertViewController = [[URBNAlertViewController alloc] initWithAlertConfig:config alertController:self];
+        alertVC.alertConfig.backgroundViewSnapshot = self.backgroudViewSnapshot ?: [self takeSnapshotOfView:self.window.rootViewController.view];
+        //self.alertViewController = [[URBNAlertViewController alloc] initWithAlertConfig:config alertController:self];
         self.alertIsVisible = YES;
 
         __weak typeof(self) weakSelf = self;
-        [self.alertViewController.alertView setButtonTouchedBlock:^(URBNAlertAction *action) {
+        __weak typeof(alertVC) weakAlertVC = alertVC;
+        [alertVC.alertView setButtonTouchedBlock:^(URBNAlertAction *action) {
             if (action.completionBlock) {
-                action.completionBlock(weakSelf.alertViewController);
+                action.completionBlock(weakAlertVC);
             }
         }];
         
-        [self.alertViewController setTouchedOutsideBlock:^{
+        [alertVC setTouchedOutsideBlock:^{
             weakSelf.alertIsVisible = NO;
 
-            if (config.passiveAlertDismissedBlock) {
-                config.passiveAlertDismissedBlock(weakSelf, NO);
+            if (weakAlertVC.alertConfig.passiveAlertDismissedBlock) {
+                weakAlertVC.alertConfig.passiveAlertDismissedBlock(weakSelf, NO);
             }
         }];
         
-        [self.window.rootViewController addChildViewController:self.alertViewController];
-        [self.window.rootViewController.view addSubview:self.alertViewController.view];
+        [self.window.rootViewController addChildViewController:alertVC];
+        [self.window.rootViewController.view addSubview:alertVC.view];
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
-        if (!config.isActiveAlert) {
-            [self performSelector:@selector(dismissAlert) withObject:nil afterDelay:config.duration];
+        if (!alertVC.alertConfig.isActiveAlert) {
+            [self performSelector:@selector(dismissAlert) withObject:nil afterDelay:alertVC.alertConfig.duration];
         }
     }
     else {
-        [self queueAlert:config];
+        [self queueAlert:alertVC];
     }
 }
 
@@ -154,7 +154,6 @@
 }
 
 - (void)dismissAlert {
-    [self.alertViewController dismissAlert:nil];
     self.alertIsVisible = NO;
     
     [self dequeueAlert];
@@ -181,24 +180,24 @@
 }
 
 #pragma mark - Queueing
-- (void)queueAlert:(URBNAlertConfig *)config {
+- (void)queueAlert:(URBNAlertViewController *)avc {
     NSMutableArray *mutableQueue = self.queue.mutableCopy;
     if (!mutableQueue) {
         mutableQueue = [NSMutableArray new];
         self.backgroudViewSnapshot = [self takeSnapshotOfView:self.window.rootViewController.view];
     }
     
-    [mutableQueue addObject:config];
+    [mutableQueue addObject:avc];
     self.queue = mutableQueue.copy;
 }
 
 - (void)dequeueAlert {
-    URBNAlertConfig *config = self.queue.firstObject;
-    if (config) {
+    URBNAlertViewController *avc = self.queue.firstObject;
+    if (avc) {
         NSMutableArray *mutableQueue = self.queue.mutableCopy;
         [mutableQueue removeObjectAtIndex:0];
         self.queue = mutableQueue.copy;
-        [self showAlertWithConfig:config];
+        [self showAlertWithAlertViewController:avc];
     }
 }
 

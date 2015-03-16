@@ -12,12 +12,13 @@
 @class URBNAlertView;
 @class URBNAlertConfig;
 @class URBNAlertAction;
+@class URBNAlertStyle;
 
 typedef void(^URBNAlertViewButtonTouched)(URBNAlertAction *action);
 
 @interface URBNAlertView : UIView <UITextFieldDelegate>
 
-- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller;
+- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertStyler:(URBNAlertStyle *)alertStyler;
 
 // Blocks
 @property (nonatomic, copy) URBNAlertViewButtonTouched buttonTouchedBlock;

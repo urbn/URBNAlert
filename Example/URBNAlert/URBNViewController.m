@@ -26,6 +26,10 @@
     [super viewDidLoad];
     
     self.alertController = [URBNAlertController sharedInstance];
+    URBNAlertStyle *style = [URBNAlertStyle new];
+    style.buttonBackgroundColor = [UIColor blueColor];
+    style.buttonDenialBackgroundColor = [UIColor greenColor];
+    [self.alertController setAlertStyler:style];
 }
 
 #pragma mark - Getters
@@ -51,61 +55,60 @@
 
 #pragma mark - Active Alert Touches
 - (IBAction)activeAlertTouch:(id)sender {
-    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text." view:nil];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
     
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"Testing" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertViewController *alertViewController) {
-        NSLog(@"Ok");
-    }]];
-    
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive buttonTouched:^(URBNAlertViewController *alertViewController) {
-        NSLog(@"Cancel");
-        [alertViewController dismiss];
+    [uac addAction:[URBNAlertAction buttonWithTitle:@"Done" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertViewController *alertViewController) {
+        [alertViewController dismissAlert:self];
     }]];
     
     [uac show];
-//    [self.alertController setAlertStyler:nil];
-//    
-//    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever. You can also touch outside to dismiss this alert." hasInput:NO buttonTitles:@[@"Yes"] touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-//        [alertController dismissAlert];
-//    }];
 }
 
 - (IBAction)activeAlertTwoButtonTouch:(id)sender {
-    [self.alertController setAlertStyler:nil];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
+    [uac addAction:[URBNAlertAction buttonWithTitle:@"#1" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertViewController *alertViewController) {
+        [alertViewController dismissAlert:nil];
+    }]];
     
-    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttonTitles:@[@"Yes", @"No"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-        [alertController dismissAlert];
-    }];
+    [uac addAction:[URBNAlertAction buttonWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive buttonTouched:^(URBNAlertViewController *alertViewController) {
+        [alertViewController dismissAlert:self];
+    }]];
+    
+    [uac show];
 }
 
 - (IBAction)activeAlertColoredTouch:(id)sender {
-    URBNAlertStyle *alertStyle = [URBNAlertStyle new];
-    alertStyle.buttonBackgroundColor = [UIColor yellowColor];
-    alertStyle.buttonDenialBackgroundColor = [UIColor greenColor];
-    alertStyle.backgroundColor = [UIColor orangeColor];
-    alertStyle.buttonTitleColor = [UIColor blackColor];
-    alertStyle.titleColor = [UIColor purpleColor];
-    alertStyle.messageColor = [UIColor blackColor];
-    alertStyle.buttonCornerRadius = @0;
-    alertStyle.alertCornerRadius = @20;
-    alertStyle.buttonHeight = @30;
-    alertStyle.animationDuration = @0.2f;
-    alertStyle.alertShadowOffset = CGSizeMake(6, 6);
-    alertStyle.alertViewShadowColor = [UIColor greenColor];
-    alertStyle.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
-    [self.alertController setAlertStyler:alertStyle];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom Styled Alert" message:@"You can change the fonts, colors, button size, corner radius, and much more."];
+    uac.alertStyler.buttonBackgroundColor = [UIColor yellowColor];
+    uac.alertStyler.buttonDenialBackgroundColor = [UIColor purpleColor];
+    uac.alertStyler.backgroundColor = [UIColor orangeColor];
+    uac.alertStyler.buttonTitleColor = [UIColor blackColor];
+    uac.alertStyler.titleColor = [UIColor purpleColor];
+    uac.alertStyler.titleFont = [UIFont fontWithName:@"Chalkduster" size:30];
+    uac.alertStyler.messageColor = [UIColor blackColor];
+    uac.alertStyler.buttonCornerRadius = @0;
+    uac.alertStyler.alertCornerRadius = @20;
+    uac.alertStyler.buttonHeight = @30;
+    uac.alertStyler.animationDuration = @0.2f;
+    uac.alertStyler.alertShadowOffset = CGSizeMake(6, 6);
+    uac.alertStyler.alertViewShadowColor = [UIColor greenColor];
+    uac.alertStyler.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     
-    [self.alertController showActiveAlertWithTitle:@"Customized Alert" message:@"You can change the fonts, colors, button size, corner radius, and much more." hasInput:NO buttonTitles:@[@"Yes", @"No"] touchOutsideToDismiss:NO buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-        [alertController dismissAlert];
-    }];
+    [uac addAction:[URBNAlertAction buttonWithTitle:@"Close" actionType:URBNAlertActionTypeDestructive buttonTouched:^(URBNAlertViewController *alertViewController) {
+        [alertViewController dismissAlert:nil];
+    }]];
+    
+    [uac show];
 }
 
 - (IBAction)activeAlertCustomViewTouch:(id)sender {
-    [self.alertController setAlertStyler:nil];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text." view:self.customView];
     
-    [self.alertController showActiveAlertWithView:self.customView buttonTitles:@[@"Dismiss"] touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-        [alertController dismissAlert];
-    }];
+    [uac addAction:[URBNAlertAction buttonWithTitle:@"Done" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertViewController *alertViewController) {
+        [alertViewController dismissAlert:self];
+    }]];
+    
+    [uac show];
 }
 
 - (IBAction)activeAlertMultipleAlertsTouch:(id)sender {
