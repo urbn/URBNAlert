@@ -11,7 +11,7 @@
 #import "URBNAlertController.h"
 #import "URBNAlertConfig.h"
 #import <URBNConvenience/URBNMacros.h>
-#import "UIImage+ImageEffects.h"
+#import <URBNConvenience/UIImage+URBN.h>
 #import "URBNAlertAction.h"
 
 @interface URBNAlertViewController ()
@@ -43,15 +43,36 @@
     return [self initWithTitle:title message:message view:nil];
 }
 
+- (UITextField *)textField {
+    return self.alertView.textField;
+}
+
 #pragma mark - Methods
 - (void)addAction:(URBNAlertAction *)action {
     NSMutableArray *actions = [self.alertConfig.actions mutableCopy] ?: [NSMutableArray new];
     [actions addObject:action];
+    
+    NSAssert(actions.count <= 2, @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment. Please create an issue if you want more!");
+
     self.alertConfig.actions = [actions copy];
     
     if (action.actionType != URBNAlertActionTypePassive) {
         self.alertConfig.isActiveAlert = YES;
     }
+}
+
+- (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
+    UITextField *textField = [UITextField new];
+    if (configurationHandler) {
+        configurationHandler(textField);
+    }
+    
+    NSMutableArray *textFields = [self.alertConfig.textFields mutableCopy] ?: [NSMutableArray new];
+    [textFields addObject:textField];
+    
+    NSAssert(textFields.count <= 1, @"URBNAlertController: Active alerts only supports up 1 input text field at the moment. Please create an issue if you want more!");
+
+    self.alertConfig.textFields = [textFields copy];
 }
 
 - (void)show {
@@ -118,7 +139,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIImage *blurImage = [self.alertConfig.backgroundViewSnapshot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:[self.alertStyler.blurTintColor colorWithAlphaComponent:0.4f] saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
+    UIImage *screenShot = [UIImage screenShotOfView:self.alertController.window.rootViewController.view afterScreenUpdates:NO];
+    UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:[self.alertStyler.blurTintColor colorWithAlphaComponent:0.4f] saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
     UIImageView *blurImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
     [blurImageView setImage:blurImage];
     
@@ -198,6 +220,10 @@
             complete(self, YES);
         }
     }
+}
+
+- (void)dismiss {
+    [self dismissAlert:nil];
 }
 
 - (void)dismissAlert:(id)sender {

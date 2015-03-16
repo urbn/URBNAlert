@@ -126,14 +126,14 @@
     URBNAlertStyle *styler = [URBNAlertStyle new];
     
     // UIColors
-    styler.buttonBackgroundColor =  [[UIColor alloc] initWithCGColor:self.buttonBackgroundColor.CGColor];
-    styler.buttonDenialBackgroundColor =  [[UIColor alloc] initWithCGColor:self.buttonDenialBackgroundColor.CGColor];
-    styler.buttonTitleColor =  [[UIColor alloc] initWithCGColor:self.buttonTitleColor.CGColor];
-    styler.backgroundColor =  [[UIColor alloc] initWithCGColor:self.backgroundColor.CGColor];
-    styler.titleColor =  [[UIColor alloc] initWithCGColor:self.titleColor.CGColor];
-    styler.messageColor =  [[UIColor alloc] initWithCGColor:self.messageColor.CGColor];
-    styler.alertViewShadowColor =  [[UIColor alloc] initWithCGColor:self.alertViewShadowColor.CGColor];
-    styler.blurTintColor =  [[UIColor alloc] initWithCGColor:self.blurTintColor.CGColor];
+    styler.buttonBackgroundColor = [[UIColor alloc] initWithCGColor:self.buttonBackgroundColor.CGColor];
+    styler.buttonDenialBackgroundColor = [[UIColor alloc] initWithCGColor:self.buttonDenialBackgroundColor.CGColor];
+    styler.buttonTitleColor = [[UIColor alloc] initWithCGColor:self.buttonTitleColor.CGColor];
+    styler.backgroundColor = [[UIColor alloc] initWithCGColor:self.backgroundColor.CGColor];
+    styler.titleColor = [[UIColor alloc] initWithCGColor:self.titleColor.CGColor];
+    styler.messageColor = [[UIColor alloc] initWithCGColor:self.messageColor.CGColor];
+    styler.alertViewShadowColor = [[UIColor alloc] initWithCGColor:self.alertViewShadowColor.CGColor];
+    styler.blurTintColor = [[UIColor alloc] initWithCGColor:self.blurTintColor.CGColor];
 
     // UIFonts
     styler.titleFont = self.titleFont.copy;
@@ -154,10 +154,6 @@
     styler.alertViewShadowRadius = self.alertViewShadowRadius.copy;
     styler.blurSaturationDelta = self.blurSaturationDelta.copy;
     styler.alertCornerRadius = self.alertCornerRadius.copy;
-    
-    // Primitives
-    styler.inputKeyboardType = self.inputKeyboardType;
-    styler.inputReturnKeyType = self.inputReturnKeyType;
 
     return styler;
 }

@@ -14,7 +14,6 @@
 
 @interface URBNAlertController ()
 
-@property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) UIImage *backgroudViewSnapshot;
 @property (nonatomic, assign) BOOL alertIsVisible;
 @property (nonatomic, copy) NSArray *queue;
@@ -116,8 +115,6 @@
 #pragma mark - Methods
 - (void)showAlertWithAlertViewController:(URBNAlertViewController *)alertVC {
     if (!self.alertIsVisible) {
-        alertVC.alertConfig.backgroundViewSnapshot = self.backgroudViewSnapshot ?: [self takeSnapshotOfView:self.window.rootViewController.view];
-        //self.alertViewController = [[URBNAlertViewController alloc] initWithAlertConfig:config alertController:self];
         self.alertIsVisible = YES;
 
         __weak typeof(self) weakSelf = self;
@@ -170,21 +167,12 @@
     return calculatedDuration;
 }
 
-- (UIImage *)takeSnapshotOfView:(UIView *)view {
-    UIGraphicsBeginImageContext(CGSizeMake(view.frame.size.width, view.frame.size.height));
-    [view drawViewHierarchyInRect:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height) afterScreenUpdates:NO];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return image;
-}
-
 #pragma mark - Queueing
 - (void)queueAlert:(URBNAlertViewController *)avc {
     NSMutableArray *mutableQueue = self.queue.mutableCopy;
     if (!mutableQueue) {
         mutableQueue = [NSMutableArray new];
-        self.backgroudViewSnapshot = [self takeSnapshotOfView:self.window.rootViewController.view];
+        //self.backgroudViewSnapshot = [self takeSnapshotOfView:self.window.rootViewController.view];
     }
     
     [mutableQueue addObject:avc];

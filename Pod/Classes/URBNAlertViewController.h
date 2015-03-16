@@ -27,9 +27,12 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
 @property (nonatomic, strong) URBNAlertConfig *alertConfig;
 @property (nonatomic, strong) UIImage *viewSnapShot;
+@property (nonatomic, weak) UITextField *textField;
 
+- (void)dismiss;
 - (void)dismissAlert:(id)sender;
 - (void)addAction:(URBNAlertAction *)button;
+- (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler;
 
 // Blocks
 @property (nonatomic, copy) URBNAlertViewButtonTouched buttonTouchedBlock;

@@ -24,4 +24,6 @@ typedef void(^URBNAlertViewButtonTouched)(URBNAlertAction *action);
 @property (nonatomic, copy) URBNAlertViewButtonTouched buttonTouchedBlock;
 - (void)setButtonTouchedBlock:(URBNAlertViewButtonTouched)buttonTouchedBlock;
 
+@property (nonatomic, strong) UITextField *textField;
+
 @end

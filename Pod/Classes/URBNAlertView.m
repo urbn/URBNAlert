@@ -18,7 +18,6 @@
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *messageLabel;
 @property (nonatomic, strong) UIView *customView;
-@property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, copy) NSArray *buttons;
 
 @end
@@ -48,19 +47,18 @@
         
         [self addSubview:self.titleLabel];
         [self addSubview:self.messageLabel];
+        [self addSubview:self.customView];
         
-        if (!self.alertConfig.hasInput) {
-            [self addSubview:self.customView];
-            views = @{@"customView" : self.customView, @"buttonContainer" : buttonContainer, @"_titleLabel" : _titleLabel, @"_messageLabel" : _messageLabel};
-        }
-        else {
-            if (self.alertConfig.hasInput) {
-                [self addSubview:self.textField];
-                views = NSDictionaryOfVariableBindings(_titleLabel, _messageLabel, buttonContainer, _textField);
+        views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer);
+        
+        if (self.alertConfig.textFields) {
+            for (UITextField *textField in self.alertConfig.textFields) {
+                textField.translatesAutoresizingMaskIntoConstraints = NO;
             }
-            else {
-                views = NSDictionaryOfVariableBindings(_titleLabel, _messageLabel, buttonContainer);
-            }
+            self.textField = self.alertConfig.textFields.firstObject;
+            self.textField.translatesAutoresizingMaskIntoConstraints = NO;
+            [self addSubview:self.textField];
+            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer, _textField);
         }
         
         // Add some buttons
@@ -78,8 +76,40 @@
 
         [self addSubview:buttonContainer];
         
-        NSDictionary *metrics = @{@"sectionMargin" : self.alertStyler.sectionVerticalMargin, @"btnH" : self.alertStyler.buttonHeight, @"lblMargin" : self.alertStyler.labelHorizontalMargin, @"btnMargin" : self.alertStyler.buttonHorizontalMargin, @"cvMargin" : self.alertStyler.customViewMargin};
+        // Handle if no title or messages, give 0 margins
+        NSNumber *titleMargin = self.alertConfig.title.length > 0 ? self.alertStyler.sectionVerticalMargin : @0;
+        NSNumber *msgMargin = self.alertConfig.message.length > 0 ? self.alertStyler.sectionVerticalMargin : @0;
+
+        NSDictionary *metrics = @{@"sectionMargin" : self.alertStyler.sectionVerticalMargin,
+                                           @"btnH" : self.alertStyler.buttonHeight,
+                                     @"lblHMargin" : self.alertStyler.labelHorizontalMargin,
+                                   @"titleVMargin" : titleMargin,
+                                     @"msgVMargin" : msgMargin,
+                                      @"btnMargin" : self.alertStyler.buttonHorizontalMargin,
+                                       @"cvMargin" : self.alertStyler.customViewMargin};
         
+        for (UILabel *lbl in @[self.titleLabel, self.messageLabel]) {
+            lbl.translatesAutoresizingMaskIntoConstraints = NO;
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblHMargin-[lbl]-lblHMargin-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(lbl)]];
+        }
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-cvMargin-[_customView]-cvMargin-|" options:0 metrics:metrics views:views]];
+
+        if (!self.alertConfig.textFields) {
+            if (self.alertConfig.isActiveAlert) {
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+            }
+            // Passive alert, dont added margins for buttonContainer
+            else {
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-cvMargin-[_customView]-cvMargin-|" options:0 metrics:metrics views:views]];
+            }
+        }
+        else {
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblHMargin-[_textField]-lblHMargin-|" options:0 metrics:metrics views:views]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-cvMargin-[_textField]-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+        }
+        
+        // Button Constraints
         self.buttons = [btns copy];
         if (self.buttons.count == 1) {
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[btnOne]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
@@ -93,59 +123,6 @@
         // TODO: Handle 3+ buttons with a vertical layout
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
-        
-        
-        if (!self.alertConfig.hasInput) {
-            for (UILabel *lbl in @[self.titleLabel, self.messageLabel]) {
-                lbl.translatesAutoresizingMaskIntoConstraints = NO;
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblMargin-[lbl]-lblMargin-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(lbl)]];
-            }
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-cvMargin-[customView]-cvMargin-|" options:0 metrics:metrics views:views]];
-            
-            if (self.alertConfig.isActiveAlert) {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-sectionMargin-[_titleLabel]-sectionMargin-[_messageLabel]-cvMargin-[customView]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
-            }
-            // Passive alert, dont added margins for buttonContainer
-            else {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-cvMargin-[customView]-cvMargin-|" options:0 metrics:metrics views:views]];
-            }
-        }
-        else {
-            if (self.alertConfig.hasInput) {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblMargin-[_textField]-lblMargin-|" options:0 metrics:metrics views:views]];
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-sectionMargin-[_titleLabel]-sectionMargin-[_messageLabel]-sectionMargin-[_textField]-sectionMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
-            }
-        }
-        /*
-        // Custom view constarints
-        if (self.alertConfig.customView) {
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-cvMargin-[customView]-cvMargin-|" options:0 metrics:metrics views:views]];
-            
-            if (self.alertConfig.isActiveAlert) {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-cvMargin-[customView]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
-            }
-            // Passive alert, dont added margins for buttonContainer
-            else {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-cvMargin-[customView]-cvMargin-|" options:0 metrics:metrics views:views]];
-            }
-        }
-        else {
-            // Title & message label constarints
-            for (UILabel *lbl in @[self.titleLabel, self.messageLabel]) {
-                lbl.translatesAutoresizingMaskIntoConstraints = NO;
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblMargin-[lbl]-lblMargin-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(lbl)]];
-            }
-            
-            // Textfield input constarints
-            if (self.alertConfig.hasInput) {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblMargin-[_textField]-lblMargin-|" options:0 metrics:metrics views:views]];
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-sectionMargin-[_titleLabel]-sectionMargin-[_messageLabel]-sectionMargin-[_textField]-sectionMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
-            }
-            else {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-sectionMargin-[_titleLabel]-sectionMargin-[_messageLabel]-cvMargin-[customView]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
-            }
-        }
-         */
     }
     
     return self;
@@ -165,19 +142,6 @@
 }
 
 #pragma mark - Getters
-- (UITextField *)textField {
-    if (!_textField) {
-        self.textField = [UITextField new];
-        self.textField.delegate = self;
-        self.textField.borderStyle = UITextBorderStyleRoundedRect;
-        self.textField.translatesAutoresizingMaskIntoConstraints = NO;
-        self.textField.keyboardType = self.alertStyler.inputKeyboardType;
-        self.textField.returnKeyType = self.alertStyler.inputReturnKeyType;
-    }
-    
-    return _textField;
-}
-
 - (UILabel *)titleLabel {
     if (!_titleLabel) {
         _titleLabel = [UILabel new];

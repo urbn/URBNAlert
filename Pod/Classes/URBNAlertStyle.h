@@ -135,14 +135,4 @@
  */
 @property (nonatomic, strong) NSNumber *blurSaturationDelta;
 
-/**
- * Keyboard type for the text field
- */
-@property (nonatomic, assign) UIKeyboardType inputKeyboardType;
-
-/**
- * Return key type for the text field
- */
-@property (nonatomic, assign) UIReturnKeyType inputReturnKeyType;
-
 @end

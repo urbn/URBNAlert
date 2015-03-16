@@ -86,6 +86,8 @@ typedef void(^URBNAlertPassiveAlertDismissed)(URBNAlertController *alertControll
  */
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
 
+@property (nonatomic, strong) UIWindow *window;
+
 - (void)showAlertWithAlertViewController:(URBNAlertViewController *)alertVC;
 
 @end

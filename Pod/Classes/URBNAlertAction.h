@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class URBNAlertViewController;
+@class URBNAlertAction;
 
 typedef NS_ENUM(NSInteger, URBNAlertActionType) {
     URBNAlertActionTypeNormal,
@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, URBNAlertActionType) {
     URBNAlertActionTypePassive
 };
 
-typedef void(^URBNAlertCompletion)(URBNAlertViewController *alertViewController);
+typedef void(^URBNAlertCompletion)(URBNAlertAction *action);
 
 @interface URBNAlertAction : NSObject
 
