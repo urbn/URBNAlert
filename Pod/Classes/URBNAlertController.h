@@ -34,6 +34,6 @@ typedef void(^URBNAlertPassiveAlertDismissed)(URBNAlertController *alertControll
 
 @property (nonatomic, strong) UIWindow *window;
 
-- (void)showAlertWithAlertViewController:(URBNAlertViewController *)alertVC;
-
+- (void)showNextAlert;
+- (void)addAlertToQueueWithAlertViewController:(URBNAlertViewController *)avc;
 @end

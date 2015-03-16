@@ -39,20 +39,22 @@
     _alertStyler = alertStyler ?: [URBNAlertStyle new];
 }
 
-#pragma mark - Methods
-- (void)showAlertWithAlertViewController:(URBNAlertViewController *)alertVC {
-    if (!self.alertIsVisible) {
+#pragma mark - Show / Dismiss Methods
+- (void)showNextAlert {
+    if (!self.alertIsVisible && self.queue.firstObject) {
         self.alertIsVisible = YES;
 
+        URBNAlertViewController *avc = [self peekQueue];
+        
         __weak typeof(self) weakSelf = self;
-        __weak typeof(alertVC) weakAlertVC = alertVC;
-        [alertVC.alertView setButtonTouchedBlock:^(URBNAlertAction *action) {
+        __weak typeof(avc) weakAlertVC = avc;
+        [avc.alertView setButtonTouchedBlock:^(URBNAlertAction *action) {
             if (action.completionBlock) {
                 action.completionBlock(action);
             }
         }];
         
-        [alertVC setTouchedOutsideBlock:^{
+        [avc setTouchedOutsideBlock:^{
             weakSelf.alertIsVisible = NO;
 
             if (weakAlertVC.alertConfig.passiveAlertDismissedBlock) {
@@ -60,23 +62,28 @@
             }
         }];
         
-        [self.window.rootViewController addChildViewController:alertVC];
-        [self.window.rootViewController.view addSubview:alertVC.view];
+        [self.window.rootViewController addChildViewController:avc];
+        [self.window.rootViewController.view addSubview:avc.view];
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
-        if (!alertVC.alertConfig.isActiveAlert) {
-            [self performSelector:@selector(dismissAlert) withObject:nil afterDelay:alertVC.alertConfig.duration];
+        if (!avc.alertConfig.isActiveAlert) {
+            CGFloat duration = avc.alertConfig.duration == 0 ? [self calculateDuration:avc.alertConfig] : avc.alertConfig.duration;
+            [self performSelector:@selector(dismissPassiveAlert:) withObject:avc afterDelay:duration];
         }
     }
-    else {
-        [self queueAlert:alertVC];
-    }
+}
+
+- (void)dismissPassiveAlert:(URBNAlertViewController *)avc {
+    self.alertIsVisible = NO;
+    [self popQueue];
+    [avc dismiss];
+    [self showNextAlert];
 }
 
 - (void)dismissAlert {
     self.alertIsVisible = NO;
-    
-    [self dequeueAlert];
+    [self popQueue];
+    [self showNextAlert];
 }
 
 - (CGFloat)calculateDuration:(URBNAlertConfig *)config {
@@ -91,7 +98,7 @@
 }
 
 #pragma mark - Queueing
-- (void)queueAlert:(URBNAlertViewController *)avc {
+- (void)addAlertToQueueWithAlertViewController:(URBNAlertViewController *)avc {
     NSMutableArray *mutableQueue = self.queue.mutableCopy;
     if (!mutableQueue) {
         mutableQueue = [NSMutableArray new];
@@ -99,16 +106,23 @@
     
     [mutableQueue addObject:avc];
     self.queue = mutableQueue.copy;
+    
+    [self showNextAlert];
 }
 
-- (void)dequeueAlert {
+- (URBNAlertViewController *)popQueue {
     URBNAlertViewController *avc = self.queue.firstObject;
     if (avc) {
         NSMutableArray *mutableQueue = self.queue.mutableCopy;
         [mutableQueue removeObjectAtIndex:0];
         self.queue = mutableQueue.copy;
-        [self showAlertWithAlertViewController:avc];
     }
+    
+    return avc;
+}
+
+- (URBNAlertViewController *)peekQueue {
+    return self.queue.firstObject;
 }
 
 @end

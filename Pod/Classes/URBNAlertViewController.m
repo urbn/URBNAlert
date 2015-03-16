@@ -97,7 +97,7 @@
     [self.view addConstraint:self.yPosConstraint];
     [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
     
-    [self.alertController showAlertWithAlertViewController:self];
+    [self.alertController addAlertToQueueWithAlertViewController:self];
 }
 
 - (void)showInView:(UIView *)view {

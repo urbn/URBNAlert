@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "URBNAlertView.h"
 #import "URBNAlertStyle.h"
+#import "URBNAlertConfig.h"
 
 @class URBNAlertController;
 @class URBNAlertViewController;
@@ -26,7 +27,6 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 @property (nonatomic, strong) URBNAlertView *alertView;
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
 @property (nonatomic, strong) URBNAlertConfig *alertConfig;
-@property (nonatomic, strong) UIImage *viewSnapShot;
 @property (nonatomic, weak) UITextField *textField;
 
 - (void)dismiss;

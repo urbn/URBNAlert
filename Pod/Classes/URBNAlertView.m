@@ -101,7 +101,7 @@
             }
             // Passive alert, dont added margins for buttonContainer
             else {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-cvMargin-[_customView]-cvMargin-|" options:0 metrics:metrics views:views]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-cvMargin-|" options:0 metrics:metrics views:views]];
             }
         }
         else {

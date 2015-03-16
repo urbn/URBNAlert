@@ -149,17 +149,14 @@
 
 #pragma mark - Passive Alert Touches
 - (IBAction)passiveAlertSimpleTouch:(id)sender {
-    [self.alertController setAlertStyler:nil];
-
-//    [self.alertController showPassiveAlertWithTitle:@"Passive alerts!" message:@"Hopefully you can read all of this text before the alert dismisses. If no duration is supplied than it is calculated based on the number of words in the message & title. If you are an extremely slow reader.. sorry bro.\n\nThe 2nd paragraph starts here for this passive alert with a long message. It keeps on going and going. You can always touch outside the alert, or on the alert to dismiss." touchOutsideToDismiss:YES alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
-//        [alertController dismissAlert];
-//    }];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
+    [uac show];
 }
 
 - (IBAction)passiveAlertsSimleTouchShort:(id)sender {
-//    [self.alertController setAlertStyler:nil];
-//    
-//    [self.alertController showPassiveAlertWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration." touchOutsideToDismiss:NO alertDismissedBlock:nil];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration."];
+    uac.alertConfig.duration = 2.0f;
+    [uac show];
 }
 
 - (IBAction)passiveAlertCustomViewTouch:(id)sender {
