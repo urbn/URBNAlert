@@ -24,19 +24,20 @@
 
 @implementation URBNAlertView 
 
-- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertStyler:(URBNAlertStyle *)alertStyler {
+- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertStyler:(URBNAlertStyle *)alertStyler customView:(UIView *)customView textField:(UITextField *)textField {
     self = [super init];
     if (self) {
         self.alertConfig = config;
         self.alertStyler = alertStyler;
+        self.textField = textField;
         
-        if (!self.alertConfig.customView) {
+        if (!customView) {
             UIView *dummyView = [UIView new];
             dummyView.translatesAutoresizingMaskIntoConstraints = NO;
             self.customView = dummyView;
         }
         else {
-            self.customView = self.alertConfig.customView;
+            self.customView = customView;
         }
         
         self.backgroundColor = self.alertStyler.backgroundColor ?: [UIColor whiteColor];
@@ -49,13 +50,13 @@
         [self addSubview:self.messageLabel];
         [self addSubview:self.customView];
         
-        views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer);
-        
-        if (self.alertConfig.textField) {
-            self.alertConfig.textField.translatesAutoresizingMaskIntoConstraints = NO;
-            self.alertConfig.textField.translatesAutoresizingMaskIntoConstraints = NO;
-            [self addSubview:self.alertConfig.textField];
-            views = @{@"textField" : self.alertConfig.textField, @"_titleLabel" : _titleLabel, @"_messageLabel" : _messageLabel, @"buttonContainer" : buttonContainer, @"_customView" : _customView};
+        if (self.textField) {
+            self.textField.translatesAutoresizingMaskIntoConstraints = NO;
+            [self addSubview:self.textField];
+            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer, _textField);
+        }
+        else {
+            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer);
         }
         
         // Add some buttons
@@ -92,7 +93,7 @@
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-cvMargin-[_customView]-cvMargin-|" options:0 metrics:metrics views:views]];
 
-        if (!self.alertConfig.textField) {
+        if (!self.textField) {
             if (self.alertConfig.isActiveAlert) {
                 [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
             }
@@ -102,8 +103,8 @@
             }
         }
         else {
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblHMargin-[textField]-lblHMargin-|" options:0 metrics:metrics views:views]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-cvMargin-[textField]-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblHMargin-[_textField]-lblHMargin-|" options:0 metrics:metrics views:views]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-cvMargin-[_textField]-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
         }
         
         // Button Constraints

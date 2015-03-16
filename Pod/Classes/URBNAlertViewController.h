@@ -19,15 +19,14 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 
 @interface URBNAlertViewController : UIViewController
 
-- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller;
-
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message view:(UIView *)view;
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message;
 
 @property (nonatomic, strong) URBNAlertView *alertView;
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
 @property (nonatomic, strong) URBNAlertConfig *alertConfig;
-@property (nonatomic, weak) UITextField *textField;
+@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) UIView *customView;
 
 - (void)show;
 - (void)dismiss;

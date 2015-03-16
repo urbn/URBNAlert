@@ -36,4 +36,5 @@ typedef void(^URBNAlertPassiveAlertDismissed)(URBNAlertController *alertControll
 
 - (void)showNextAlert;
 - (void)addAlertToQueueWithAlertViewController:(URBNAlertViewController *)avc;
+
 @end

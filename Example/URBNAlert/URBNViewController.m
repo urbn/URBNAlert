@@ -113,7 +113,7 @@
 
 - (IBAction)activeAlertMultipleAlertsTouch:(id)sender {
     [self activeAlertTouch:nil];
-    [self activeAlertTouch:nil];
+    [self activeAlertCustomViewTouch:nil];
     [self activeAlertTouch:nil];
 
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];

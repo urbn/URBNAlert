@@ -31,7 +31,7 @@
         self.alertConfig = [URBNAlertConfig new];
         self.alertConfig.title = title;
         self.alertConfig.message = message;
-        self.alertConfig.customView = view;
+        self.customView = view;
         self.alertController = [URBNAlertController sharedInstance];
         self.alertStyler = [self.alertController.alertStyler copy];
     }
@@ -58,19 +58,18 @@
 }
 
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
-    NSAssert(!self.alertConfig.textField, @"URBNAlertController: Active alerts only supports up 1 input text field at the moment. Please create an issue if you want more!");
+    NSAssert(!self.textField, @"URBNAlertController: Active alerts only supports up 1 input text field at the moment. Please create an issue if you want more!");
 
     UITextField *textField = [UITextField new];
     if (configurationHandler) {
         configurationHandler(textField);
     }
     
-    self.alertConfig.textField = textField;
     self.textField = textField;
 }
 
 - (void)show {
-    self.alertView = [[URBNAlertView alloc] initWithAlertConfig:self.alertConfig alertStyler:self.alertStyler];
+    self.alertView = [[URBNAlertView alloc] initWithAlertConfig:self.alertConfig alertStyler:self.alertStyler customView:self.customView textField:self.textField];
     self.alertView.alpha = 0;
     self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -96,37 +95,6 @@
 
 - (void)showInView:(UIView *)view {
     
-}
-
-- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertController:(URBNAlertController *)controller {
-    self = [super init];
-    if (self) {
-        self.alertController = controller;
-        self.alertConfig = config;
-        
-        self.alertView = [[URBNAlertView alloc] initWithAlertConfig:config alertStyler:self.alertStyler];
-        self.alertView.alpha = 0;
-        self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
-        
-        CGFloat screenWdith;
-        if ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]) {
-            screenWdith = [UIScreen mainScreen].nativeBounds.size.width;
-        }
-        else {
-            screenWdith = [UIScreen mainScreen].bounds.size.width;
-        }
-        
-        CGFloat sideMargins = IS_IPHONE_6P ? screenWdith * 0.1 : screenWdith * 0.05;
-
-        NSDictionary *metrics = @{@"sideMargins" : @(sideMargins)};
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-sideMargins-[_alertView]-sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
-        
-        self.yPosConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
-        [self.view addConstraint:self.yPosConstraint];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-    }
-    
-    return self;
 }
 
 #pragma mark - Lifecycle

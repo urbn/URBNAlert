@@ -14,8 +14,6 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, copy) NSArray *actions;
-@property (nonatomic, strong) UITextField *textField;
-@property (nonatomic, strong) UIView *customView;
 
 @property (nonatomic, assign) BOOL touchOutsideToDismiss;
 @property (nonatomic, assign) BOOL hasInput;
