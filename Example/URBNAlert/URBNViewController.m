@@ -28,7 +28,7 @@
     self.alertController = [URBNAlertController sharedInstance];
     URBNAlertStyle *style = [URBNAlertStyle new];
     style.buttonBackgroundColor = [UIColor blueColor];
-    style.buttonDenialBackgroundColor = [UIColor greenColor];
+    style.buttonDestructionBackgroundColor = [UIColor greenColor];
     [self.alertController setAlertStyler:style];
 }
 
@@ -80,7 +80,7 @@
 - (IBAction)activeAlertColoredTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom Styled Alert" message:@"You can change the fonts, colors, button size, corner radius, and much more."];
     uac.alertStyler.buttonBackgroundColor = [UIColor yellowColor];
-    uac.alertStyler.buttonDenialBackgroundColor = [UIColor purpleColor];
+    uac.alertStyler.buttonDestructionBackgroundColor = [UIColor purpleColor];
     uac.alertStyler.backgroundColor = [UIColor orangeColor];
     uac.alertStyler.buttonTitleColor = [UIColor blackColor];
     uac.alertStyler.titleColor = [UIColor purpleColor];

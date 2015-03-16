@@ -18,7 +18,7 @@
 /**
  * Background color of the denial button for an active alert (at position 0)
  */
-@property (nonatomic, strong) UIColor *buttonDenialBackgroundColor;
+@property (nonatomic, strong) UIColor *buttonDestructionBackgroundColor;
 
 /**
  * Text color of the button titles

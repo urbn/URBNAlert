@@ -43,10 +43,6 @@
     return [self initWithTitle:title message:message view:nil];
 }
 
-- (UITextField *)textField {
-    return self.alertView.textField;
-}
-
 #pragma mark - Methods
 - (void)addAction:(URBNAlertAction *)action {
     NSMutableArray *actions = [self.alertConfig.actions mutableCopy] ?: [NSMutableArray new];
@@ -62,17 +58,15 @@
 }
 
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
+    NSAssert(!self.alertConfig.textField, @"URBNAlertController: Active alerts only supports up 1 input text field at the moment. Please create an issue if you want more!");
+
     UITextField *textField = [UITextField new];
     if (configurationHandler) {
         configurationHandler(textField);
     }
     
-    NSMutableArray *textFields = [self.alertConfig.textFields mutableCopy] ?: [NSMutableArray new];
-    [textFields addObject:textField];
-    
-    NSAssert(textFields.count <= 1, @"URBNAlertController: Active alerts only supports up 1 input text field at the moment. Please create an issue if you want more!");
-
-    self.alertConfig.textFields = [textFields copy];
+    self.alertConfig.textField = textField;
+    self.textField = textField;
 }
 
 - (void)show {

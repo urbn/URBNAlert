@@ -41,8 +41,8 @@
     return _buttonBackgroundColor ?: [UIColor lightGrayColor];
 }
 
-- (UIColor *)buttonDenialBackgroundColor {
-    return _buttonDenialBackgroundColor ?: [UIColor redColor];
+- (UIColor *)buttonDestructionBackgroundColor {
+    return _buttonDestructionBackgroundColor ?: [UIColor redColor];
 }
 
 - (NSNumber *)buttonCornerRadius {
@@ -127,7 +127,7 @@
     
     // UIColors
     styler.buttonBackgroundColor = [[UIColor alloc] initWithCGColor:self.buttonBackgroundColor.CGColor];
-    styler.buttonDenialBackgroundColor = [[UIColor alloc] initWithCGColor:self.buttonDenialBackgroundColor.CGColor];
+    styler.buttonDestructionBackgroundColor = [[UIColor alloc] initWithCGColor:self.buttonDestructionBackgroundColor.CGColor];
     styler.buttonTitleColor = [[UIColor alloc] initWithCGColor:self.buttonTitleColor.CGColor];
     styler.backgroundColor = [[UIColor alloc] initWithCGColor:self.backgroundColor.CGColor];
     styler.titleColor = [[UIColor alloc] initWithCGColor:self.titleColor.CGColor];

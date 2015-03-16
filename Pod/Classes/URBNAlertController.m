@@ -41,7 +41,7 @@
 
 #pragma mark - Show / Dismiss Methods
 - (void)showNextAlert {
-    if (!self.alertIsVisible && self.queue.firstObject) {
+    if (!self.alertIsVisible && [self peekQueue]) {
         self.alertIsVisible = YES;
 
         URBNAlertViewController *avc = [self peekQueue];

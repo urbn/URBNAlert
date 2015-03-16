@@ -14,9 +14,8 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, copy) NSArray *actions;
-@property (nonatomic, copy) NSArray *textFields;
+@property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UIView *customView;
-@property (nonatomic, strong) UIImage *backgroundViewSnapshot;
 
 @property (nonatomic, assign) BOOL touchOutsideToDismiss;
 @property (nonatomic, assign) BOOL hasInput;
@@ -24,7 +23,6 @@
 
 @property (nonatomic, assign) NSInteger duration;
 
-@property (nonatomic, copy) URBNAlertButtonTouched buttonTouchedBlock;
 @property (nonatomic, copy) URBNAlertPassiveAlertDismissed passiveAlertDismissedBlock;
 
 @end
