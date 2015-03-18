@@ -15,12 +15,14 @@
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, copy) NSArray *actions;
 
-@property (nonatomic, assign) BOOL touchOutsideToDismiss;
+@property (nonatomic, assign) BOOL touchOutsideViewToDismiss;
+@property (nonatomic, assign) BOOL touchViewToDismiss;
 @property (nonatomic, assign) BOOL hasInput;
 @property (nonatomic, assign) BOOL isActiveAlert;
 
 @property (nonatomic, assign) NSInteger duration;
 
 @property (nonatomic, copy) URBNAlertPassiveAlertDismissed passiveAlertDismissedBlock;
+- (void) setPassiveAlertDismissedBlock:(URBNAlertPassiveAlertDismissed)passiveAlertDismissedBlock;
 
 @end

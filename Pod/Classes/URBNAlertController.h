@@ -15,7 +15,7 @@
 @class URBNAlertViewController;
 
 typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSInteger index);
-typedef void(^URBNAlertPassiveAlertDismissed)(URBNAlertController *alertController, BOOL alertWasTouched);
+typedef void(^URBNAlertPassiveAlertDismissed)(URBNAlertViewController *alertViewController, BOOL alertWasTouched);
 
 @interface URBNAlertController : NSObject
 

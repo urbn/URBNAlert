@@ -150,6 +150,15 @@
 #pragma mark - Passive Alert Touches
 - (IBAction)passiveAlertSimpleTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
+    uac.alertConfig.touchOutsideViewToDismiss = YES;
+    
+    [uac.alertConfig setPassiveAlertDismissedBlock:^(URBNAlertViewController *alertViewController, BOOL alertWasTouched) {
+        if (alertWasTouched) {
+            // Push to a another VC potentially, or show another alert
+            [alertViewController dismiss];
+        }
+    }];
+    
     [uac show];
 }
 

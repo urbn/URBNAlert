@@ -116,7 +116,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.alertConfig.touchOutsideToDismiss) {
+    if (self.alertConfig.touchOutsideViewToDismiss) {
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAlert:)];
         [self.view addGestureRecognizer:tapGesture];
     }
@@ -207,7 +207,7 @@
 - (void)passiveAlertViewTouched {
     __weak typeof(self) weakSelf = self;
     if (self.alertConfig.passiveAlertDismissedBlock) {
-        weakSelf.alertConfig.passiveAlertDismissedBlock(weakSelf.alertController, YES);
+        weakSelf.alertConfig.passiveAlertDismissedBlock(weakSelf, YES);
     }
 }
 

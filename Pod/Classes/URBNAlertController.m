@@ -58,7 +58,7 @@
             weakSelf.alertIsVisible = NO;
 
             if (weakAlertVC.alertConfig.passiveAlertDismissedBlock) {
-                weakAlertVC.alertConfig.passiveAlertDismissedBlock(weakSelf, NO);
+                weakAlertVC.alertConfig.passiveAlertDismissedBlock(weakAlertVC, NO);
             }
         }];
         
