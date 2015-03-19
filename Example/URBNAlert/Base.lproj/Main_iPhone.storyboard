@@ -69,7 +69,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="passiveAlertsSimleTouchShort:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="A5g-2D-YYk"/>
+                                    <action selector="passiveAlertsSimpleTouchShort:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Cap-DU-F3u"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTd-jZ-uUh">

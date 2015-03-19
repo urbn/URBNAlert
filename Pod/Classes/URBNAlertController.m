@@ -86,6 +86,7 @@
     [self showNextAlert];
 }
 
+#pragma mark - Methods
 - (CGFloat)calculateDuration:(URBNAlertConfig *)config {
     // The average number of words a person can read for minute is 250 - 300
     NSInteger wordCount = [[config.title componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] count];

@@ -43,60 +43,6 @@
     return [self initWithTitle:title message:message view:nil];
 }
 
-#pragma mark - Methods
-- (void)addAction:(URBNAlertAction *)action {
-    NSMutableArray *actions = [self.alertConfig.actions mutableCopy] ?: [NSMutableArray new];
-    [actions addObject:action];
-    
-    NSAssert(actions.count <= 2, @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment. Please create an issue if you want more!");
-
-    self.alertConfig.actions = [actions copy];
-    
-    if (action.actionType != URBNAlertActionTypePassive) {
-        self.alertConfig.isActiveAlert = YES;
-    }
-}
-
-- (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
-    NSAssert(!self.textField, @"URBNAlertController: Active alerts only supports up 1 input text field at the moment. Please create an issue if you want more!");
-
-    UITextField *textField = [UITextField new];
-    if (configurationHandler) {
-        configurationHandler(textField);
-    }
-    
-    self.textField = textField;
-}
-
-- (void)show {
-    self.alertView = [[URBNAlertView alloc] initWithAlertConfig:self.alertConfig alertStyler:self.alertStyler customView:self.customView textField:self.textField];
-    self.alertView.alpha = 0;
-    self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    CGFloat screenWdith;
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]) {
-        screenWdith = [UIScreen mainScreen].nativeBounds.size.width;
-    }
-    else {
-        screenWdith = [UIScreen mainScreen].bounds.size.width;
-    }
-    
-    CGFloat sideMargins = IS_IPHONE_6P ? screenWdith * 0.1 : screenWdith * 0.05;
-    
-    NSDictionary *metrics = @{@"sideMargins" : @(sideMargins)};
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-sideMargins-[_alertView]-sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
-    
-    self.yPosConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
-    [self.view addConstraint:self.yPosConstraint];
-    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
-    
-    [self.alertController addAlertToQueueWithAlertViewController:self];
-}
-
-- (void)showInView:(UIView *)view {
-    
-}
-
 #pragma mark - Lifecycle
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -142,6 +88,64 @@
 }
 
 #pragma mark - Methods
+- (void)addAction:(URBNAlertAction *)action {
+    NSMutableArray *actions = [self.alertConfig.actions mutableCopy] ?: [NSMutableArray new];
+    [actions addObject:action];
+    
+    NSAssert(actions.count <= 2, @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment. Please create an issue if you want more!");
+    
+    self.alertConfig.actions = [actions copy];
+    
+    if (action.actionType != URBNAlertActionTypePassive) {
+        self.alertConfig.isActiveAlert = YES;
+    }
+}
+
+- (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
+    NSAssert(!self.textField, @"URBNAlertController: Active alerts only supports up 1 input text field at the moment. Please create an issue if you want more!");
+    
+    UITextField *textField = [UITextField new];
+    if (configurationHandler) {
+        configurationHandler(textField);
+    }
+    
+    self.textField = textField;
+}
+
+- (void)show {
+    self.alertView = [[URBNAlertView alloc] initWithAlertConfig:self.alertConfig alertStyler:self.alertStyler customView:self.customView textField:self.textField];
+    self.alertView.alpha = 0;
+    self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    CGFloat screenWdith;
+    if ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]) {
+        screenWdith = [UIScreen mainScreen].nativeBounds.size.width;
+    }
+    else {
+        screenWdith = [UIScreen mainScreen].bounds.size.width;
+    }
+    
+    CGFloat sideMargins = IS_IPHONE_6P ? screenWdith * 0.1 : screenWdith * 0.05;
+    
+    NSDictionary *metrics = @{@"sideMargins" : @(sideMargins)};
+    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-sideMargins-[_alertView]-sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
+    
+    self.yPosConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
+    [self.view addConstraint:self.yPosConstraint];
+    [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0]];
+    
+    [self.alertController addAlertToQueueWithAlertViewController:self];
+}
+
+- (void)showInView:(UIView *)view {
+    
+}
+
+- (void)dismiss {
+    [self dismissAlert:nil];
+}
+
+#pragma mark - Methods
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)(URBNAlertViewController *alertVC, BOOL finished))complete {
     self.visible = visible;
     
@@ -184,8 +188,12 @@
     }
 }
 
-- (void)dismiss {
-    [self dismissAlert:nil];
+#pragma mark - Action
+- (void)passiveAlertViewTouched {
+    __weak typeof(self) weakSelf = self;
+    if (self.alertConfig.passiveAlertDismissedBlock) {
+        weakSelf.alertConfig.passiveAlertDismissedBlock(weakSelf, YES);
+    }
 }
 
 - (void)dismissAlert:(id)sender {
@@ -204,12 +212,6 @@
     }];
 }
 
-- (void)passiveAlertViewTouched {
-    __weak typeof(self) weakSelf = self;
-    if (self.alertConfig.passiveAlertDismissedBlock) {
-        weakSelf.alertConfig.passiveAlertDismissedBlock(weakSelf, YES);
-    }
-}
 
 #pragma mark - Keyboard Notifications
 - (void)keyboardWillShow:(NSNotification *)sender {

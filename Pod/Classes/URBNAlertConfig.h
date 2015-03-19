@@ -16,7 +16,6 @@
 @property (nonatomic, copy) NSArray *actions;
 
 @property (nonatomic, assign) BOOL touchOutsideViewToDismiss;
-@property (nonatomic, assign) BOOL touchViewToDismiss;
 @property (nonatomic, assign) BOOL hasInput;
 @property (nonatomic, assign) BOOL isActiveAlert;
 

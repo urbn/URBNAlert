@@ -26,10 +26,8 @@
     [super viewDidLoad];
     
     self.alertController = [URBNAlertController sharedInstance];
-    URBNAlertStyle *style = [URBNAlertStyle new];
-    style.buttonBackgroundColor = [UIColor blueColor];
-    style.buttonDestructionBackgroundColor = [UIColor greenColor];
-    [self.alertController setAlertStyler:style];
+    self.alertController.alertStyler.buttonBackgroundColor = [UIColor blueColor];
+    self.alertController.alertStyler.buttonDestructionBackgroundColor = [UIColor greenColor];
 }
 
 #pragma mark - Getters
@@ -53,6 +51,9 @@
     return _customView;
 }
 
+
+
+
 #pragma mark - Active Alert Touches
 - (IBAction)activeAlertTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
@@ -63,6 +64,9 @@
     
     [uac show];
 }
+
+
+
 
 - (IBAction)activeAlertTwoButtonTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
@@ -76,6 +80,9 @@
     
     [uac show];
 }
+
+
+
 
 - (IBAction)activeAlertColoredTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom Styled Alert" message:@"You can change the fonts, colors, button size, corner radius, and much more."];
@@ -101,6 +108,9 @@
     [uac show];
 }
 
+
+
+
 - (IBAction)activeAlertCustomViewTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom View" message:nil view:self.customView];
     
@@ -110,6 +120,9 @@
     
     [uac show];
 }
+
+
+
 
 - (IBAction)activeAlertMultipleAlertsTouch:(id)sender {
     [self activeAlertTouch:nil];
@@ -129,6 +142,9 @@
     [uac show];
 }
 
+
+
+
 - (IBAction)activeAlertInputTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Input Alert" message:@"Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. and message and message and going on forever and ever." view:nil];
     
@@ -147,6 +163,9 @@
     [uac show];
 }
 
+
+
+
 #pragma mark - Passive Alert Touches
 - (IBAction)passiveAlertSimpleTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
@@ -162,34 +181,33 @@
     [uac show];
 }
 
-- (IBAction)passiveAlertsSimleTouchShort:(id)sender {
+- (IBAction)passiveAlertsSimpleTouchShort:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration."];
     uac.alertConfig.duration = 2.0f;
     [uac show];
 }
 
 - (IBAction)passiveAlertCustomViewTouch:(id)sender {
-//    URBNAlertStyle *alertStyle = [URBNAlertStyle new];
-//    alertStyle.customViewMargin = @0;
-//    [self.alertController setAlertStyler:alertStyle];
-//
-//    [self.alertController showPassiveAlertWithView:self.customView touchOutsideToDismiss:YES duration:2.f alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
-//        [alertController dismissAlert];
-//    }];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:nil message:nil view:self.customView];
+    uac.alertConfig.duration = 5.0f;
+    uac.alertConfig.touchOutsideViewToDismiss = YES;
+    
+    [uac.alertConfig setPassiveAlertDismissedBlock:^(URBNAlertViewController *alertViewController, BOOL alertWasTouched) {
+        if (alertWasTouched) {
+            // Push to a another VC potentially, or show another alert
+            [alertViewController dismiss];
+        }
+    }];
+    
+    [uac show];
 }
 
+
+
 - (IBAction)passiveAlertQueuedTouched:(id)sender {
-//    [self.alertController setAlertStyler:nil];
-//
-//    [self.alertController showPassiveAlertWithTitle:@"#1" message:@"Hopefully you can read all of this text before the alert dismisses. If no duration is supplied than it is calculated based on the number of words in the message & title. If you are an extremely slow reader.. sorry bro.\n\nThe 2nd paragraph starts here for this passive alert with a long message. It keeps on going and going. You can always touch outside the alert, or on the alert to dismiss." touchOutsideToDismiss:YES alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
-//        [alertController dismissAlert];
-//    }];
-//    
-//    [self.alertController showPassiveAlertWithTitle:@"#2" message:@"Very short alert. Minimum 2 second duration." touchOutsideToDismiss:NO alertDismissedBlock:nil];
-//
-//    [self.alertController showPassiveAlertWithView:self.customView touchOutsideToDismiss:YES duration:2.f alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {
-//        [alertController dismissAlert];
-//    }];
+    [self passiveAlertSimpleTouch:nil];
+    [self passiveAlertCustomViewTouch:nil];
+    [self passiveAlertsSimpleTouchShort:nil];
 }
 
 @end
