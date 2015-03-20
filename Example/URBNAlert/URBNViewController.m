@@ -21,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Set global stlying. This can be done sometime during app launch. You can change style options per alert as well.
     self.alertController = [URBNAlertController sharedInstance];
     self.alertController.alertStyler.buttonBackgroundColor = [UIColor blueColor];
     self.alertController.alertStyler.buttonDestructionBackgroundColor = [UIColor greenColor];
@@ -34,7 +35,7 @@
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
     
     [uac addAction:[URBNAlertAction buttonWithTitle:@"Done" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertAction *action) {
-        [uac dismiss];
+  
     }]];
     
     [uac show];
@@ -46,11 +47,11 @@
 - (IBAction)activeAlertTwoButtonTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
     [uac addAction:[URBNAlertAction buttonWithTitle:@"#1" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertAction *action) {
-        [uac dismiss];
+   
     }]];
     
     [uac addAction:[URBNAlertAction buttonWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive buttonTouched:^(URBNAlertAction *action) {
-        [uac dismiss];
+  
     }]];
     
     [uac show];
@@ -77,7 +78,7 @@
     uac.alertStyler.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     
     [uac addAction:[URBNAlertAction buttonWithTitle:@"Close" actionType:URBNAlertActionTypeDestructive buttonTouched:^(URBNAlertAction *action) {
-        [uac dismiss];
+
     }]];
     
     [uac show];
@@ -90,7 +91,7 @@
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom View" message:nil view:self.customView];
     
     [uac addAction:[URBNAlertAction buttonWithTitle:@"Done" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertAction *action) {
-        [uac dismiss];
+
     }]];
     
     [uac show];
@@ -106,11 +107,11 @@
 
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
     [uac addAction:[URBNAlertAction buttonWithTitle:@"Done" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertAction *action) {
-        [uac dismiss];
+
     }]];
     
     [uac addAction:[URBNAlertAction buttonWithTitle:@"Start Over" actionType:URBNAlertActionTypeDestructive buttonTouched:^(URBNAlertAction *action) {
-        [uac dismiss];
+
         [self activeAlertMultipleAlertsTouch:nil];
     }]];
     
@@ -124,7 +125,6 @@
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Input Alert" message:@"Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. and message and message and going on forever and ever." view:nil];
     
     [uac addAction:[URBNAlertAction buttonWithTitle:@"Done" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertAction *action) {
-        [uac dismiss];
         NSLog(@"input: %@", uac.textField.text);
     }]];
     

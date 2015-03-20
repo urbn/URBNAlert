@@ -52,6 +52,8 @@
             if (action.completionBlock) {
                 action.completionBlock(action);
             }
+            
+            [weakSelf dismissAlertViewController:weakAlertVC];
         }];
         
         [avc setTouchedOutsideBlock:^{
@@ -68,14 +70,13 @@
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
         if (!avc.alertConfig.isActiveAlert) {
             CGFloat duration = avc.alertConfig.duration == 0 ? [self calculateDuration:avc.alertConfig] : avc.alertConfig.duration;
-            [self performSelector:@selector(dismissPassiveAlert:) withObject:avc afterDelay:duration];
+            [self performSelector:@selector(dismissAlertViewController:) withObject:avc afterDelay:duration];
         }
     }
 }
 
-- (void)dismissPassiveAlert:(URBNAlertViewController *)avc {
-    self.alertIsVisible = NO;
-    [self popQueue];
+- (void)dismissAlertViewController:(URBNAlertViewController *)avc {
+    self.alertIsVisible = NO;;
     [avc dismiss];
     [self showNextAlert];
 }
@@ -100,7 +101,7 @@
 
 #pragma mark - Queueing
 - (void)addAlertToQueueWithAlertViewController:(URBNAlertViewController *)avc {
-    NSMutableArray *mutableQueue = self.queue.mutableCopy;
+    NSMutableArray *mutableQueue = [self.queue mutableCopy];
     if (!mutableQueue) {
         mutableQueue = [NSMutableArray new];
     }
@@ -113,6 +114,7 @@
 
 - (URBNAlertViewController *)popQueue {
     URBNAlertViewController *avc = self.queue.firstObject;
+    
     if (avc) {
         NSMutableArray *mutableQueue = self.queue.mutableCopy;
         [mutableQueue removeObjectAtIndex:0];
