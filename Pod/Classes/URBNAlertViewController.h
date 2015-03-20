@@ -38,5 +38,4 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 @property (nonatomic, copy) URBNAlertViewControllerTouchedOutside touchedOutsideBlock;
 - (void)setTouchedOutsideBlock:(URBNAlertViewControllerTouchedOutside)touchedOutsideBlock;
 
-
 @end

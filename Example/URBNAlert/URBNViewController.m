@@ -34,8 +34,8 @@
 - (IBAction)activeAlertTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
     
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"Done" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertAction *action) {
-  
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+          // Do something
     }]];
     
     [uac show];
@@ -46,12 +46,12 @@
 
 - (IBAction)activeAlertTwoButtonTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"#1" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertAction *action) {
-   
+    [uac addAction:[URBNAlertAction actionWithTitle:@"#1" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+           // Do something
     }]];
     
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive buttonTouched:^(URBNAlertAction *action) {
-  
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
+          // Do something
     }]];
     
     [uac show];
@@ -77,8 +77,8 @@
     uac.alertStyler.alertViewShadowColor = [UIColor greenColor];
     uac.alertStyler.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"Close" actionType:URBNAlertActionTypeDestructive buttonTouched:^(URBNAlertAction *action) {
-
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Close" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
+        // Do something
     }]];
     
     [uac show];
@@ -90,8 +90,8 @@
 - (IBAction)activeAlertCustomViewTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom View" message:nil view:self.customView];
     
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"Done" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertAction *action) {
-
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+        // Do something
     }]];
     
     [uac show];
@@ -106,11 +106,11 @@
     [self activeAlertTouch:nil];
 
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"Done" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertAction *action) {
-
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+        // Do something
     }]];
     
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"Start Over" actionType:URBNAlertActionTypeDestructive buttonTouched:^(URBNAlertAction *action) {
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Start Over" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
 
         [self activeAlertMultipleAlertsTouch:nil];
     }]];
@@ -124,7 +124,7 @@
 - (IBAction)activeAlertInputTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Input Alert" message:@"Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. and message and message and going on forever and ever." view:nil];
     
-    [uac addAction:[URBNAlertAction buttonWithTitle:@"Done" actionType:URBNAlertActionTypeNormal buttonTouched:^(URBNAlertAction *action) {
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
         NSLog(@"input: %@", uac.textField.text);
     }]];
     
@@ -146,12 +146,9 @@
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
     uac.alertConfig.touchOutsideViewToDismiss = YES;
     
-    [uac.alertConfig setPassiveAlertDismissedBlock:^(URBNAlertViewController *alertViewController, BOOL alertWasTouched) {
-        if (alertWasTouched) {
-            // Push to a another VC potentially, or show another alert
-            [alertViewController dismiss];
-        }
-    }];
+    [uac addAction:[URBNAlertAction actionWithTitle:nil actionType:URBNAlertActionTypePassive actionCompleted:^(URBNAlertAction *action) {
+        // Do something
+    }]];
     
     [uac show];
 }
@@ -173,12 +170,9 @@
     uac.alertConfig.duration = 5.0f;
     uac.alertConfig.touchOutsideViewToDismiss = YES;
     
-    [uac.alertConfig setPassiveAlertDismissedBlock:^(URBNAlertViewController *alertViewController, BOOL alertWasTouched) {
-        if (alertWasTouched) {
-            // Push to a another VC potentially, or show another alert
-            [alertViewController dismiss];
-        }
-    }];
+    [uac addAction:[URBNAlertAction actionWithTitle:nil actionType:URBNAlertActionTypePassive actionCompleted:^(URBNAlertAction *action) {
+        // Do something
+    }]];
     
     [uac show];
 }

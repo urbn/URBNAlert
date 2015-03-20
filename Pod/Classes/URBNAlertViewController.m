@@ -66,12 +66,6 @@
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAlert:)];
         [self.view addGestureRecognizer:tapGesture];
     }
-    
-    // If passive alert, need call back when alert was touched
-    if (!self.alertConfig.isActiveAlert) {
-        UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(passiveAlertViewTouched)];
-        [self.alertView addGestureRecognizer:tapGesture];
-    }
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -189,16 +183,10 @@
 }
 
 #pragma mark - Action
-- (void)passiveAlertViewTouched {
-    __weak typeof(self) weakSelf = self;
-    if (self.alertConfig.passiveAlertDismissedBlock) {
-        weakSelf.alertConfig.passiveAlertDismissedBlock(weakSelf, YES);
-    }
-}
-
 - (void)dismissAlert:(id)sender {
     [self.view endEditing:YES];
     [self.alertController dismissAlert];
+    
     __weak typeof(self) weakSelf = self;
     [self setVisible:NO animated:YES completion:^(URBNAlertViewController *alertVC, BOOL finished) {
         // Must let the controller know if alert was dismissed via touching outside

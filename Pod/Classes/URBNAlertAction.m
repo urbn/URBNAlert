@@ -10,7 +10,7 @@
 
 @implementation URBNAlertAction
 
-+ (URBNAlertAction *)buttonWithTitle:(NSString *)title actionType:(URBNAlertActionType)actionType buttonTouched:(URBNAlertCompletion)completionBlock {
++ (URBNAlertAction *)actionWithTitle:(NSString *)title actionType:(URBNAlertActionType)actionType actionCompleted:(URBNAlertCompletion)completionBlock {
     URBNAlertAction *action = [URBNAlertAction new];
     [action setTitle:title];
     [action setActionType:actionType];

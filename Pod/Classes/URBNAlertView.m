@@ -121,6 +121,12 @@
         // TODO: Handle 3+ buttons with a vertical layout
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+        
+        // If passive alert & a passive action was added, need call back when alertview is touched
+        if (!self.alertConfig.isActiveAlert && self.alertConfig.actions.count > 0) {
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(passiveAlertViewTouched)];
+            [self addGestureRecognizer:tapGesture];
+        }
     }
     
     return self;
@@ -191,6 +197,12 @@
     UIButton *btn = (UIButton *)sender;
     if (self.buttonTouchedBlock) {
         self.buttonTouchedBlock([self.alertConfig.actions objectAtIndex:btn.tag]);
+    }
+}
+
+- (void)passiveAlertViewTouched {
+    if (self.alertViewTouchedBlock) {
+        self.alertViewTouchedBlock(self.alertConfig.actions.firstObject);
     }
 }
 

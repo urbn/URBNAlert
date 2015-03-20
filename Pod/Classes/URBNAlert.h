@@ -11,6 +11,7 @@
 #import "URBNAlertConfig.h"
 #import "URBNAlertStyle.h"
 #import "URBNAlertViewController.h"
+#import "URBNAlertController.h"
 
 @interface URBNAlert : NSObject
 

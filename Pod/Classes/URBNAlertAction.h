@@ -26,7 +26,7 @@ typedef void(^URBNAlertCompletion)(URBNAlertAction *action);
 @property (nonatomic, copy) URBNAlertCompletion completionBlock;
 - (void)setCompletionBlock:(URBNAlertCompletion)completionBlock;
 
-+ (URBNAlertAction *)buttonWithTitle:(NSString *)title actionType:(URBNAlertActionType)actionType buttonTouched:(URBNAlertCompletion)completionBlock;
++ (URBNAlertAction *)actionWithTitle:(NSString *)title actionType:(URBNAlertActionType)actionType actionCompleted:(URBNAlertCompletion)completionBlock;
 
 - (BOOL)isButton;
 

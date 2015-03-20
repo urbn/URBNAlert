@@ -57,11 +57,15 @@
         }];
         
         [avc setTouchedOutsideBlock:^{
-            weakSelf.alertIsVisible = NO;
-
-            if (weakAlertVC.alertConfig.passiveAlertDismissedBlock) {
-                weakAlertVC.alertConfig.passiveAlertDismissedBlock(weakAlertVC, NO);
+            [weakSelf dismissAlertViewController:weakAlertVC];
+        }];
+        
+        [avc.alertView setAlertViewTouchedBlock:^(URBNAlertAction *action) {
+            if (action.completionBlock) {
+                action.completionBlock(action);
             }
+            
+            [weakSelf dismissAlertViewController:weakAlertVC];
         }];
         
         [self.window.rootViewController addChildViewController:avc];

@@ -15,6 +15,7 @@
 @class URBNAlertStyle;
 
 typedef void(^URBNAlertViewButtonTouched)(URBNAlertAction *action);
+typedef void(^URBNAlertViewTouched)(URBNAlertAction *action);
 
 @interface URBNAlertView : UIView <UITextFieldDelegate>
 
@@ -23,6 +24,9 @@ typedef void(^URBNAlertViewButtonTouched)(URBNAlertAction *action);
 // Blocks
 @property (nonatomic, copy) URBNAlertViewButtonTouched buttonTouchedBlock;
 - (void)setButtonTouchedBlock:(URBNAlertViewButtonTouched)buttonTouchedBlock;
+
+@property (nonatomic, copy) URBNAlertViewTouched alertViewTouchedBlock;
+- (void)setAlertViewTouchedBlock:(URBNAlertViewTouched)alertViewTouchedBlock;
 
 @property (nonatomic, weak) UITextField *textField;
 

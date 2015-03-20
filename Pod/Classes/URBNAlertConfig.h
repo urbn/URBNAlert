@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "URBNAlertController.h"
 
 @interface URBNAlertConfig : NSObject
 
@@ -20,8 +19,5 @@
 @property (nonatomic, assign) BOOL isActiveAlert;
 
 @property (nonatomic, assign) NSInteger duration;
-
-@property (nonatomic, copy) URBNAlertPassiveAlertDismissed passiveAlertDismissedBlock;
-- (void) setPassiveAlertDismissedBlock:(URBNAlertPassiveAlertDismissed)passiveAlertDismissedBlock;
 
 @end
