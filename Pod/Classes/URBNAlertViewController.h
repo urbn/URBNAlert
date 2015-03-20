@@ -29,6 +29,7 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 @property (nonatomic, strong) UIView *customView;
 
 - (void)show;
+- (void)showInView:(UIView *)view;
 - (void)dismiss;
 - (void)dismissAlert:(id)sender;
 - (void)addAction:(URBNAlertAction *)button;

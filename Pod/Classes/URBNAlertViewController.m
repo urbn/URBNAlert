@@ -47,12 +47,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIImage *screenShot = [UIImage screenShotOfView:self.alertController.window.rootViewController.view afterScreenUpdates:NO];
-    UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:[self.alertStyler.blurTintColor colorWithAlphaComponent:0.4f] saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
-    UIImageView *blurImageView = [[UIImageView alloc] initWithFrame:self.view.frame];
-    [blurImageView setImage:blurImage];
+    if(self.alertStyler.blurEnabled.boolValue) {
+        UIView *viewForScreenshot = self.alertConfig.presentationView ?: self.alertController.window.rootViewController.view;
+        
+        UIImage *screenShot = [UIImage screenShotOfView:viewForScreenshot afterScreenUpdates:NO];
+        UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
+        UIImageView *blurImageView = [[UIImageView alloc] initWithFrame:viewForScreenshot.frame];
+        [blurImageView setImage:blurImage];
+        
+        CGRect rect = blurImageView.frame;
+        rect.origin.x = 0;
+        rect.origin.y = 0;
+        blurImageView.frame = rect;
+        
+        [self.view addSubview:blurImageView];
+    }
     
-    [self.view addSubview:blurImageView];
     [self.view addSubview:self.alertView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -111,8 +121,13 @@
     self.alertView.alpha = 0;
     self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
     
+    
     CGFloat screenWdith;
-    if ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]) {
+    
+    if (self.alertConfig.presentationView) {
+        screenWdith = self.alertConfig.presentationView.frame.size.width;
+    }
+    else if ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]) {
         screenWdith = [UIScreen mainScreen].nativeBounds.size.width;
     }
     else {
@@ -132,7 +147,8 @@
 }
 
 - (void)showInView:(UIView *)view {
-    
+    self.alertConfig.presentationView = view;
+    [self show];
 }
 
 - (void)dismiss {

@@ -121,6 +121,11 @@
 @property (nonatomic, assign) CGSize alertShadowOffset;
 
 /**
+ * Pass no to disable blurring in the background
+ */
+@property (nonatomic, strong) NSNumber *blurEnabled;
+
+/**
  * Tint color of the blurred snapshot
  */
 @property (nonatomic, strong) UIColor *blurTintColor;

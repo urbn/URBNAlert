@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) URBNAlertController *alertController;
 @property (nonatomic, strong) UIView *customView;
+@property (nonatomic, strong) IBOutlet UIView *bottomView;
 
 @end
 
@@ -33,7 +34,7 @@
 #pragma mark - Active Alert Touches
 - (IBAction)activeAlertTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
-    
+    uac.alertStyler.blurTintColor = [[UIColor orangeColor] colorWithAlphaComponent:0.4];
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
           // Do something
     }]];
@@ -145,7 +146,8 @@
 - (IBAction)passiveAlertSimpleTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
     uac.alertConfig.touchOutsideViewToDismiss = YES;
-    
+    uac.alertStyler.blurEnabled = @NO;
+
     [uac addAction:[URBNAlertAction actionWithTitle:nil actionType:URBNAlertActionTypePassive actionCompleted:^(URBNAlertAction *action) {
         // Do something
     }]];
@@ -183,6 +185,16 @@
     [self passiveAlertSimpleTouch:nil];
     [self passiveAlertCustomViewTouch:nil];
     [self passiveAlertsSimpleTouchShort:nil];
+}
+
+
+
+
+- (IBAction)passiveAlertShowInView:(id)sender {
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration."];
+    uac.alertStyler.blurTintColor = [[UIColor redColor] colorWithAlphaComponent:0.4];
+    uac.alertConfig.duration = 2.0f;
+    [uac showInView:self.bottomView];
 }
 
 

@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *message;
 @property (nonatomic, copy) NSArray *actions;
+@property (nonatomic, weak) UIView *presentationView;
 
 @property (nonatomic, assign) BOOL touchOutsideViewToDismiss;
 @property (nonatomic, assign) BOOL hasInput;

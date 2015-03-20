@@ -105,6 +105,10 @@
 }
 
 #pragma mark - Blur
+- (NSNumber *)blurEnabled {
+    return _blurEnabled ?: @YES;
+}
+
 - (NSNumber *)blurRadius {
     return _blurRadius ?: @5;
 }

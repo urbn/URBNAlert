@@ -68,8 +68,18 @@
             [weakSelf dismissAlertViewController:weakAlertVC];
         }];
         
-        [self.window.rootViewController addChildViewController:avc];
-        [self.window.rootViewController.view addSubview:avc.view];
+        if (avc.alertConfig.presentationView) {
+            CGRect rect = avc.view.frame;
+            rect.size.width = avc.alertConfig.presentationView.frame.size.width;
+            rect.size.height = avc.alertConfig.presentationView.frame.size.height;
+            avc.view.frame = rect;
+            
+            [avc.alertConfig.presentationView addSubview:avc.view];
+        }
+        else {
+            [self.window.rootViewController addChildViewController:avc];
+            [self.window.rootViewController.view addSubview:avc.view];
+        }
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
         if (!avc.alertConfig.isActiveAlert) {
