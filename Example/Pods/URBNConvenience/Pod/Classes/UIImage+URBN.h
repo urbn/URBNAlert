@@ -16,13 +16,4 @@ typedef void(^URBNConvenienceImageDrawBlock)(CGRect rect, CGContextRef context);
 + (UIImage *)urbn_imageDrawnWithKey:(NSString *)key size:(CGSize)size drawBlock:(URBNConvenienceImageDrawBlock)drawBlock;
 + (UIImage *)screenShotOfView:(UIView *)view afterScreenUpdates:(BOOL)afterScreenUpdates;
 
-/**
- * UIImage+UIImageEffects blur method:
-
- * Note: tintColor must have a alpha < 1 
-         ie. [[UIColor redColor] colorWithAlphaComponent:0.5];
- */
-- (UIImage *)applyBlurWithRadius:(CGFloat)blurRadius tintColor:(UIColor *)tintColor saturationDeltaFactor:(CGFloat)saturationDeltaFactor maskImage:(UIImage *)maskImage;
-
-
 @end

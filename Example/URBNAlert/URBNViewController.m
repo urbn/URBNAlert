@@ -7,11 +7,7 @@
 //
 
 #import "URBNViewController.h"
-#import <URBNAlert/URBNAlertController.h>
-#import <URBNAlert/URBNAlertViewController.h>
-#import <URBNConvenience/UIView+URBNLayout.h>
-#import <URBNAlert/URBNAlertStyle.h>
-#import <URBNAlert/URBNAlertAction.h>
+#import <URBNAlert/URBNAlert.h>
 
 @interface URBNViewController ()
 
@@ -28,27 +24,6 @@
     self.alertController = [URBNAlertController sharedInstance];
     self.alertController.alertStyler.buttonBackgroundColor = [UIColor blueColor];
     self.alertController.alertStyler.buttonDestructionBackgroundColor = [UIColor greenColor];
-}
-
-#pragma mark - Getters
-- (UIView *)customView {
-    if (!_customView) {
-        _customView = [[UIView alloc] init];
-        _customView.translatesAutoresizingMaskIntoConstraints = NO;
-        _customView.backgroundColor = [UIColor greenColor];
-        
-        UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beagle"]];
-        imgView.contentMode = UIViewContentModeScaleAspectFit;
-        imgView.translatesAutoresizingMaskIntoConstraints = NO;
-        imgView.backgroundColor = [UIColor redColor];
-        [_customView addSubview:imgView];
-        
-        NSDictionary *views = NSDictionaryOfVariableBindings(imgView);
-        [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[imgView]-|" options:0 metrics:nil views:views]];
-        [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[imgView]-|" options:0 metrics:nil views:views]];
-    }
-    
-    return _customView;
 }
 
 
@@ -181,11 +156,17 @@
     [uac show];
 }
 
+
+
+
 - (IBAction)passiveAlertsSimpleTouchShort:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration."];
     uac.alertConfig.duration = 2.0f;
     [uac show];
 }
+
+
+
 
 - (IBAction)passiveAlertCustomViewTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:nil message:nil view:self.customView];
@@ -208,6 +189,30 @@
     [self passiveAlertSimpleTouch:nil];
     [self passiveAlertCustomViewTouch:nil];
     [self passiveAlertsSimpleTouchShort:nil];
+}
+
+
+
+
+#pragma mark - Getters
+- (UIView *)customView {
+    if (!_customView) {
+        _customView = [[UIView alloc] init];
+        _customView.translatesAutoresizingMaskIntoConstraints = NO;
+        _customView.backgroundColor = [UIColor greenColor];
+        
+        UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beagle"]];
+        imgView.contentMode = UIViewContentModeScaleAspectFit;
+        imgView.translatesAutoresizingMaskIntoConstraints = NO;
+        imgView.backgroundColor = [UIColor redColor];
+        [_customView addSubview:imgView];
+        
+        NSDictionary *views = NSDictionaryOfVariableBindings(imgView);
+        [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[imgView]-|" options:0 metrics:nil views:views]];
+        [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[imgView]-|" options:0 metrics:nil views:views]];
+    }
+    
+    return _customView;
 }
 
 @end

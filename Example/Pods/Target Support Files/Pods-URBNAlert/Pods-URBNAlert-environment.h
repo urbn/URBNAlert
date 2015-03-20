@@ -15,6 +15,6 @@
 // URBNConvenience
 #define COCOAPODS_POD_AVAILABLE_URBNConvenience
 #define COCOAPODS_VERSION_MAJOR_URBNConvenience 0
-#define COCOAPODS_VERSION_MINOR_URBNConvenience 7
+#define COCOAPODS_VERSION_MINOR_URBNConvenience 8
 #define COCOAPODS_VERSION_PATCH_URBNConvenience 0
 
