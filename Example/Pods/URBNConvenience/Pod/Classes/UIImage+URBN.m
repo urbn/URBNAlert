@@ -32,7 +32,7 @@
     return image;
 }
 
-+ (UIImage *)screenShotOfView:(UIView *)view afterScreenUpdates:(BOOL)afterScreenUpdates {
++ (UIImage *)urbn_screenShotOfView:(UIView *)view afterScreenUpdates:(BOOL)afterScreenUpdates {
     UIGraphicsBeginImageContext(CGSizeMake(view.frame.size.width, view.frame.size.height));
     [view drawViewHierarchyInRect:CGRectMake(0, 0, view.frame.size.width, view.frame.size.height) afterScreenUpdates:afterScreenUpdates];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();

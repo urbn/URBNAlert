@@ -47,10 +47,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if(self.alertStyler.blurEnabled.boolValue) {
+    if (self.alertStyler.blurEnabled.boolValue) {
         UIView *viewForScreenshot = self.alertConfig.presentationView ?: self.alertController.window.rootViewController.view;
         
-        UIImage *screenShot = [UIImage screenShotOfView:viewForScreenshot afterScreenUpdates:NO];
+        UIImage *screenShot = [UIImage urbn_screenShotOfView:viewForScreenshot afterScreenUpdates:NO];
         UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
         UIImageView *blurImageView = [[UIImageView alloc] initWithFrame:viewForScreenshot.frame];
         [blurImageView setImage:blurImage];

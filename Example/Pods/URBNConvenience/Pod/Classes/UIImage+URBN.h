@@ -14,6 +14,6 @@ typedef void(^URBNConvenienceImageDrawBlock)(CGRect rect, CGContextRef context);
 @interface UIImage (URBN)
 
 + (UIImage *)urbn_imageDrawnWithKey:(NSString *)key size:(CGSize)size drawBlock:(URBNConvenienceImageDrawBlock)drawBlock;
-+ (UIImage *)screenShotOfView:(UIView *)view afterScreenUpdates:(BOOL)afterScreenUpdates;
++ (UIImage *)urbn_screenShotOfView:(UIView *)view afterScreenUpdates:(BOOL)afterScreenUpdates;
 
 @end

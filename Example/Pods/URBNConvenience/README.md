@@ -23,6 +23,8 @@ URBNConvenience classes may be individually imported on an as needed basis, or i
 
 * __UIView+URBNAnimations:__ A short and sweet category on `UIView` to quickly add cross dissolve animations to views. The default animation duration is 0.2 seconds.
 
+* __UIView+URBNBorders:__ A simple category to add those pesky borders on any side of the UIView.   Each border has it's own color, width, and insets.
+
 * __UIView+URBNLayout:__ A super useful category on `UIView` to expedite layout work with `UIView`’s. Includes methods for manual frame layout as well as auto layout.
 
 * __URBNTextField:__ Because designers like text insets and padding, this subclass adds `edgeInsets`. These insets work with all `UITextField`’s subviews (text, editing, left view, clear button, & right view).
