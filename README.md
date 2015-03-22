@@ -1,5 +1,6 @@
 # URBNAlert
 ![enter image description here](http://i.imgur.com/ATcXC3am.png)![enter image description here](http://i.imgur.com/mrX9ae7m.png)![enter image description here](http://i.imgur.com/EKxFP2Dm.png)
+
 URBNAlert is a customizable alert view based off of iOS's UIAlertController.
 
 UIAlertController was a great improvement over UIAlertView, but you still cannot apply custom fonts, colors, or other styles to the alerts. URBNAlert gives you that flexability.
@@ -8,7 +9,8 @@ You can also pass custom `UIView`'s into a URBNAlert, and create passive alerts 
 
 ## Usage
 
-After adding URBNALERT to your projects Podfile, import URBNAlert using the following import line:</br>
+After adding URBNALERT to your projects Podfile, import URBNAlert using the following import line:
+
 `#import <URBNAlert/URBNAlert.h>`
 
 Checkout & run the pod's example project to see what URBNAlert is capable of. 
