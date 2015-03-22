@@ -1,4 +1,3 @@
-![enter image description here](http://i.imgur.com/8lCvOiz.png)
 # URBNAlert
 ![enter image description here](http://i.imgur.com/ATcXC3am.png)![enter image description here](http://i.imgur.com/mrX9ae7m.png)![enter image description here](http://i.imgur.com/EKxFP2Dm.png)
 URBNAlert is a customizable alert view based off of iOS's UIAlertController.
