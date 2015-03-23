@@ -1,3 +1,8 @@
+-[![CI Status](http://img.shields.io/travis/Ryan Garchinsky/URBNAlert.svg?style=flat)](https://travis-ci.org/Ryan Garchinsky/URBNAlert)
+-[![Version](https://img.shields.io/cocoapods/v/URBNAlert.svg?style=flat)](http://cocoadocs.org/docsets/URBNAlert)
+-[![License](https://img.shields.io/cocoapods/l/URBNAlert.svg?style=flat)](http://cocoadocs.org/docsets/URBNAlert)
+-[![Platform](https://img.shields.io/cocoapods/p/URBNAlert.svg?style=flat)](http://cocoadocs.org/docsets/URBNAlert)
+
 # URBNAlert
 ![enter image description here](http://i.imgur.com/ATcXC3am.png)![enter image description here](http://i.imgur.com/mrX9ae7m.png)![enter image description here](http://i.imgur.com/EKxFP2Dm.png)
 
