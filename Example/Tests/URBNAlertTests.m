@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import <URBNAlert/URBNAlertController.h>
+#import <URBNAlert/URBNAlert.h>
 
 @interface URBNAlertTests : XCTestCase
 
@@ -31,44 +31,96 @@
 }
 
 - (void)testBlurAlphaComponent {
-    URBNAlertStyle *alertStyle = [URBNAlertStyle new];
-    alertStyle.blurTintColor = [UIColor blackColor];
-    [self.alertController setAlertStyler:alertStyle];
-    XCTAssertThrows([self.alertController showPassiveAlertWithTitle:@"" message:@"" touchOutsideToDismiss:NSOSF1OperatingSystem alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {}]);
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
+    uac.alertStyler.blurTintColor = [UIColor redColor];
+    XCTAssertThrows([uac show]);
     
-    alertStyle.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4f];
-    [self.alertController setAlertStyler:alertStyle];
-    XCTAssertNoThrow([self.alertController showPassiveAlertWithTitle:@"" message:@"" touchOutsideToDismiss:NSOSF1OperatingSystem alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched) {}]);
+    URBNAlertViewController *uac2 = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
+    uac2.alertStyler.blurTintColor = [[UIColor redColor] colorWithAlphaComponent:0.4];
+    XCTAssertNoThrow([uac2 show]);
 }
 
 - (void)testActiveAlert {
     // Test no completion block
-    XCTAssertThrows([self.alertController showActiveAlertWithTitle:@"" message:@"" hasInput:YES buttonTitles:@[@""] touchOutsideToDismiss:YES buttonTouchedBlock:nil]);
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"btn" actionType:URBNAlertActionTypeNormal actionCompleted:nil]];
+    XCTAssertNoThrow([uac show]);
     
-    // Test 0 or no buttonTitles
-    NSArray *btnTitles = @[];
-    XCTAssertThrows([self.alertController showActiveAlertWithTitle:@"" message:@"" hasInput:YES buttonTitles:btnTitles touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index){}]);
-    btnTitles = nil;
-    XCTAssertThrows([self.alertController showActiveAlertWithTitle:@"" message:@"" hasInput:YES buttonTitles:btnTitles touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index){}]);
+    // Test with completion block
+    uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"btn" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+    }]];
+    XCTAssertNoThrow([uac show]);
     
     // Test 3 or more buttonTitles
-    btnTitles = @[@"", @"", @""];
-    XCTAssertThrows([self.alertController showActiveAlertWithTitle:@"" message:@"" hasInput:YES buttonTitles:btnTitles touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index){}]);
+    uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"btn1" actionType:URBNAlertActionTypeNormal actionCompleted:nil]];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"btn2" actionType:URBNAlertActionTypeNormal actionCompleted:nil]];
+    XCTAssertThrows([uac addAction:[URBNAlertAction actionWithTitle:@"btn3" actionType:URBNAlertActionTypeNormal actionCompleted:nil]]);
     
-    // Test 1-2 buttons
-    btnTitles = @[@""];
-    XCTAssertNoThrow([self.alertController showActiveAlertWithTitle:@"" message:@"" hasInput:YES buttonTitles:btnTitles touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index){}]);
-    btnTitles = @[@"", @""];
-    XCTAssertNoThrow([self.alertController showActiveAlertWithTitle:@"" message:@"" hasInput:YES buttonTitles:btnTitles touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index){}]);
+    //Test 2 buttons
+    uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"btn" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+    }]];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"btn2" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+    }]];
+    XCTAssertNoThrow([uac show]);
+    
+    // Test nil custom view
+    uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message" view:nil];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"btn" actionType:URBNAlertActionTypeNormal actionCompleted:nil]];
+    XCTAssertNoThrow([uac show]);
     
     // Test custom view
-    XCTAssertThrows([self.alertController showActiveAlertWithView:nil buttonTitles:btnTitles touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index){}]);
-    XCTAssertNoThrow([self.alertController showActiveAlertWithView:[UIView new] buttonTitles:btnTitles touchOutsideToDismiss:YES buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index){}]);
+    uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message" view:[UIView new]];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"btn" actionType:URBNAlertActionTypeNormal actionCompleted:nil]];
+    XCTAssertNoThrow([uac show]);
+    
+    // Test 1 input
+    uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
+    [uac addTextFieldWithConfigurationHandler:nil];
+    XCTAssertNoThrow([uac show]);
+    
+    // Test 2 input
+    uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
+    [uac addTextFieldWithConfigurationHandler:nil];
+    XCTAssertThrows([uac addTextFieldWithConfigurationHandler:nil]);
+    
+    // Test nil title & message
+    uac = [[URBNAlertViewController alloc] initWithTitle:nil message:nil];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"btn" actionType:URBNAlertActionTypeNormal actionCompleted:nil]];
+    XCTAssertNoThrow([uac addTextFieldWithConfigurationHandler:nil]);
 }
 
 - (void)testPassiveAlert {
-    XCTAssertThrows([self.alertController showPassiveAlertWithView:nil touchOutsideToDismiss:YES duration:2.0f alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched){}]);
-    XCTAssertNoThrow([self.alertController showPassiveAlertWithView:[UIView new] touchOutsideToDismiss:YES duration:2.0f alertDismissedBlock:^(URBNAlertController *alertController, BOOL alertWasTouched){}]);
+    // Show simple passive alert
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
+    uac.alertConfig.touchOutsideViewToDismiss = YES;
+    uac.alertConfig.duration = 2.f;
+    XCTAssertNoThrow([uac show]);
+    
+    // Action block (view touched)
+    uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"" actionType:URBNAlertActionTypePassive actionCompleted:^(URBNAlertAction *action) {
+    }]];
+    XCTAssertNoThrow([uac show]);
+    
+    // Action block (view touched) nil
+    uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"" actionType:URBNAlertActionTypePassive actionCompleted:nil]];
+    XCTAssertNoThrow([uac show]);
+    
+    // nil title and message
+    uac = [[URBNAlertViewController alloc] initWithTitle:nil message:nil];
+    XCTAssertNoThrow([uac show]);
+    
+    // nil view
+    uac = [[URBNAlertViewController alloc] initWithTitle:nil message:nil view:nil];
+    XCTAssertNoThrow([uac show]);
+    
+    // non-nil view
+    uac = [[URBNAlertViewController alloc] initWithTitle:nil message:nil view:[UIView new]];
+    XCTAssertNoThrow([uac show]);
 }
 
 @end
