@@ -16,6 +16,8 @@
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
 			<key>name</key>
 			<string>LICENSE</string>
 			<key>path</key>
@@ -34,6 +36,26 @@
 		<dict>
 			<key>fileRef</key>
 			<string>DB12BEB7E2F0D82EC909E28F</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>303F8CBA1AAE5F180066F48B</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.c.objc</string>
+			<key>path</key>
+			<string>URBNAlertTests.m</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>303F8CBB1AAE5F180066F48B</key>
+		<dict>
+			<key>fileRef</key>
+			<string>303F8CBA1AAE5F180066F48B</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -229,7 +251,6 @@
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>6003F5A4195388D20070C39A</string>
 				<string>6003F5A9195388D20070C39A</string>
 				<string>6003F5A1195388D20070C39A</string>
 				<string>6003F598195388D20070C39A</string>
@@ -379,7 +400,6 @@
 				<string>6003F59C195388D20070C39A</string>
 				<string>6003F59D195388D20070C39A</string>
 				<string>6003F59F195388D20070C39A</string>
-				<string>6003F5A2195388D20070C39A</string>
 				<string>6003F5A5195388D20070C39A</string>
 				<string>6003F5A6195388D20070C39A</string>
 				<string>6003F5A8195388D20070C39A</string>
@@ -543,39 +563,6 @@
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>6003F5A2195388D20070C39A</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>6003F5A3195388D20070C39A</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>Main_iPad.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6003F5A3195388D20070C39A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.storyboard</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>Base.lproj/Main_iPad.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6003F5A4195388D20070C39A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>6003F5A2195388D20070C39A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>6003F5A5195388D20070C39A</key>
 		<dict>
 			<key>isa</key>
@@ -629,7 +616,7 @@
 			<string>2147483647</string>
 			<key>files</key>
 			<array>
-				<string>6003F5BC195388D20070C39A</string>
+				<string>303F8CBB1AAE5F180066F48B</string>
 			</array>
 			<key>isa</key>
 			<string>PBXSourcesBuildPhase</string>
@@ -767,7 +754,7 @@
 		<dict>
 			<key>children</key>
 			<array>
-				<string>6003F5BB195388D20070C39A</string>
+				<string>303F8CBA1AAE5F180066F48B</string>
 				<string>6003F5B6195388D20070C39A</string>
 			</array>
 			<key>isa</key>
@@ -833,24 +820,6 @@
 		<dict>
 			<key>fileRef</key>
 			<string>6003F5B8195388D20070C39A</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>6003F5BB195388D20070C39A</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>Tests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>6003F5BC195388D20070C39A</key>
-		<dict>
-			<key>fileRef</key>
-			<string>6003F5BB195388D20070C39A</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -1074,7 +1043,7 @@
 		<key>6003F5C3195388D20070C39A</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>5862A0EB7D10C7534C13A4BE</string>
+			<string>5B86C2C45B05F33B41B01B22</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>BUNDLE_LOADER</key>
@@ -1111,7 +1080,7 @@
 		<key>6003F5C4195388D20070C39A</key>
 		<dict>
 			<key>baseConfigurationReference</key>
-			<string>40103FBA58B3BC41F8C91071</string>
+			<string>B9E41FFA51E23FD76367DEBD</string>
 			<key>buildSettings</key>
 			<dict>
 				<key>BUNDLE_LOADER</key>
@@ -1230,8 +1199,7 @@ fi
 			<key>shellPath</key>
 			<string>/bin/sh</string>
 			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-resources.sh"
-</string>
+			<string></string>
 			<key>showEnvVarsInLog</key>
 			<string>0</string>
 		</dict>
@@ -1297,6 +1265,8 @@ fi
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>text</string>
 			<key>name</key>
 			<string>URBNAlert.podspec</string>
 			<key>path</key>
@@ -1317,6 +1287,8 @@ fi
 			<string>1</string>
 			<key>isa</key>
 			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>net.daringfireball.markdown</string>
 			<key>name</key>
 			<string>README.md</string>
 			<key>path</key>

@@ -11,26 +11,29 @@
 #import "URBNAlertStyle.h"
 
 @class URBNAlertController;
+@class URBNAlertConfig;
+@class URBNAlertViewController;
 
 typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSInteger index);
-typedef void(^URBNAlertPassiveViewTouched)(URBNAlertController *alertController);
 
 @interface URBNAlertController : NSObject
 
 + (instancetype)sharedInstance;
 
-// Active Alert
-- (void)showActiveAlertWithTitle:(NSString *)title message:(NSString *)message hasInput:(BOOL)hasInput buttons:(NSArray *)buttonArray buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock;
-- (void)showActiveAlertWithView:(UIView *)view buttons:(NSArray *)buttonArray buttonTouchedBlock:(URBNAlertButtonTouched)buttonTouchedBlock;
-
-// Passive Alert
-- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message duration:(CGFloat)duration viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock ;
-- (void)showPassiveAlertWithTitle:(NSString *)title message:(NSString *)message viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock ;
-- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss duration:(CGFloat)duration viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock;
-- (void)showPassiveAlertWithView:(UIView *)view touchOutsideToDismiss:(BOOL)touchOutsideToDismiss viewTouchedBlock:(URBNAlertPassiveViewTouched)viewTouchedBlock;
-
+/**
+ *  Dismisses the alert currently visible
+ */
 - (void)dismissAlert;
 
+/**
+ *  Create & set this property if you wish to customize various properties of the alert view.
+ *  If none is passed, default values are used. See URBNAlertStyle for properties you can configue & default values.
+ */
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
+
+@property (nonatomic, strong) UIWindow *window;
+
+- (void)showNextAlert;
+- (void)addAlertToQueueWithAlertViewController:(URBNAlertViewController *)avc;
 
 @end

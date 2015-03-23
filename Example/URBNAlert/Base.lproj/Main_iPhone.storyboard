@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
@@ -18,8 +17,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77V-c2-MXI">
-                                <rect key="frame" x="100" y="56" width="120" height="30"/>
-                                <color key="backgroundColor" red="0.5790663975" green="0.5870681405" blue="0.61107336960000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="16" y="56" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="One Button">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -28,9 +27,53 @@
                                     <action selector="activeAlertTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Mrx-b3-Gtn"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9p-dt-tpC">
+                                <rect key="frame" x="16" y="231" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.19590510110000001" green="0.59165513930000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Simple Long">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="passiveAlertSimpleTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="ecg-vt-yXN"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJx-PS-2bV">
+                                <rect key="frame" x="16" y="276" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.19590510110000001" green="0.59165513930000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Custom View">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="passiveAlertCustomViewTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Fsl-c6-YU0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbQ-lb-Hgx">
+                                <rect key="frame" x="184" y="276" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.19590510110000001" green="0.59165513930000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Queued Alerts">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="passiveAlertQueuedTouched:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="j3N-Ue-mmh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mrP-ZD-apY">
+                                <rect key="frame" x="184" y="231" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.19590510110000001" green="0.59165513930000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Simple Short">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="passiveAlertsSimpleTouchShort:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Cap-DU-F3u"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTd-jZ-uUh">
-                                <rect key="frame" x="100" y="94" width="120" height="30"/>
-                                <color key="backgroundColor" red="0.5790663975" green="0.5870681405" blue="0.61107336960000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="184" y="56" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Two Buttons">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -40,15 +83,21 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Active Alerts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3N-s1-lnJ">
-                                <rect key="frame" x="48" y="20" width="225" height="21"/>
+                                <rect key="frame" x="48" y="25" width="225" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Passive Alerts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2Q-PD-Gne">
+                                <rect key="frame" x="48" y="200" width="225" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Dd-gt-0H2">
-                                <rect key="frame" x="100" y="132" width="120" height="30"/>
-                                <color key="backgroundColor" red="0.5790663975" green="0.5870681405" blue="0.61107336960000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Colorful">
+                                <rect key="frame" x="16" y="101" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Custom Style">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -57,8 +106,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9d-ga-qgM">
-                                <rect key="frame" x="100" y="170" width="120" height="30"/>
-                                <color key="backgroundColor" red="0.5790663975" green="0.5870681405" blue="0.61107336960000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="184" y="101" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Custom View">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -68,8 +117,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26L-V0-9Pi">
-                                <rect key="frame" x="100" y="208" width="120" height="30"/>
-                                <color key="backgroundColor" red="0.5790663975" green="0.5870681405" blue="0.61107336960000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="16" y="146" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Queued Alerts">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -78,9 +127,40 @@
                                     <action selector="activeAlertMultipleAlertsTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="3ae-k6-N8u"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4nz-2P-2iP">
+                                <rect key="frame" x="184" y="146" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Input">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="activeAlertInputTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Rob-aM-lRA"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EP8-wt-g4Z">
+                                <rect key="frame" x="-4" y="328" width="324" height="240"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwE-Aj-Cny">
+                                        <rect key="frame" x="102" y="34" width="120" height="30"/>
+                                        <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" title="Show In View">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="passiveAlertShowInView:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="FRK-oa-BE3"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="bottomView" destination="EP8-wt-g4Z" id="zbO-ZS-vop"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

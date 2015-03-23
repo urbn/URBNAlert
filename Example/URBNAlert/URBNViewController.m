@@ -7,13 +7,13 @@
 //
 
 #import "URBNViewController.h"
-#import <URBNAlert/URBNAlertController.h>
-#import <URBNConvenience/UIView+URBNLayout.h>
-#import <URBNAlert/URBNAlertStyle.h>
+#import <URBNAlert/URBNAlert.h>
 
 @interface URBNViewController ()
 
 @property (nonatomic, strong) URBNAlertController *alertController;
+@property (nonatomic, strong) UIView *customView;
+@property (nonatomic, strong) IBOutlet UIView *bottomView;
 
 @end
 
@@ -22,83 +22,203 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Set global stlying. This can be done sometime during app launch. You can change style options per alert as well.
     self.alertController = [URBNAlertController sharedInstance];
+    self.alertController.alertStyler.buttonBackgroundColor = [UIColor blueColor];
+    self.alertController.alertStyler.buttonDestructionBackgroundColor = [UIColor greenColor];
 }
 
+
+
+
+#pragma mark - Active Alert Touches
 - (IBAction)activeAlertTouch:(id)sender {
-    [self.alertController setAlertStyler:nil];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
+    uac.alertStyler.blurTintColor = [[UIColor orangeColor] colorWithAlphaComponent:0.4];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+          // Do something
+    }]];
     
-    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-        [alertController dismissAlert];
-    }];
+    [uac show];
 }
+
+
+
 
 - (IBAction)activeAlertTwoButtonTouch:(id)sender {
-    [self.alertController setAlertStyler:nil];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"#1" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+           // Do something
+    }]];
     
-    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-        [alertController dismissAlert];
-    }];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
+          // Do something
+    }]];
+    
+    [uac show];
 }
+
+
+
 
 - (IBAction)activeAlertColoredTouch:(id)sender {
-    URBNAlertStyle *alertStyle = [URBNAlertStyle new];
-    alertStyle.buttonBackgroundColor = [UIColor yellowColor];
-    alertStyle.buttonDenialBackgroundColor = [UIColor blueColor];
-    alertStyle.backgroundColor = [UIColor orangeColor];
-    alertStyle.buttonTitleColor = [UIColor blackColor];
-    alertStyle.titleColor = [UIColor purpleColor];
-    alertStyle.messageColor = [UIColor magentaColor];
-    alertStyle.buttonCornerRadius = @0;
-    alertStyle.alertCornerRadius = @20;
-    [self.alertController setAlertStyler:alertStyle];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom Styled Alert" message:@"You can change the fonts, colors, button size, corner radius, and much more."];
+    uac.alertStyler.buttonBackgroundColor = [UIColor yellowColor];
+    uac.alertStyler.buttonDestructionBackgroundColor = [UIColor purpleColor];
+    uac.alertStyler.backgroundColor = [UIColor orangeColor];
+    uac.alertStyler.buttonTitleColor = [UIColor blackColor];
+    uac.alertStyler.titleColor = [UIColor purpleColor];
+    uac.alertStyler.titleFont = [UIFont fontWithName:@"Chalkduster" size:30];
+    uac.alertStyler.messageColor = [UIColor blackColor];
+    uac.alertStyler.buttonCornerRadius = @0;
+    uac.alertStyler.alertCornerRadius = @20;
+    uac.alertStyler.buttonHeight = @30;
+    uac.alertStyler.animationDuration = @0.2f;
+    uac.alertStyler.alertShadowOffset = CGSizeMake(6, 6);
+    uac.alertStyler.alertViewShadowColor = [UIColor greenColor];
+    uac.alertStyler.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     
-    [self.alertController showActiveAlertWithTitle:@"My Alert Title that could be 2 lines but no more than 2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Yes", @"No"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-        [alertController dismissAlert];
-    }];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Close" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
+        // Do something
+    }]];
+    
+    [uac show];
 }
+
+
+
 
 - (IBAction)activeAlertCustomViewTouch:(id)sender {
-    [self.alertController setAlertStyler:nil];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom View" message:nil view:self.customView];
     
-    UIView *customView = [[UIView alloc] init];
-    customView.translatesAutoresizingMaskIntoConstraints = NO;
-    customView.backgroundColor = [UIColor greenColor];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+        // Do something
+    }]];
     
-    UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beagle"]];
-    imgView.contentMode = UIViewContentModeScaleAspectFit;
-    imgView.translatesAutoresizingMaskIntoConstraints = NO;
-    imgView.backgroundColor = [UIColor redColor];
-    [customView addSubview:imgView];
-    
-    NSDictionary *views = NSDictionaryOfVariableBindings(imgView);
-    [customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[imgView]-|" options:0 metrics:nil views:views]];
-    [customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[imgView]-|" options:0 metrics:nil views:views]];
-    
-    [self.alertController showActiveAlertWithView:customView buttons:@[@"Dismiss"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-        [alertController dismissAlert];
-    }];
+    [uac show];
 }
 
+
+
+
 - (IBAction)activeAlertMultipleAlertsTouch:(id)sender {
-    [self.alertController showActiveAlertWithTitle:@"The First Alert" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Next"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-        [alertController dismissAlert];
+    [self activeAlertTouch:nil];
+    [self activeAlertCustomViewTouch:nil];
+    [self activeAlertTouch:nil];
+
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+        // Do something
+    }]];
+    
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Start Over" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
+
+        [self activeAlertMultipleAlertsTouch:nil];
+    }]];
+    
+    [uac show];
+}
+
+
+
+
+- (IBAction)activeAlertInputTouch:(id)sender {
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Input Alert" message:@"Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. and message and message and going on forever and ever." view:nil];
+    
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
+        NSLog(@"input: %@", uac.textField.text);
+    }]];
+    
+    [uac addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.borderStyle = UITextBorderStyleRoundedRect;
+        textField.placeholder = @"e-mail";
+        textField.returnKeyType = UIReturnKeyDone;
+        textField.keyboardType = UIKeyboardTypeEmailAddress;
     }];
     
-    [self.alertController showActiveAlertWithTitle:@"#2" message:@"Message and message and message and going on forever and ever." hasInput:NO buttons:@[@"Next"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-        [alertController dismissAlert];
-    }];
+    [uac show];
+}
+
+
+
+
+#pragma mark - Passive Alert Touches
+- (IBAction)passiveAlertSimpleTouch:(id)sender {
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
+    uac.alertConfig.touchOutsideViewToDismiss = YES;
+    uac.alertStyler.blurEnabled = @NO;
+
+    [uac addAction:[URBNAlertAction actionWithTitle:nil actionType:URBNAlertActionTypePassive actionCompleted:^(URBNAlertAction *action) {
+        // Do something
+    }]];
     
-    __weak typeof(self) weakSelf = self;
-    [self.alertController showActiveAlertWithTitle:@"#3" message:@"The third and final alert" hasInput:NO buttons:@[@"Done", @"Do it again!"] buttonTouchedBlock:^(URBNAlertController *alertController, NSInteger index) {
-        switch (index) {
-            case 1:
-                [weakSelf activeAlertMultipleAlertsTouch:nil];
-            default:
-                [alertController dismissAlert];
-                break;
-        }
-    }];
+    [uac show];
+}
+
+
+
+
+- (IBAction)passiveAlertsSimpleTouchShort:(id)sender {
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration."];
+    uac.alertConfig.duration = 2.0f;
+    [uac show];
+}
+
+
+
+
+- (IBAction)passiveAlertCustomViewTouch:(id)sender {
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:nil message:nil view:self.customView];
+    uac.alertConfig.duration = 5.0f;
+    uac.alertConfig.touchOutsideViewToDismiss = YES;
+    
+    [uac addAction:[URBNAlertAction actionWithTitle:nil actionType:URBNAlertActionTypePassive actionCompleted:^(URBNAlertAction *action) {
+        // Do something
+    }]];
+    
+    [uac show];
+}
+
+
+
+- (IBAction)passiveAlertQueuedTouched:(id)sender {
+    [self passiveAlertSimpleTouch:nil];
+    [self passiveAlertCustomViewTouch:nil];
+    [self passiveAlertsSimpleTouchShort:nil];
+}
+
+
+
+
+- (IBAction)passiveAlertShowInView:(id)sender {
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Passive alerts!" message:@"Very short alert. Minimum 2 second duration."];
+    uac.alertStyler.blurTintColor = [[UIColor redColor] colorWithAlphaComponent:0.4];
+    uac.alertConfig.duration = 2.0f;
+    [uac showInView:self.bottomView];
+}
+
+
+
+
+#pragma mark - Getters
+- (UIView *)customView {
+    if (!_customView) {
+        _customView = [[UIView alloc] init];
+        _customView.translatesAutoresizingMaskIntoConstraints = NO;
+        _customView.backgroundColor = [UIColor greenColor];
+        
+        UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beagle"]];
+        imgView.contentMode = UIViewContentModeScaleAspectFit;
+        imgView.translatesAutoresizingMaskIntoConstraints = NO;
+        imgView.backgroundColor = [UIColor redColor];
+        [_customView addSubview:imgView];
+        
+        NSDictionary *views = NSDictionaryOfVariableBindings(imgView);
+        [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[imgView]-|" options:0 metrics:nil views:views]];
+        [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[imgView]-|" options:0 metrics:nil views:views]];
+    }
+    
+    return _customView;
 }
 
 @end
