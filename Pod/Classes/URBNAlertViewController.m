@@ -48,7 +48,29 @@
     [super viewDidLoad];
     
     if (self.alertStyler.blurEnabled.boolValue) {
-        UIView *viewForScreenshot = self.alertConfig.presentationView ?: self.alertController.window.rootViewController.view;
+        UIView *viewForScreenshot;// = self.alertConfig.presentationView ?: self.alertController.window.rootViewController.view;
+
+        if (self.alertConfig.presentationView) {
+            viewForScreenshot = self.alertConfig.presentationView;
+        }
+        // If the top view is a modal
+        else if (self.alertController.window.rootViewController.presentedViewController) {
+            UIViewController *vc;
+            
+            // Handle if there is a navController on the modal
+            if ([self.alertController.window.rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
+                UINavigationController *navController = (UINavigationController *)self.alertController.window.rootViewController.presentedViewController;
+                
+                vc = navController.viewControllers.firstObject;
+            }
+            else {
+                vc = self.alertController.window.rootViewController.presentedViewController;
+            }
+            viewForScreenshot = vc.view;
+        }
+        else {
+            viewForScreenshot = self.alertController.window.rootViewController.view;
+        }
         
         UIImage *screenShot = [UIImage urbn_screenShotOfView:viewForScreenshot afterScreenUpdates:NO];
         UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
@@ -120,7 +142,6 @@
     self.alertView = [[URBNAlertView alloc] initWithAlertConfig:self.alertConfig alertStyler:self.alertStyler customView:self.customView textField:self.textField];
     self.alertView.alpha = 0;
     self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
-    
     
     CGFloat screenWdith;
     
@@ -211,8 +232,7 @@
                 weakSelf.touchedOutsideBlock();
             }
         }
-        
-        [weakSelf.view removeFromSuperview];
+        [weakSelf dismissViewControllerAnimated:NO completion:nil];
     }];
 }
 

@@ -68,6 +68,7 @@
             [weakSelf dismissAlertViewController:weakAlertVC];
         }];
         
+        // showInView: used
         if (avc.alertConfig.presentationView) {
             CGRect rect = avc.view.frame;
             rect.size.width = avc.alertConfig.presentationView.frame.size.width;
@@ -75,6 +76,23 @@
             avc.view.frame = rect;
             
             [avc.alertConfig.presentationView addSubview:avc.view];
+        }
+        // If the top view is a modal
+        else if (self.window.rootViewController.presentedViewController) {
+            UIViewController *vc;
+            
+            // Handle if there is a navController on the modal
+            if ([self.window.rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
+                UINavigationController *navController = (UINavigationController *)self.window.rootViewController.presentedViewController;
+                
+                vc = navController.viewControllers.firstObject;
+                [navController presentViewController:avc animated:NO completion:nil];
+
+            }
+            else {
+                vc = self.window.rootViewController.presentedViewController;
+            }
+            
         }
         else {
             [self.window.rootViewController addChildViewController:avc];

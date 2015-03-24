@@ -14,6 +14,8 @@
 @property (nonatomic, strong) URBNAlertController *alertController;
 @property (nonatomic, strong) UIView *customView;
 @property (nonatomic, strong) IBOutlet UIView *bottomView;
+@property (nonatomic, assign) BOOL isModal;
+@property (strong, nonatomic) IBOutlet UIButton *modalButton;
 
 @end
 
@@ -26,6 +28,13 @@
     self.alertController = [URBNAlertController sharedInstance];
     self.alertController.alertStyler.buttonBackgroundColor = [UIColor blueColor];
     self.alertController.alertStyler.buttonDestructionBackgroundColor = [UIColor greenColor];
+    
+    self.navigationItem.title = @"URBNAlert";
+    
+    if (self.isModal) {
+        [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(closeTouch)]];
+        [self.modalButton setHidden:YES];
+    }
 }
 
 
@@ -199,6 +208,20 @@
 
 
 
+
+#pragma mark - Methods
+- (IBAction)fromModalTouched:(id)sender {
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil];
+    URBNViewController *vc = [sb instantiateViewControllerWithIdentifier:@"URBNViewController"];
+    [vc setIsModal:YES];
+    
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+- (void)closeTouch {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 #pragma mark - Getters
 - (UIView *)customView {
