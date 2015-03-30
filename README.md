@@ -4,7 +4,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/URBNAlert.svg?style=flat)](http://cocoadocs.org/docsets/URBNAlert)
 
 # URBNAlert
-![enter image description here](http://i.imgur.com/ATcXC3am.png)![enter image description here](http://i.imgur.com/mrX9ae7m.png)![enter image description here](http://i.imgur.com/EKxFP2Dm.png)
+![enter image description here](http://i.imgur.com/ld1gOPN.png?1)![enter image description here](http://i.imgur.com/mrX9ae7m.png)![enter image description here](http://i.imgur.com/EKxFP2Dm.png)
 
 URBNAlert is a customizable alert view based off of iOS's UIAlertController.
 
