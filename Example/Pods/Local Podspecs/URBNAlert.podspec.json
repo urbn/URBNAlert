@@ -1,6 +1,6 @@
 {
   "name": "URBNAlert",
-  "version": "1.0",
+  "version": "1.1",
   "summary": "A custom alert view based off of UIAlertController but highly customizable.",
   "homepage": "https://github.com/urbn/URBNAlert",
   "license": "MIT",
@@ -8,8 +8,8 @@
     "urbn": "jgrandelli@urbn.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/URBNAlert.git",
-    "tag": "1.0"
+    "git": "https://github.com/urbn/URBNAlert.git",
+    "tag": "1.1"
   },
   "platforms": {
     "ios": "7.0"
