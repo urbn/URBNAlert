@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="URBNViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="URBNViewController" id="vXZ-lx-hvc" customClass="URBNViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -16,19 +17,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77V-c2-MXI">
-                                <rect key="frame" x="16" y="56" width="120" height="30"/>
-                                <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="One Button">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="activeAlertTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Mrx-b3-Gtn"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T9p-dt-tpC">
-                                <rect key="frame" x="16" y="231" width="120" height="30"/>
+                                <rect key="frame" x="16" y="261" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.19590510110000001" green="0.59165513930000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Simple Long">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -39,7 +29,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AJx-PS-2bV">
-                                <rect key="frame" x="16" y="276" width="120" height="30"/>
+                                <rect key="frame" x="16" y="306" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.19590510110000001" green="0.59165513930000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Custom View">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -49,8 +39,19 @@
                                     <action selector="passiveAlertCustomViewTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Fsl-c6-YU0"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ozQ-fH-FJm">
+                                <rect key="frame" x="99" y="348" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.94904891300000005" green="0.63004127669999999" blue="0.47838212810000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="From Modal">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="fromModalTouched:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="0cK-Ul-fm9"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WbQ-lb-Hgx">
-                                <rect key="frame" x="184" y="276" width="120" height="30"/>
+                                <rect key="frame" x="184" y="306" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.19590510110000001" green="0.59165513930000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Queued Alerts">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -61,7 +62,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mrP-ZD-apY">
-                                <rect key="frame" x="184" y="231" width="120" height="30"/>
+                                <rect key="frame" x="184" y="261" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.19590510110000001" green="0.59165513930000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Simple Short">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -72,7 +73,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTd-jZ-uUh">
-                                <rect key="frame" x="184" y="56" width="120" height="30"/>
+                                <rect key="frame" x="184" y="96" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Two Buttons">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -83,19 +84,19 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Active Alerts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f3N-s1-lnJ">
-                                <rect key="frame" x="48" y="25" width="225" height="21"/>
+                                <rect key="frame" x="48" y="65" width="225" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Passive Alerts" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v2Q-PD-Gne">
-                                <rect key="frame" x="48" y="200" width="225" height="21"/>
+                                <rect key="frame" x="48" y="230" width="225" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Dd-gt-0H2">
-                                <rect key="frame" x="16" y="101" width="120" height="30"/>
+                                <rect key="frame" x="16" y="141" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Custom Style">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -106,7 +107,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m9d-ga-qgM">
-                                <rect key="frame" x="184" y="101" width="120" height="30"/>
+                                <rect key="frame" x="184" y="141" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Custom View">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -117,7 +118,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="26L-V0-9Pi">
-                                <rect key="frame" x="16" y="146" width="120" height="30"/>
+                                <rect key="frame" x="16" y="186" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Queued Alerts">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -128,7 +129,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4nz-2P-2iP">
-                                <rect key="frame" x="184" y="146" width="120" height="30"/>
+                                <rect key="frame" x="184" y="186" width="120" height="30"/>
                                 <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Input">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -139,10 +140,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EP8-wt-g4Z">
-                                <rect key="frame" x="-4" y="328" width="324" height="240"/>
+                                <rect key="frame" x="-4" y="386" width="324" height="182"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwE-Aj-Cny">
-                                        <rect key="frame" x="102" y="34" width="120" height="30"/>
+                                        <rect key="frame" x="102" y="16" width="120" height="30"/>
                                         <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Show In View">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -155,16 +156,80 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77V-c2-MXI">
+                                <rect key="frame" x="16" y="96" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="One Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="activeAlertTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Mrx-b3-Gtn"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" id="FAI-Ax-crG"/>
                     <connections>
                         <outlet property="bottomView" destination="EP8-wt-g4Z" id="zbO-ZS-vop"/>
+                        <outlet property="modalButton" destination="ozQ-fH-FJm" id="jbJ-hV-1zU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="158" y="310"/>
+            <point key="canvasLocation" x="690" y="310"/>
+        </scene>
+        <!--Test-->
+        <scene sceneID="utD-Gy-LvA">
+            <objects>
+                <viewController id="Yeh-Xh-bZ7" customClass="URBNViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="736-Lz-lH4"/>
+                        <viewControllerLayoutGuide type="bottom" id="Wo0-m4-ucf"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="p6P-B3-oaX">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mJD-tP-RCn">
+                                <rect key="frame" x="95" y="106" width="120" height="30"/>
+                                <color key="backgroundColor" red="0.5734779284" green="0.74026088800000001" blue="0.45331570040000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="One Button">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="activeAlertTouch:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="1sB-OK-qkn"/>
+                                    <action selector="activeAlertTouch:" destination="Yeh-Xh-bZ7" eventType="touchUpInside" id="vfY-z4-jtS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Test" id="ziv-Jd-hNg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lr5-h1-mIH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1577" y="315"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="RB0-3u-dxD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bhX-3S-QVG" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="F2T-UV-gU2">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Yeh-Xh-bZ7" kind="relationship" relationship="rootViewController" id="TT4-Z9-fGi"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qcx-IV-myL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1045" y="315"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -48,7 +48,7 @@
     [super viewDidLoad];
     
     if (self.alertStyler.blurEnabled.boolValue) {
-        UIView *viewForScreenshot = self.alertConfig.presentationView ?: self.alertController.window.rootViewController.view;
+        UIView *viewForScreenshot = self.alertConfig.presentationView ?: self.alertController.presentingWindow;
         
         UIImage *screenShot = [UIImage urbn_screenShotOfView:viewForScreenshot afterScreenUpdates:NO];
         UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
@@ -120,7 +120,6 @@
     self.alertView = [[URBNAlertView alloc] initWithAlertConfig:self.alertConfig alertStyler:self.alertStyler customView:self.customView textField:self.textField];
     self.alertView.alpha = 0;
     self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
-    
     
     CGFloat screenWdith;
     
@@ -206,13 +205,11 @@
     __weak typeof(self) weakSelf = self;
     [self setVisible:NO animated:YES completion:^(URBNAlertViewController *alertVC, BOOL finished) {
         // Must let the controller know if alert was dismissed via touching outside
-        if ([sender isKindOfClass:[UITapGestureRecognizer class]]) {
-            if (weakSelf.touchedOutsideBlock) {
-                weakSelf.touchedOutsideBlock();
-            }
+        if (weakSelf.finishedDismissingBlock) {
+            BOOL wasTouchedOutside = [sender isKindOfClass:[UITapGestureRecognizer class]];
+            weakSelf.finishedDismissingBlock(wasTouchedOutside);
         }
-        
-        [weakSelf.view removeFromSuperview];
+        [weakSelf dismissViewControllerAnimated:NO completion:nil];
     }];
 }
 
