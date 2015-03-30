@@ -321,7 +321,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Tests/Pods-Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		CED0061E4956AA30C4AFB40B /* Check Pods Manifest.lock */ = {
@@ -515,7 +515,7 @@
 		};
 		6003F5C3195388D20070C39A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B86C2C45B05F33B41B01B22 /* Pods-URBNAlert.debug.xcconfig */;
+			baseConfigurationReference = 5862A0EB7D10C7534C13A4BE /* Pods-Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/URBNAlert.app/URBNAlert";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -538,7 +538,7 @@
 		};
 		6003F5C4195388D20070C39A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9E41FFA51E23FD76367DEBD /* Pods-URBNAlert.release.xcconfig */;
+			baseConfigurationReference = 40103FBA58B3BC41F8C91071 /* Pods-Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/URBNAlert.app/URBNAlert";
 				FRAMEWORK_SEARCH_PATHS = (
