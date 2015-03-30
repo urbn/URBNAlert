@@ -30,7 +30,7 @@
     dispatch_once(&onceToken, ^{
         instance = [[URBNAlertController alloc] init];
         [instance setAlertStyler:[URBNAlertStyle new]];
-        instance.presentingWindow = [[UIApplication sharedApplication] windows][0];
+        instance.presentingWindow = [[[UIApplication sharedApplication] windows] firstObject];
     });
     
     return instance;
@@ -122,7 +122,7 @@
         return;
     }
     
-    self.presentingWindow = [[UIApplication sharedApplication] windows][0];
+    self.presentingWindow = [[[UIApplication sharedApplication] windows] firstObject];
     
     self.alertWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.alertWindow.windowLevel = UIWindowLevelAlert;
