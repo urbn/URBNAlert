@@ -15,7 +15,7 @@
 @class URBNAlertViewController;
 @class URBNAlertAction;
 
-typedef void(^URBNAlertViewControllerTouchedOutside)();
+typedef void(^URBNAlertViewControllerFinishedDismissing)(BOOL wasTouchedOutside);
 
 @interface URBNAlertViewController : UIViewController
 
@@ -36,7 +36,7 @@ typedef void(^URBNAlertViewControllerTouchedOutside)();
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler;
 
 // Blocks
-@property (nonatomic, copy) URBNAlertViewControllerTouchedOutside touchedOutsideBlock;
-- (void)setTouchedOutsideBlock:(URBNAlertViewControllerTouchedOutside)touchedOutsideBlock;
+@property (nonatomic, copy) URBNAlertViewControllerFinishedDismissing finishedDismissingBlock;
+- (void)setFinishedDismissingBlock:(URBNAlertViewControllerFinishedDismissing)finishedDismissingBlock;
 
 @end

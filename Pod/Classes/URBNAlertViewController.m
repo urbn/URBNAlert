@@ -48,29 +48,7 @@
     [super viewDidLoad];
     
     if (self.alertStyler.blurEnabled.boolValue) {
-        UIView *viewForScreenshot;// = self.alertConfig.presentationView ?: self.alertController.window.rootViewController.view;
-
-        if (self.alertConfig.presentationView) {
-            viewForScreenshot = self.alertConfig.presentationView;
-        }
-        // If the top view is a modal
-        else if (self.alertController.window.rootViewController.presentedViewController) {
-            UIViewController *vc;
-            
-            // Handle if there is a navController on the modal
-            if ([self.alertController.window.rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
-                UINavigationController *navController = (UINavigationController *)self.alertController.window.rootViewController.presentedViewController;
-                
-                vc = navController.viewControllers.firstObject;
-            }
-            else {
-                vc = self.alertController.window.rootViewController.presentedViewController;
-            }
-            viewForScreenshot = vc.view;
-        }
-        else {
-            viewForScreenshot = self.alertController.window.rootViewController.view;
-        }
+        UIView *viewForScreenshot = self.alertConfig.presentationView ?: self.alertController.presentingWindow;
         
         UIImage *screenShot = [UIImage urbn_screenShotOfView:viewForScreenshot afterScreenUpdates:NO];
         UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
@@ -227,10 +205,9 @@
     __weak typeof(self) weakSelf = self;
     [self setVisible:NO animated:YES completion:^(URBNAlertViewController *alertVC, BOOL finished) {
         // Must let the controller know if alert was dismissed via touching outside
-        if ([sender isKindOfClass:[UITapGestureRecognizer class]]) {
-            if (weakSelf.touchedOutsideBlock) {
-                weakSelf.touchedOutsideBlock();
-            }
+        if (weakSelf.finishedDismissingBlock) {
+            BOOL wasTouchedOutside = [sender isKindOfClass:[UITapGestureRecognizer class]];
+            weakSelf.finishedDismissingBlock(wasTouchedOutside);
         }
         [weakSelf dismissViewControllerAnimated:NO completion:nil];
     }];

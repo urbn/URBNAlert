@@ -31,7 +31,8 @@ typedef void(^URBNAlertButtonTouched)(URBNAlertController *alertController, NSIn
  */
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
 
-@property (nonatomic, strong) UIWindow *window;
+@property (nonatomic, strong, readonly) UIWindow *alertWindow;
+@property (nonatomic, strong, readonly) UIWindow *presentingWindow;
 
 - (void)showNextAlert;
 - (void)addAlertToQueueWithAlertViewController:(URBNAlertViewController *)avc;

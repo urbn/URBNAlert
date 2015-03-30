@@ -16,6 +16,8 @@
 
 @property (nonatomic, assign) BOOL alertIsVisible;
 @property (nonatomic, copy) NSArray *queue;
+@property (nonatomic, strong) UIWindow *alertWindow;
+@property (nonatomic, strong) UIWindow *presentingWindow;
 
 @end
 
@@ -28,7 +30,7 @@
     dispatch_once(&onceToken, ^{
         instance = [[URBNAlertController alloc] init];
         [instance setAlertStyler:[URBNAlertStyle new]];
-        instance.window = [[UIApplication sharedApplication] windows][0];
+        instance.presentingWindow = [[UIApplication sharedApplication] windows][0];
     });
     
     return instance;
@@ -48,15 +50,26 @@
         
         __weak typeof(self) weakSelf = self;
         __weak typeof(avc) weakAlertVC = avc;
+        
+        // Called anytime the alert is dismissed after the animation is complete
+        [avc setFinishedDismissingBlock:^(BOOL wasTouchedOutside) {
+            if (wasTouchedOutside) {
+                [weakSelf dismissAlertViewController:weakAlertVC];
+            }
+            
+            // If the queue is empty, remove the window. If not keep visible to present next alert(s)
+            if (!self.queue || self.queue.count == 0) {
+                [self.presentingWindow makeKeyAndVisible];
+                self.alertWindow.hidden = YES;
+                self.alertWindow = nil;
+            }
+        }];
+        
         [avc.alertView setButtonTouchedBlock:^(URBNAlertAction *action) {
             if (action.completionBlock) {
                 action.completionBlock(action);
             }
             
-            [weakSelf dismissAlertViewController:weakAlertVC];
-        }];
-        
-        [avc setTouchedOutsideBlock:^{
             [weakSelf dismissAlertViewController:weakAlertVC];
         }];
         
@@ -77,26 +90,10 @@
             
             [avc.alertConfig.presentationView addSubview:avc.view];
         }
-        // If the top view is a modal
-        else if (self.window.rootViewController.presentedViewController) {
-            UIViewController *vc;
-            
-            // Handle if there is a navController on the modal
-            if ([self.window.rootViewController.presentedViewController isKindOfClass:[UINavigationController class]]) {
-                UINavigationController *navController = (UINavigationController *)self.window.rootViewController.presentedViewController;
-                
-                vc = navController.viewControllers.firstObject;
-                [navController presentViewController:avc animated:NO completion:nil];
-
-            }
-            else {
-                vc = self.window.rootViewController.presentedViewController;
-            }
-            
-        }
         else {
-            [self.window.rootViewController addChildViewController:avc];
-            [self.window.rootViewController.view addSubview:avc.view];
+            [self setupAlertWindow];
+            self.alertWindow.rootViewController = avc;
+            [self.alertWindow makeKeyAndVisible];
         }
         
         [NSObject cancelPreviousPerformRequestsWithTarget:self];
@@ -120,6 +117,20 @@
 }
 
 #pragma mark - Methods
+- (void)setupAlertWindow {
+    if (self.alertWindow) {
+        return;
+    }
+    
+    self.presentingWindow = [[UIApplication sharedApplication] windows][0];
+    
+    self.alertWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.alertWindow.windowLevel = UIWindowLevelAlert;
+    self.alertWindow.hidden = NO;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resignActive:) name:UIWindowDidBecomeKeyNotification object:nil];
+}
+
 - (CGFloat)calculateDuration:(URBNAlertConfig *)config {
     // The average number of words a person can read for minute is 250 - 300
     NSInteger wordCount = [[config.title componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] count];
@@ -158,6 +169,19 @@
 
 - (URBNAlertViewController *)peekQueue {
     return self.queue.firstObject;
+}
+
+#pragma mark - Notifications
+/**
+ *  Called when a new window becomes active.
+ *  Specifically used to detect new alertViews or actionSheets so we can dismiss ourselves
+ **/
+- (void)resignActive:(NSNotification *)note {
+    if (note.object == self.alertWindow || note.object == self.presentingWindow) {
+        return;
+    }
+    
+    [self dismissAlert];
 }
 
 @end
