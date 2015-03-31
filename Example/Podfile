@@ -1,9 +1,5 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-target 'URBNAlert', :exclusive => true do
-  pod "URBNAlert", :path => "../"
-end
+link_with 'URBNAlert', 'Tests'
 
-target 'Tests', :exclusive => true do
-  pod "URBNAlert", :path => "../"
-end
+pod "URBNAlert", :path => "../"
