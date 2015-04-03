@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) URBNAlertController *alertController;
 @property (nonatomic, strong) NSLayoutConstraint *yPosConstraint;
+@property (nonatomic, strong) UIImageView *blurImageView;
 @property (nonatomic, assign) BOOL visible;
 
 @end
@@ -48,25 +49,15 @@
     [super viewDidLoad];
     
     if (self.alertStyler.blurEnabled.boolValue) {
-        UIView *viewForScreenshot = self.alertConfig.presentationView ?: self.alertController.presentingWindow;
-        
-        UIImage *screenShot = [UIImage urbn_screenShotOfView:viewForScreenshot afterScreenUpdates:NO];
-        UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
-        UIImageView *blurImageView = [[UIImageView alloc] initWithFrame:viewForScreenshot.frame];
-        [blurImageView setImage:blurImage];
-        
-        CGRect rect = blurImageView.frame;
-        rect.origin.x = 0;
-        rect.origin.y = 0;
-        blurImageView.frame = rect;
-        
-        [self.view addSubview:blurImageView];
+        [self addBlurScreenshot];
     }
     
     [self.view addSubview:self.alertView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChangeNotification:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -103,6 +94,25 @@
     if (action.actionType != URBNAlertActionTypePassive) {
         self.alertConfig.isActiveAlert = YES;
     }
+}
+
+- (void)addBlurScreenshot {
+    if (self.blurImageView) {
+        [self.blurImageView removeFromSuperview];
+    }
+    
+    UIView *viewForScreenshot = self.alertConfig.presentationView ?: self.alertController.presentingWindow;
+    UIImage *screenShot = [UIImage urbn_screenShotOfView:viewForScreenshot afterScreenUpdates:NO];
+    UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
+    self.blurImageView = [[UIImageView alloc] initWithFrame:viewForScreenshot.frame];
+    [self.blurImageView setImage:blurImage];
+    
+    CGRect rect = self.blurImageView.frame;
+    rect.origin.x = 0;
+    rect.origin.y = 0;
+    self.blurImageView.frame = rect;
+    
+    [self.view insertSubview:self.blurImageView atIndex:0];
 }
 
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
@@ -211,6 +221,13 @@
         }
         [weakSelf dismissViewControllerAnimated:NO completion:nil];
     }];
+}
+
+#pragma mark - Orientation Notifications
+- (void)deviceOrientationDidChangeNotification:(NSNotification*)note {
+    if (self.alertStyler.blurEnabled.boolValue) {
+        [self addBlurScreenshot];
+    }
 }
 
 
