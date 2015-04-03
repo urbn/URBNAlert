@@ -46,9 +46,8 @@
 - (IBAction)activeAlertTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text.  "];
     uac.alertStyler.blurTintColor = [[UIColor orangeColor] colorWithAlphaComponent:0.4];
-    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
           // Do something
-
     }]];
     
     [uac show];
@@ -155,14 +154,22 @@
 
 
 - (IBAction)activeAlertValidateInput:(id)sender {
-    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Validated Input Alert" message:@"Input must be 5 characters long to pass." view:nil];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Validated Input Alert" message:@"Input must be 5 characters long to pass."];
     
+    __weak typeof(uac) weakUac = uac;
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
-        if (uac.textField.text.length != 5) {
-            [uac showInputError:@"Error! must enter 5 characters. The error can span multiple lines."];
+        [weakUac startLoading];
+        
+        if (weakUac.textField.text.length != 5) {
+            double delayInSeconds = 2.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [weakUac stopLoading];
+                [weakUac showInputError:@"Error! must enter 5 characters. The error can span multiple lines."];
+            });
         }
         else {
-            [uac dismiss];
+            [weakUac dismiss];
         }
     }]];
     

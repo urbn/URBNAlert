@@ -10,6 +10,7 @@
 #import "URBNAlertController.h"
 #import "URBNAlertConfig.h"
 #import "URBNAlertAction.h"
+#import <URBNConvenience/UITextField+URBNLoadingIndicator.h>
 
 @interface URBNAlertView()
 
@@ -53,6 +54,7 @@
         [self addSubview:self.customView];
         
         if (self.textField) {
+            self.textField.delegate = self;
             self.textField.translatesAutoresizingMaskIntoConstraints = NO;
             [self addSubview:self.textField];
             views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer, _textField, _errorLabel);
@@ -178,8 +180,8 @@
     if (!_errorLabel) {
         _errorLabel = [UILabel new];
         _errorLabel.numberOfLines = 0;
-        _errorLabel.font = self.alertStyler.messageFont;
-        _errorLabel.textColor = [UIColor redColor];
+        _errorLabel.font = self.alertStyler.errorTextFont;
+        _errorLabel.textColor = self.alertStyler.errorTextColor;
         _errorLabel.alpha = 0;
     }
     
@@ -210,14 +212,38 @@
     [UIView animateWithDuration:0.2 animations:^{
         self.errorLabel.text = errorText;
         self.errorLabel.alpha = 1;
-        //[self layoutIfNeeded];
     }];
+}
 
+- (void)setLoadingState:(BOOL)newState {
+    if (newState) {
+        // Disable buttons, show loading
+        [self setButtonsEnabled:NO];
+        
+        if (self.textField) {
+            [self.textField urbn_showLoading:YES animated:YES];
+        }
+    }
+    else {
+        [self setButtonsEnabled:YES];
+        
+        if (self.textField) {
+            [self.textField urbn_showLoading:NO animated:YES];
+        }
+    }
+}
+
+- (void)setButtonsEnabled:(BOOL)enabled {
+    for (UIButton *btn in self.buttons) {
+        btn.enabled = enabled;
+        btn.alpha = enabled ? 1.f : 0.5f;
+    }
 }
 
 #pragma mark - Actions
 - (void)buttonTouch:(id)sender {
     UIButton *btn = (UIButton *)sender;
+    
     if (self.buttonTouchedBlock) {
         self.buttonTouchedBlock([self.alertConfig.actions objectAtIndex:btn.tag]);
     }
