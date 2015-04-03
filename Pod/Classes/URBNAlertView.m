@@ -221,7 +221,7 @@
         [self setButtonsEnabled:NO];
         
         if (self.textField) {
-            [self.textField urbn_showLoading:YES animated:YES];
+            [self.textField urbn_showLoading:YES animated:YES spinnerInsets:UIEdgeInsetsMake(0, 0, 0, 8)];
         }
     }
     else {

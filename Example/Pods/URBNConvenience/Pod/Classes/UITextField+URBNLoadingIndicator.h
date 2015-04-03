@@ -9,5 +9,6 @@
 @interface UITextField (URBNLoadingIndicator)
 
 - (void)urbn_showLoading:(BOOL)loading animated:(BOOL)isAnimated;
+- (void)urbn_showLoading:(BOOL)loading animated:(BOOL)isAnimated spinnerInsets:(UIEdgeInsets)insets;
 
 @end
