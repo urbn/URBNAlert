@@ -21,12 +21,15 @@ typedef void(^URBNAlertCompletion)(URBNAlertAction *action);
 @interface URBNAlertAction : NSObject
 
 @property (nonatomic, copy) NSString *title;
+@property (nonatomic, assign) BOOL dismissOnCompletion;
 @property (nonatomic, assign) URBNAlertActionType actionType;
 
 @property (nonatomic, copy) URBNAlertCompletion completionBlock;
 - (void)setCompletionBlock:(URBNAlertCompletion)completionBlock;
 
 + (URBNAlertAction *)actionWithTitle:(NSString *)title actionType:(URBNAlertActionType)actionType actionCompleted:(URBNAlertCompletion)completionBlock;
+
++ (URBNAlertAction *)actionWithTitle:(NSString *)title actionType:(URBNAlertActionType)actionType dismissOnActionComplete:(BOOL)dismiss actionCompleted:(URBNAlertCompletion)completionBlock;
 
 - (BOOL)isButton;
 

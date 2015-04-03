@@ -14,7 +14,19 @@
     URBNAlertAction *action = [URBNAlertAction new];
     [action setTitle:title];
     [action setActionType:actionType];
+    [action setDismissOnCompletion:YES];
     [action setCompletionBlock:completionBlock];
+    
+    return action;
+}
+
++ (URBNAlertAction *)actionWithTitle:(NSString *)title actionType:(URBNAlertActionType)actionType dismissOnActionComplete:(BOOL)dismiss actionCompleted:(URBNAlertCompletion)completionBlock {
+    URBNAlertAction *action = [URBNAlertAction new];
+    [action setTitle:title];
+    [action setActionType:actionType];
+    [action setDismissOnCompletion:dismiss];
+    [action setCompletionBlock:completionBlock];
+    
     return action;
 }
 
