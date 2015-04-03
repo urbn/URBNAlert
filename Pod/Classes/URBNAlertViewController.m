@@ -219,11 +219,15 @@
     CGRect keyboardFrame = [sender.userInfo [UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat alertViewBottomYPos = self.alertView.frame.size.height + (self.alertView.frame.origin.y);
     
-    self.yPosConstraint.constant = -(alertViewBottomYPos - keyboardFrame.origin.y);
+    CGFloat yOffset = -(alertViewBottomYPos - keyboardFrame.origin.y);
     
-    [UIView animateWithDuration:0.3f animations:^{
-        [self.view layoutIfNeeded];
-    }];
+    if (yOffset < 0) {
+        self.yPosConstraint.constant = yOffset - 30; // 30 more for so its not right up against the keyboard
+
+        [UIView animateWithDuration:0.3f animations:^{
+            [self.view layoutIfNeeded];
+        }];
+    }
 }
 
 - (void)keyboardWillHide:(NSNotification *)sender {
