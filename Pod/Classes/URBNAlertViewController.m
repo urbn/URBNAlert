@@ -197,6 +197,10 @@
     }
 }
 
+- (void)showInputError:(NSString *)errorText {
+    [self.alertView setErrorLabelText:errorText];
+}
+
 #pragma mark - Action
 - (void)dismissAlert:(id)sender {
     [self.view endEditing:YES];

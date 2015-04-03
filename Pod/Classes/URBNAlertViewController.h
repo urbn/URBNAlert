@@ -22,6 +22,8 @@ typedef void(^URBNAlertViewControllerFinishedDismissing)(BOOL wasTouchedOutside)
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message view:(UIView *)view;
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message;
 
+- (void)showInputError:(NSString *)errorText;
+
 @property (nonatomic, strong) URBNAlertView *alertView;
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
 @property (nonatomic, strong) URBNAlertConfig *alertConfig;
