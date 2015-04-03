@@ -28,6 +28,15 @@
     return _messageFont ?: [UIFont systemFontOfSize:14];
 }
 
+#pragma mark - Error
+- (UIColor *)errorTextColor {
+    return _errorTextColor ?: [UIColor redColor];
+}
+
+- (UIFont *)errorTextFont {
+    return _errorTextFont ?: [UIFont boldSystemFontOfSize:14];
+}
+
 #pragma mark - Buttons
 - (UIColor *)buttonTitleColor {
     return _buttonTitleColor ?: [UIColor whiteColor];

@@ -21,13 +21,16 @@ typedef void(^URBNAlertViewTouched)(URBNAlertAction *action);
 
 - (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertStyler:(URBNAlertStyle *)alertStyler customView:(UIView *)customView textField:(UITextField *)textField;
 
+- (void)setErrorLabelText:(NSString *)errorText;
+- (void)setLoadingState:(BOOL)newState;
+
+@property (nonatomic, weak) UITextField *textField;
+
 // Blocks
 @property (nonatomic, copy) URBNAlertViewButtonTouched buttonTouchedBlock;
 - (void)setButtonTouchedBlock:(URBNAlertViewButtonTouched)buttonTouchedBlock;
 
 @property (nonatomic, copy) URBNAlertViewTouched alertViewTouchedBlock;
 - (void)setAlertViewTouchedBlock:(URBNAlertViewTouched)alertViewTouchedBlock;
-
-@property (nonatomic, weak) UITextField *textField;
 
 @end

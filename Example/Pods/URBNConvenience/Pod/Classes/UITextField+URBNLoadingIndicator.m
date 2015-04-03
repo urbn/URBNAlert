@@ -1,11 +1,16 @@
 
 #import "UITextField+URBNLoadingIndicator.h"
+#import "UIView+URBNLayout.h"
 
 static CGFloat kURBNTextFieldLoadingIndicatorAnimationDuration = .25f;
 
 @implementation UITextField (URBNLoadingIndicator)
 
 - (void)urbn_showLoading:(BOOL)loading animated:(BOOL)isAnimated {
+    [self urbn_showLoading:loading animated:isAnimated spinnerInsets:UIEdgeInsetsZero];
+}
+
+- (void)urbn_showLoading:(BOOL)loading animated:(BOOL)isAnimated spinnerInsets:(UIEdgeInsets)insets {
     //If we're already showing the loading indicator don't try showing again
     if ( loading && [self.rightView isKindOfClass:[UIActivityIndicatorView class]] ) {
         return;
@@ -27,7 +32,12 @@ static CGFloat kURBNTextFieldLoadingIndicatorAnimationDuration = .25f;
     if(loading) {
         if(!indy || ![indy isKindOfClass:[UIActivityIndicatorView class]]) {
             indy = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-            self.rightView = indy;
+            UIView *newView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, (indy.size.width + insets.right + insets.left), (indy.size.height + insets.top + insets.bottom))];
+
+            indy.frame = CGRectMake(insets.left, insets.top, indy.width, indy.height);
+            [newView addSubview:indy];
+            
+            self.rightView = newView;
         }
         
         self.rightViewMode = UITextFieldViewModeAlways;

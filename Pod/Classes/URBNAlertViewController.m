@@ -197,6 +197,18 @@
     }
 }
 
+- (void)showInputError:(NSString *)errorText {
+    [self.alertView setErrorLabelText:errorText];
+}
+
+- (void)startLoading {
+    [self.alertView setLoadingState:YES];
+}
+
+- (void)stopLoading {
+    [self.alertView setLoadingState:NO];
+}
+
 #pragma mark - Action
 - (void)dismissAlert:(id)sender {
     [self.view endEditing:YES];

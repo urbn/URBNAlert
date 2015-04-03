@@ -24,6 +24,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     // Set global stlying. This can be done sometime during app launch. You can change style options per alert as well.
     self.alertController = [URBNAlertController sharedInstance];
     self.alertController.alertStyler.buttonBackgroundColor = [UIColor blueColor];
@@ -143,6 +145,38 @@
         textField.placeholder = @"e-mail";
         textField.returnKeyType = UIReturnKeyDone;
         textField.keyboardType = UIKeyboardTypeEmailAddress;
+    }];
+    
+    [uac show];
+}
+
+
+
+
+- (IBAction)activeAlertValidateInput:(id)sender {
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Validated Input Alert" message:@"Input must be 5 characters long to pass."];
+    
+    __weak typeof(uac) weakUac = uac;
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
+        [weakUac startLoading];
+        
+        if (weakUac.textField.text.length != 5) {
+            double delayInSeconds = 2.0;
+            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                [weakUac stopLoading];
+                [weakUac showInputError:@"Error! must enter 5 characters. The error can span multiple lines."];
+            });
+        }
+        else {
+            [weakUac dismiss];
+        }
+    }]];
+    
+    [uac addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.borderStyle = UITextBorderStyleRoundedRect;
+        textField.placeholder = @"must enter 5 characters";
+        textField.returnKeyType = UIReturnKeyDone;
     }];
     
     [uac show];

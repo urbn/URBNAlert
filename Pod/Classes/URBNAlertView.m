@@ -10,6 +10,7 @@
 #import "URBNAlertController.h"
 #import "URBNAlertConfig.h"
 #import "URBNAlertAction.h"
+#import <URBNConvenience/UITextField+URBNLoadingIndicator.h>
 
 @interface URBNAlertView()
 
@@ -17,6 +18,7 @@
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *messageLabel;
+@property (nonatomic, strong) UILabel *errorLabel;
 @property (nonatomic, strong) UIView *customView;
 @property (nonatomic, copy) NSArray *buttons;
 
@@ -48,15 +50,17 @@
         
         [self addSubview:self.titleLabel];
         [self addSubview:self.messageLabel];
+        [self addSubview:self.errorLabel];
         [self addSubview:self.customView];
         
         if (self.textField) {
+            self.textField.delegate = self;
             self.textField.translatesAutoresizingMaskIntoConstraints = NO;
             [self addSubview:self.textField];
-            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer, _textField);
+            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer, _textField, _errorLabel);
         }
         else {
-            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer);
+            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer, _errorLabel);
         }
         
         // Add some buttons
@@ -86,7 +90,7 @@
                                       @"btnMargin" : self.alertStyler.buttonHorizontalMargin,
                                        @"cvMargin" : self.alertStyler.customViewMargin};
         
-        for (UILabel *lbl in @[self.titleLabel, self.messageLabel]) {
+        for (UILabel *lbl in @[self.titleLabel, self.messageLabel, self.errorLabel]) {
             lbl.translatesAutoresizingMaskIntoConstraints = NO;
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblHMargin-[lbl]-lblHMargin-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(lbl)]];
         }
@@ -95,7 +99,7 @@
 
         if (!self.textField) {
             if (self.alertConfig.isActiveAlert) {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-5-[_errorLabel]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
             }
             // Passive alert, dont added margins for buttonContainer
             else {
@@ -104,7 +108,7 @@
         }
         else {
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblHMargin-[_textField]-lblHMargin-|" options:0 metrics:metrics views:views]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-cvMargin-[_textField]-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-cvMargin-[_textField]-5-[_errorLabel]-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
         }
         
         // Button Constraints
@@ -172,6 +176,18 @@
     return _messageLabel;
 }
 
+- (UILabel *)errorLabel {
+    if (!_errorLabel) {
+        _errorLabel = [UILabel new];
+        _errorLabel.numberOfLines = 0;
+        _errorLabel.font = self.alertStyler.errorTextFont;
+        _errorLabel.textColor = self.alertStyler.errorTextColor;
+        _errorLabel.alpha = 0;
+    }
+    
+    return _errorLabel;
+}
+
 #pragma mark - Methods
 - (UIButton *)createAlertViewButtonWithAction:(URBNAlertAction *)action atIndex:(NSInteger)index {
     UIColor *bgColor = self.alertStyler.buttonBackgroundColor;
@@ -192,9 +208,42 @@
     return btn;
 }
 
+- (void)setErrorLabelText:(NSString *)errorText {
+    [UIView animateWithDuration:0.2 animations:^{
+        self.errorLabel.text = errorText;
+        self.errorLabel.alpha = 1;
+    }];
+}
+
+- (void)setLoadingState:(BOOL)newState {
+    if (newState) {
+        // Disable buttons, show loading
+        [self setButtonsEnabled:NO];
+        
+        if (self.textField) {
+            [self.textField urbn_showLoading:YES animated:YES spinnerInsets:UIEdgeInsetsMake(0, 0, 0, 8)];
+        }
+    }
+    else {
+        [self setButtonsEnabled:YES];
+        
+        if (self.textField) {
+            [self.textField urbn_showLoading:NO animated:YES];
+        }
+    }
+}
+
+- (void)setButtonsEnabled:(BOOL)enabled {
+    for (UIButton *btn in self.buttons) {
+        btn.enabled = enabled;
+        btn.alpha = enabled ? 1.f : 0.5f;
+    }
+}
+
 #pragma mark - Actions
 - (void)buttonTouch:(id)sender {
     UIButton *btn = (UIButton *)sender;
+    
     if (self.buttonTouchedBlock) {
         self.buttonTouchedBlock([self.alertConfig.actions objectAtIndex:btn.tag]);
     }

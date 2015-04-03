@@ -140,4 +140,14 @@
  */
 @property (nonatomic, strong) NSNumber *blurSaturationDelta;
 
+/**
+ * Text color of the error label text
+ */
+@property (nonatomic, strong) UIColor *errorTextColor;
+
+/**
+ * Text color of the error label text
+ */
+@property (nonatomic, strong) UIFont *errorTextFont;
+
 @end
