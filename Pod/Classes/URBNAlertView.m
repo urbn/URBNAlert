@@ -191,12 +191,16 @@
 #pragma mark - Methods
 - (UIButton *)createAlertViewButtonWithAction:(URBNAlertAction *)action atIndex:(NSInteger)index {
     UIColor *bgColor = self.alertStyler.buttonBackgroundColor;
-    UIColor *bgDestructiveColor = self.alertStyler.buttonDestructionBackgroundColor;
     UIColor *titleColor = self.alertStyler.buttonTitleColor;
+    
+    if (action.actionType == URBNAlertActionTypeDestructive) {
+        titleColor = self.alertStyler.destructiveButtonTitleColor;
+        bgColor = self.alertStyler.destructionButtonBackgroundColor;
+    }
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.translatesAutoresizingMaskIntoConstraints = NO;
-    btn.backgroundColor = (action.actionType == URBNAlertActionTypeDestructive) ? bgDestructiveColor : bgColor;
+    btn.backgroundColor = bgColor;
     btn.titleLabel.font = self.alertStyler.buttonFont;
     btn.layer.cornerRadius = self.alertStyler.buttonCornerRadius.floatValue;
     btn.tag = index;
