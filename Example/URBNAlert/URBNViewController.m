@@ -29,7 +29,7 @@
     // Set global stlying. This can be done sometime during app launch. You can change style options per alert as well.
     self.alertController = [URBNAlertController sharedInstance];
     self.alertController.alertStyler.buttonBackgroundColor = [UIColor blueColor];
-    self.alertController.alertStyler.buttonDestructionBackgroundColor = [UIColor greenColor];
+    self.alertController.alertStyler.destructionButtonBackgroundColor = [UIColor greenColor];
     
     self.navigationItem.title = @"URBNAlert";
     
@@ -75,7 +75,8 @@
 - (IBAction)activeAlertColoredTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom Styled Alert" message:@"You can change the fonts, colors, button size, corner radius, and much more."];
     uac.alertStyler.buttonBackgroundColor = [UIColor yellowColor];
-    uac.alertStyler.buttonDestructionBackgroundColor = [UIColor purpleColor];
+    uac.alertStyler.destructionButtonBackgroundColor = [UIColor purpleColor];
+    uac.alertStyler.destructiveButtonTitleColor = [UIColor greenColor];
     uac.alertStyler.backgroundColor = [UIColor orangeColor];
     uac.alertStyler.buttonTitleColor = [UIColor blackColor];
     uac.alertStyler.titleColor = [UIColor purpleColor];
@@ -89,7 +90,11 @@
     uac.alertStyler.alertViewShadowColor = [UIColor greenColor];
     uac.alertStyler.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     
-    [uac addAction:[URBNAlertAction actionWithTitle:@"Close" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Destructive" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
+        // Do something
+    }]];
+    
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Normal" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
         // Do something
     }]];
     
