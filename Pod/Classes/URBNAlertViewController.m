@@ -62,6 +62,9 @@
         
         [self.view addSubview:blurImageView];
     }
+    else if (self.alertStyler.backgroundViewTintColor) {
+        self.view.backgroundColor = self.alertStyler.backgroundViewTintColor;
+    }
     
     [self.view addSubview:self.alertView];
     

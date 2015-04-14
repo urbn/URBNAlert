@@ -117,7 +117,7 @@
     return CGSizeEqualToSize(_alertShadowOffset, CGSizeZero) ? CGSizeMake(1, 1) : _alertShadowOffset;
 }
 
-#pragma mark - Blur
+#pragma mark - Blur / Background View
 - (NSNumber *)blurEnabled {
     return _blurEnabled ?: @YES;
 }

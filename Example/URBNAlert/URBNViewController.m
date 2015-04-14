@@ -195,6 +195,7 @@
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
     uac.alertConfig.touchOutsideViewToDismiss = YES;
     uac.alertStyler.blurEnabled = @NO;
+    uac.alertStyler.backgroundViewTintColor = [[UIColor whiteColor] colorWithAlphaComponent:0.4f];
 
     [uac addAction:[URBNAlertAction actionWithTitle:nil actionType:URBNAlertActionTypePassive actionCompleted:^(URBNAlertAction *action) {
         // Do something
