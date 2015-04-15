@@ -136,6 +136,11 @@
 @property (nonatomic, strong) UIColor *blurTintColor;
 
 /**
+ * Tint color of the view behind the Alert. Blur must be disabled
+ */
+@property (nonatomic, strong) UIColor *backgroundViewTintColor;
+
+/**
  * Radius of the blurred snapshot
  */
 @property (nonatomic, strong) NSNumber *blurRadius;
