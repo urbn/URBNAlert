@@ -10,7 +10,6 @@
 #import "URBNAlertView.h"
 #import "URBNAlertController.h"
 #import "URBNAlertConfig.h"
-#import <URBNConvenience/URBNMacros.h>
 #import <URBNConvenience/UIImage+URBN.h>
 #import "URBNAlertAction.h"
 
@@ -136,7 +135,7 @@
         screenWdith = [UIScreen mainScreen].bounds.size.width;
     }
     
-    CGFloat sideMargins = IS_IPHONE_6P ? screenWdith * 0.1 : screenWdith * 0.05;
+    CGFloat sideMargins = screenWdith * 0.05;
     
     NSDictionary *metrics = @{@"sideMargins" : @(sideMargins)};
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-sideMargins-[_alertView]-sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
