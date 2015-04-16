@@ -18,7 +18,12 @@
 /**
  * Background color of the denial button for an active alert (at position 0)
  */
-@property (nonatomic, strong) UIColor *buttonDestructionBackgroundColor;
+@property (nonatomic, strong) UIColor *destructionButtonBackgroundColor;
+
+/**
+ * Text color of destructive button colors
+ */
+@property (nonatomic, strong) UIColor *destructiveButtonTitleColor;
 
 /**
  * Text color of the button titles
@@ -131,6 +136,11 @@
 @property (nonatomic, strong) UIColor *blurTintColor;
 
 /**
+ * Tint color of the view behind the Alert. Blur must be disabled
+ */
+@property (nonatomic, strong) UIColor *backgroundViewTintColor;
+
+/**
  * Radius of the blurred snapshot
  */
 @property (nonatomic, strong) NSNumber *blurRadius;
@@ -139,5 +149,15 @@
  * Saturation blur factor of the blurred snapshot. 1 is normal. < 1 removes color, > 1 adds color
  */
 @property (nonatomic, strong) NSNumber *blurSaturationDelta;
+
+/**
+ * Text color of the error label text
+ */
+@property (nonatomic, strong) UIColor *errorTextColor;
+
+/**
+ * Text color of the error label text
+ */
+@property (nonatomic, strong) UIFont *errorTextFont;
 
 @end

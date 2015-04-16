@@ -70,7 +70,9 @@
                 action.completionBlock(action);
             }
             
-            [weakSelf dismissAlertViewController:weakAlertVC];
+            if (action.dismissOnCompletion) {
+                [weakSelf dismissAlertViewController:weakAlertVC];
+            }
         }];
         
         [avc.alertView setAlertViewTouchedBlock:^(URBNAlertAction *action) {

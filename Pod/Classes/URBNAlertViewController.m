@@ -10,7 +10,6 @@
 #import "URBNAlertView.h"
 #import "URBNAlertController.h"
 #import "URBNAlertConfig.h"
-#import <URBNConvenience/URBNMacros.h>
 #import <URBNConvenience/UIImage+URBN.h>
 #import "URBNAlertAction.h"
 
@@ -50,6 +49,9 @@
     
     if (self.alertStyler.blurEnabled.boolValue) {
         [self addBlurScreenshot];
+    }
+    else if (self.alertStyler.backgroundViewTintColor) {
+        self.view.backgroundColor = self.alertStyler.backgroundViewTintColor;
     }
     
     [self.view addSubview:self.alertView];
@@ -143,7 +145,7 @@
         screenWdith = [UIScreen mainScreen].bounds.size.width;
     }
     
-    CGFloat sideMargins = IS_IPHONE_6P ? screenWdith * 0.1 : screenWdith * 0.05;
+    CGFloat sideMargins = screenWdith * 0.05;
     
     NSDictionary *metrics = @{@"sideMargins" : @(sideMargins)};
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-sideMargins-[_alertView]-sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
@@ -205,6 +207,18 @@
             complete(self, YES);
         }
     }
+}
+
+- (void)showInputError:(NSString *)errorText {
+    [self.alertView setErrorLabelText:errorText];
+}
+
+- (void)startLoading {
+    [self.alertView setLoadingState:YES];
+}
+
+- (void)stopLoading {
+    [self.alertView setLoadingState:NO];
 }
 
 #pragma mark - Action

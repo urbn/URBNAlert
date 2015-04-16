@@ -11,10 +11,16 @@
 @implementation URBNAlertAction
 
 + (URBNAlertAction *)actionWithTitle:(NSString *)title actionType:(URBNAlertActionType)actionType actionCompleted:(URBNAlertCompletion)completionBlock {
+    return [self actionWithTitle:title actionType:actionType dismissOnActionComplete:YES actionCompleted:completionBlock];
+}
+
++ (URBNAlertAction *)actionWithTitle:(NSString *)title actionType:(URBNAlertActionType)actionType dismissOnActionComplete:(BOOL)dismiss actionCompleted:(URBNAlertCompletion)completionBlock {
     URBNAlertAction *action = [URBNAlertAction new];
     [action setTitle:title];
     [action setActionType:actionType];
+    [action setDismissOnCompletion:dismiss];
     [action setCompletionBlock:completionBlock];
+    
     return action;
 }
 
