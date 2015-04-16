@@ -226,7 +226,18 @@
 #pragma mark - Orientation Notifications
 - (void)deviceOrientationDidChangeNotification:(NSNotification*)note {
     if (self.alertStyler.blurEnabled.boolValue) {
-        [self addBlurScreenshot];
+       // [self addBlurScreenshot];
+    }
+}
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    if (self.alertStyler.blurEnabled.boolValue) {
+        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            [self addBlurScreenshot];
+
+        } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            
+        }];
     }
 }
 
