@@ -21,13 +21,11 @@
 @property (nonatomic, strong) NSLayoutConstraint *yPosConstraint;
 @property (nonatomic, strong) UIImageView *blurImageView;
 @property (nonatomic, assign) BOOL visible;
+@property (nonatomic, readonly) UIView *viewForScreenshot;
 
 @end
 
 @implementation URBNAlertViewController
-{
-    CADisplayLink *_rotationLink;
-}
 
 #pragma mark - Initalizers
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message view:(UIView *)view {
@@ -39,10 +37,6 @@
         self.customView = view;
         self.alertController = [URBNAlertController sharedInstance];
         self.alertStyler = [self.alertController.alertStyler copy];
-        
-        _rotationLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(addBlurScreenshot)];
-        [_rotationLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
-        _rotationLink.paused = YES;
     }
     
     return self;
@@ -106,16 +100,26 @@
 }
 
 - (void)addBlurScreenshot {
-    UIView *viewForScreenshot = self.alertConfig.presentationView ?: self.alertController.presentingWindow;
-    UIImage *screenShot = [UIImage urbn_screenShotOfView:viewForScreenshot afterScreenUpdates:NO];
-    UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
-    if (!self.blurImageView) {
-        self.blurImageView = [[UIImageView alloc] initWithFrame:viewForScreenshot.frame];
-        self.blurImageView.contentMode = UIViewContentModeCenter;
-        [self.blurImageView urbn_wrapInContainerViewWithView:self.view];
+    [self addBlurScreenshotOfSize:CGSizeZero];
+}
+
+- (void)addBlurScreenshotOfSize:(CGSize)size {
+    CGRect rect = self.viewForScreenshot.bounds;
+    if (!CGSizeEqualToSize(size, CGSizeZero)) {
+        rect.size = size;
     }
-    [self.view sendSubviewToBack:self.blurImageView];
-    [self.blurImageView setImage:blurImage];
+    
+    UIImage *screenShot = [UIImage urbn_screenShotOfView:self.viewForScreenshot afterScreenUpdates:YES];
+    
+    if (screenShot) {
+        UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
+        if (!self.blurImageView) {
+            self.blurImageView = [[UIImageView alloc] initWithFrame:rect];
+            self.blurImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+            [self.blurImageView urbn_wrapInContainerViewWithView:self.view];
+        }
+        [self.blurImageView setImage:blurImage];
+    }
 }
 
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
@@ -222,6 +226,10 @@
     [self.alertView setLoadingState:NO];
 }
 
+- (UIView *)viewForScreenshot {
+    return self.alertConfig.presentationView ?: self.alertController.presentingWindow;
+}
+
 #pragma mark - Action
 - (void)dismissAlert:(id)sender {
     [self.view endEditing:YES];
@@ -239,13 +247,31 @@
 }
 
 #pragma mark - Orientation Notifications
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [self addBlurScreenshotOfSize:size];
+    
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self addBlurScreenshot];
+    }];
+}
+
+#else
+
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    _rotationLink.paused = NO;
+    CGSize size = self.viewForScreenshot.bounds.size;
+    size.height = size.width;
+    size.width = self.viewForScreenshot.bounds.size.height;
+    [self addBlurScreenshotOfSize:size];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    _rotationLink.paused = YES;
+    [self addBlurScreenshot];
 }
+
+#endif
 
 #pragma mark - Keyboard Notifications
 - (void)keyboardWillShow:(NSNotification *)sender {
