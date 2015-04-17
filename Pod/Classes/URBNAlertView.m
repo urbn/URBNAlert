@@ -154,7 +154,7 @@
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.numberOfLines = 2;
-        _titleLabel.textAlignment = NSTextAlignmentCenter;
+        _titleLabel.textAlignment = self.alertStyler.titleAlignment;
         _titleLabel.adjustsFontSizeToFitWidth = YES;
         _titleLabel.font = self.alertStyler.titleFont;
         _titleLabel.textColor = self.alertStyler.titleColor;

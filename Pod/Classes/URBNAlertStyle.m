@@ -19,6 +19,10 @@
     return _titleFont ?: [UIFont boldSystemFontOfSize:14];
 }
 
+- (NSTextAlignment)titleAlignment {
+    return _titleAlignment ?: NSTextAlignmentCenter;
+}
+
 #pragma mark - Message
 - (UIColor *)messageColor {
     return _messageColor ?: [UIColor blackColor];
@@ -162,6 +166,7 @@
     styler.buttonFont = self.buttonFont.copy;
     
     // NSTextAlignment
+    styler.titleAlignment = self.titleAlignment;
     styler.messageAlignment = self.messageAlignment;
     
     // NSNumbers
