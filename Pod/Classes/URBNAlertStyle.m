@@ -145,18 +145,22 @@
     // UIColors
     styler.buttonBackgroundColor = [[UIColor alloc] initWithCGColor:self.buttonBackgroundColor.CGColor];
     styler.destructionButtonBackgroundColor = [[UIColor alloc] initWithCGColor:self.destructionButtonBackgroundColor.CGColor];
+    styler.destructiveButtonTitleColor = [[UIColor alloc] initWithCGColor:self.destructiveButtonTitleColor.CGColor];
     styler.buttonTitleColor = [[UIColor alloc] initWithCGColor:self.buttonTitleColor.CGColor];
     styler.backgroundColor = [[UIColor alloc] initWithCGColor:self.backgroundColor.CGColor];
     styler.titleColor = [[UIColor alloc] initWithCGColor:self.titleColor.CGColor];
     styler.messageColor = [[UIColor alloc] initWithCGColor:self.messageColor.CGColor];
     styler.alertViewShadowColor = [[UIColor alloc] initWithCGColor:self.alertViewShadowColor.CGColor];
     styler.blurTintColor = [[UIColor alloc] initWithCGColor:self.blurTintColor.CGColor];
+    styler.backgroundViewTintColor = [[UIColor alloc] initWithCGColor:self.backgroundViewTintColor.CGColor];
+    styler.errorTextColor = [[UIColor alloc] initWithCGColor:self.errorTextColor.CGColor];
 
     // UIFonts
     styler.titleFont = self.titleFont.copy;
     styler.messageFont = self.messageFont.copy;
     styler.buttonFont = self.buttonFont.copy;
-    
+    styler.errorTextFont = self.errorTextFont.copy;
+
     // NSNumbers
     styler.buttonCornerRadius = self.alertCornerRadius.copy;
     styler.alertCornerRadius = self.alertCornerRadius.copy;
