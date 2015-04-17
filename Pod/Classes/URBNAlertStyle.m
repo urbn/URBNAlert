@@ -28,6 +28,10 @@
     return _messageFont ?: [UIFont systemFontOfSize:14];
 }
 
+- (NSTextAlignment)alignment {
+    return _alignment ?: NSTextAlignmentLeft;
+}
+
 #pragma mark - Error
 - (UIColor *)errorTextColor {
     return _errorTextColor ?: [UIColor redColor];
@@ -156,6 +160,9 @@
     styler.titleFont = self.titleFont.copy;
     styler.messageFont = self.messageFont.copy;
     styler.buttonFont = self.buttonFont.copy;
+    
+    // NSTextAlignment
+    styler.alignment = self.alignment;
     
     // NSNumbers
     styler.buttonCornerRadius = self.alertCornerRadius.copy;

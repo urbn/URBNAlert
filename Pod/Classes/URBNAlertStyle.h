@@ -56,6 +56,11 @@
 @property (nonatomic, strong) UIFont *messageFont;
 
 /**
+ * Alignment of the alert's message
+ */
+@property (nonatomic, assign) NSTextAlignment alignment;
+
+/**
  * Font of the button's titles
  */
 @property (nonatomic, strong) UIFont *buttonFont;

@@ -46,6 +46,7 @@
 - (IBAction)activeAlertTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text.  "];
     uac.alertStyler.blurTintColor = [[UIColor orangeColor] colorWithAlphaComponent:0.4];
+    uac.alertStyler.alignment = NSTextAlignmentCenter;
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
           // Do something
     }]];
@@ -65,7 +66,7 @@
     [uac addAction:[URBNAlertAction actionWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
           // Do something
     }]];
-    
+    uac.alertStyler.alignment = NSTextAlignmentCenter;
     [uac show];
 }
 
@@ -89,7 +90,7 @@
     uac.alertStyler.alertShadowOffset = CGSizeMake(6, 6);
     uac.alertStyler.alertViewShadowColor = [UIColor greenColor];
     uac.alertStyler.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
-    
+    uac.alertStyler.alignment = NSTextAlignmentCenter;
     [uac addAction:[URBNAlertAction actionWithTitle:@"Destructive" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
         // Do something
     }]];
