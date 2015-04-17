@@ -11,6 +11,8 @@
 #import "URBNAlertController.h"
 #import "URBNAlertConfig.h"
 #import <URBNConvenience/UIImage+URBN.h>
+#import <URBNConvenience/UIView+URBNLayout.h>
+#import <URBNConvenience/UIView+URBNAnimations.h>
 #import "URBNAlertAction.h"
 
 @interface URBNAlertViewController ()
@@ -23,6 +25,9 @@
 @end
 
 @implementation URBNAlertViewController
+{
+    CADisplayLink *_rotationLink;
+}
 
 #pragma mark - Initalizers
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message view:(UIView *)view {
@@ -34,6 +39,10 @@
         self.customView = view;
         self.alertController = [URBNAlertController sharedInstance];
         self.alertStyler = [self.alertController.alertStyler copy];
+        
+        _rotationLink = [CADisplayLink displayLinkWithTarget:self selector:@selector(addBlurScreenshot)];
+        [_rotationLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
+        _rotationLink.paused = YES;
     }
     
     return self;
@@ -58,8 +67,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChangeNotification:) name:UIDeviceOrientationDidChangeNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -99,22 +106,16 @@
 }
 
 - (void)addBlurScreenshot {
-    if (self.blurImageView) {
-        [self.blurImageView removeFromSuperview];
-    }
-    
     UIView *viewForScreenshot = self.alertConfig.presentationView ?: self.alertController.presentingWindow;
     UIImage *screenShot = [UIImage urbn_screenShotOfView:viewForScreenshot afterScreenUpdates:NO];
     UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
-    self.blurImageView = [[UIImageView alloc] initWithFrame:viewForScreenshot.frame];
+    if (!self.blurImageView) {
+        self.blurImageView = [[UIImageView alloc] initWithFrame:viewForScreenshot.frame];
+        self.blurImageView.contentMode = UIViewContentModeCenter;
+        [self.blurImageView urbn_wrapInContainerViewWithView:self.view];
+    }
+    [self.view sendSubviewToBack:self.blurImageView];
     [self.blurImageView setImage:blurImage];
-    
-    CGRect rect = self.blurImageView.frame;
-    rect.origin.x = 0;
-    rect.origin.y = 0;
-    self.blurImageView.frame = rect;
-    
-    [self.view insertSubview:self.blurImageView atIndex:0];
 }
 
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
@@ -238,23 +239,13 @@
 }
 
 #pragma mark - Orientation Notifications
-- (void)deviceOrientationDidChangeNotification:(NSNotification*)note {
-    if (self.alertStyler.blurEnabled.boolValue) {
-       // [self addBlurScreenshot];
-    }
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    _rotationLink.paused = NO;
 }
 
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    if (self.alertStyler.blurEnabled.boolValue) {
-        [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-            [self addBlurScreenshot];
-
-        } completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-            
-        }];
-    }
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    _rotationLink.paused = YES;
 }
-
 
 #pragma mark - Keyboard Notifications
 - (void)keyboardWillShow:(NSNotification *)sender {
@@ -265,7 +256,7 @@
     
     if (yOffset < 0) {
         self.yPosConstraint.constant = yOffset - 30; // 30 more for so its not right up against the keyboard
-
+        
         [UIView animateWithDuration:0.3f animations:^{
             [self.view layoutIfNeeded];
         }];
