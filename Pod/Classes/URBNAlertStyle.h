@@ -58,7 +58,7 @@
 /**
  * Alignment of the alert's message
  */
-@property (nonatomic, assign) NSTextAlignment alignment;
+@property (nonatomic, assign) NSTextAlignment messageAlignment;
 
 /**
  * Font of the button's titles

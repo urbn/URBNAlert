@@ -171,7 +171,7 @@
         _messageLabel.font = self.alertStyler.messageFont;
         _messageLabel.textColor = self.alertStyler.messageColor;
         _messageLabel.text = self.alertConfig.message;
-        _messageLabel.textAlignment = self.alertStyler.alignment;
+        _messageLabel.textAlignment = self.alertStyler.messageAlignment;
     }
     
     return _messageLabel;

@@ -28,8 +28,8 @@
     return _messageFont ?: [UIFont systemFontOfSize:14];
 }
 
-- (NSTextAlignment)alignment {
-    return _alignment ?: NSTextAlignmentLeft;
+- (NSTextAlignment)messageAlignment {
+    return _messageAlignment ?: NSTextAlignmentLeft;
 }
 
 #pragma mark - Error
@@ -162,7 +162,7 @@
     styler.buttonFont = self.buttonFont.copy;
     
     // NSTextAlignment
-    styler.alignment = self.alignment;
+    styler.messageAlignment = self.messageAlignment;
     
     // NSNumbers
     styler.buttonCornerRadius = self.alertCornerRadius.copy;
