@@ -484,6 +484,7 @@
 			baseConfigurationReference = ED1FAB1AAB588C17D97C5E9F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "URBNAlert/URBNAlert-Prefix.pch";
 				INFOPLIST_FILE = "URBNAlert/URBNAlert-Info.plist";
@@ -497,6 +498,7 @@
 			baseConfigurationReference = 6708EAE02AEA5ED2D761C863 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "URBNAlert/URBNAlert-Prefix.pch";
 				INFOPLIST_FILE = "URBNAlert/URBNAlert-Info.plist";
