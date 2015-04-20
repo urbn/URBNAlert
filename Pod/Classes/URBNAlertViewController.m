@@ -138,19 +138,19 @@
     self.alertView.alpha = 0;
     self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    CGFloat screenWdith;
+    CGFloat screenWidth;
     
     if (self.alertConfig.presentationView) {
-        screenWdith = self.alertConfig.presentationView.frame.size.width;
+        screenWidth = self.alertConfig.presentationView.frame.size.width;
     }
     else if ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]) {
-        screenWdith = [UIScreen mainScreen].nativeBounds.size.width;
+        screenWidth = [UIScreen mainScreen].nativeBounds.size.width;
     }
     else {
-        screenWdith = [UIScreen mainScreen].bounds.size.width;
+        screenWidth = [UIScreen mainScreen].bounds.size.width;
     }
     
-    CGFloat sideMargins = screenWdith * 0.05;
+    CGFloat sideMargins = screenWidth * 0.05;
     
     NSDictionary *metrics = @{@"sideMargins" : @(sideMargins)};
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-sideMargins-[_alertView]-sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
