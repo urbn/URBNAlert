@@ -92,7 +92,15 @@
 }
 
 - (NSNumber *)animationDuration {
-    return _animationDuration ?: @0.3f;
+    return _animationDuration ?: @0.6f;
+}
+
+- (NSNumber *)animationDamping {
+    return _animationDamping ?: @0.6f;
+}
+
+- (NSNumber *)animationInitialVelocity {
+    return _animationInitialVelocity ?: @(-10);
 }
 
 - (NSNumber *)customViewMargin {
@@ -178,11 +186,13 @@
     styler.labelHorizontalMargin = self.labelHorizontalMargin.copy;
     styler.buttonHorizontalMargin = self.buttonHorizontalMargin.copy;
     styler.customViewMargin = self.customViewMargin.copy;
-    styler.animationDuration = self.animationDuration.copy;
     styler.alertViewShadowOpacity = self.alertViewShadowOpacity.copy;
     styler.alertViewShadowRadius = self.alertViewShadowRadius.copy;
     styler.blurSaturationDelta = self.blurSaturationDelta.copy;
     styler.alertCornerRadius = self.alertCornerRadius.copy;
+    styler.animationInitialVelocity = self.animationInitialVelocity.copy;
+    styler.animationDamping = self.animationDamping.copy;
+    styler.animationDuration = self.animationDuration.copy;
 
     return styler;
 }

@@ -39,6 +39,7 @@
             self.customView = dummyView;
         }
         else {
+            customView.translatesAutoresizingMaskIntoConstraints = NO;
             self.customView = customView;
         }
         
