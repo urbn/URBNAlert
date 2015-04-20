@@ -19,6 +19,10 @@
     return _titleFont ?: [UIFont boldSystemFontOfSize:14];
 }
 
+- (NSTextAlignment)titleAlignment {
+    return _titleAlignment ?: NSTextAlignmentCenter;
+}
+
 #pragma mark - Message
 - (UIColor *)messageColor {
     return _messageColor ?: [UIColor blackColor];
@@ -26,6 +30,10 @@
 
 - (UIFont *)messageFont {
     return _messageFont ?: [UIFont systemFontOfSize:14];
+}
+
+- (NSTextAlignment)messageAlignment {
+    return _messageAlignment ?: NSTextAlignmentLeft;
 }
 
 #pragma mark - Error
@@ -156,6 +164,10 @@
     styler.titleFont = self.titleFont.copy;
     styler.messageFont = self.messageFont.copy;
     styler.buttonFont = self.buttonFont.copy;
+    
+    // NSTextAlignment
+    styler.titleAlignment = self.titleAlignment;
+    styler.messageAlignment = self.messageAlignment;
     
     // NSNumbers
     styler.buttonCornerRadius = self.alertCornerRadius.copy;
