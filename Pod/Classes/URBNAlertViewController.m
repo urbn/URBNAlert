@@ -281,7 +281,7 @@
     
     if (yOffset < 0) {
         self.yPosConstraint.constant = yOffset - 30; // 30 more for so its not right up against the keyboard
-        
+
         [UIView animateWithDuration:0.3f animations:^{
             [self.view layoutIfNeeded];
         }];
