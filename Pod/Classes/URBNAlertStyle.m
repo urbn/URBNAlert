@@ -147,21 +147,21 @@
     return _blurTintColor;
 }
 
-- (id)copyWithZone:(NSZone *)zone {
+- (instancetype)copyWithZone:(NSZone *)zone {
     URBNAlertStyle *styler = [URBNAlertStyle new];
     
     // UIColors
-    styler.buttonBackgroundColor = [[UIColor alloc] initWithCGColor:self.buttonBackgroundColor.CGColor];
-    styler.destructionButtonBackgroundColor = [[UIColor alloc] initWithCGColor:self.destructionButtonBackgroundColor.CGColor];
-    styler.destructiveButtonTitleColor = [[UIColor alloc] initWithCGColor:self.destructiveButtonTitleColor.CGColor];
-    styler.buttonTitleColor = [[UIColor alloc] initWithCGColor:self.buttonTitleColor.CGColor];
-    styler.backgroundColor = [[UIColor alloc] initWithCGColor:self.backgroundColor.CGColor];
-    styler.titleColor = [[UIColor alloc] initWithCGColor:self.titleColor.CGColor];
-    styler.messageColor = [[UIColor alloc] initWithCGColor:self.messageColor.CGColor];
-    styler.alertViewShadowColor = [[UIColor alloc] initWithCGColor:self.alertViewShadowColor.CGColor];
-    styler.blurTintColor = [[UIColor alloc] initWithCGColor:self.blurTintColor.CGColor];
-    styler.backgroundViewTintColor = [[UIColor alloc] initWithCGColor:self.backgroundViewTintColor.CGColor];
-    styler.errorTextColor = [[UIColor alloc] initWithCGColor:self.errorTextColor.CGColor];
+    styler.buttonBackgroundColor = self.buttonBackgroundColor;
+    styler.destructionButtonBackgroundColor = self.destructionButtonBackgroundColor;
+    styler.destructiveButtonTitleColor = self.destructiveButtonTitleColor;
+    styler.buttonTitleColor = self.buttonTitleColor;
+    styler.backgroundColor = self.backgroundColor;
+    styler.titleColor = self.titleColor;
+    styler.messageColor = self.messageColor;
+    styler.alertViewShadowColor = self.alertViewShadowColor;
+    styler.blurTintColor = self.blurTintColor;
+    styler.backgroundViewTintColor = self.backgroundViewTintColor;
+    styler.errorTextColor = self.errorTextColor;
 
     // UIFonts
     styler.titleFont = self.titleFont.copy;
