@@ -247,9 +247,6 @@
 }
 
 #pragma mark - Orientation Notifications
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= __IPHONE_8_0
-
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
     [self addBlurScreenshotOfSize:size];
     
@@ -258,20 +255,22 @@
     }];
 }
 
-#else
-
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    CGSize size = self.viewForScreenshot.bounds.size;
-    size.height = size.width;
-    size.width = self.viewForScreenshot.bounds.size.height;
-    [self addBlurScreenshotOfSize:size];
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    if (![UIViewController instancesRespondToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+        CGSize size = self.viewForScreenshot.bounds.size;
+        size.height = size.width;
+        size.width = self.viewForScreenshot.bounds.size.height;
+        [self addBlurScreenshotOfSize:size];
+    }
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [self addBlurScreenshot];
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    if (![UIViewController instancesRespondToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+        [self addBlurScreenshot];
+    }
 }
-
-#endif
 
 #pragma mark - Keyboard Notifications
 - (void)keyboardWillShow:(NSNotification *)sender {
