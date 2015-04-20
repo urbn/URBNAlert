@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1C747907A9062491AC9BFB37 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E0856FB532F7963BDD6E575 /* libPods.a */; };
 		303F8CBB1AAE5F180066F48B /* URBNAlertTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 303F8CBA1AAE5F180066F48B /* URBNAlertTests.m */; };
+		324673CF1AE54F63000A3D15 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324673CE1AE54F63000A3D15 /* Launch Screen.xib */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		1E32F66FAFC86334578AC0FD /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		303F8CBA1AAE5F180066F48B /* URBNAlertTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URBNAlertTests.m; sourceTree = "<group>"; };
+		324673CE1AE54F63000A3D15 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* URBNAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = URBNAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -142,6 +144,7 @@
 				6003F59F195388D20070C39A /* Main_iPhone.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
+				324673CE1AE54F63000A3D15 /* Launch Screen.xib */,
 			);
 			path = URBNAlert;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F5A9195388D20070C39A /* Images.xcassets in Resources */,
+				324673CF1AE54F63000A3D15 /* Launch Screen.xib in Resources */,
 				6003F5A1195388D20070C39A /* Main_iPhone.storyboard in Resources */,
 				6003F598195388D20070C39A /* InfoPlist.strings in Resources */,
 			);

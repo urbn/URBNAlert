@@ -11,13 +11,17 @@
 #import "URBNAlertController.h"
 #import "URBNAlertConfig.h"
 #import <URBNConvenience/UIImage+URBN.h>
+#import <URBNConvenience/UIView+URBNLayout.h>
+#import <URBNConvenience/UIView+URBNAnimations.h>
 #import "URBNAlertAction.h"
 
 @interface URBNAlertViewController ()
 
 @property (nonatomic, strong) URBNAlertController *alertController;
 @property (nonatomic, strong) NSLayoutConstraint *yPosConstraint;
+@property (nonatomic, strong) UIImageView *blurImageView;
 @property (nonatomic, assign) BOOL visible;
+@property (nonatomic, readonly) UIView *viewForScreenshot;
 
 @end
 
@@ -47,19 +51,7 @@
     [super viewDidLoad];
     
     if (self.alertStyler.blurEnabled.boolValue) {
-        UIView *viewForScreenshot = self.alertConfig.presentationView ?: self.alertController.presentingWindow;
-        
-        UIImage *screenShot = [UIImage urbn_screenShotOfView:viewForScreenshot afterScreenUpdates:NO];
-        UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
-        UIImageView *blurImageView = [[UIImageView alloc] initWithFrame:viewForScreenshot.frame];
-        [blurImageView setImage:blurImage];
-        
-        CGRect rect = blurImageView.frame;
-        rect.origin.x = 0;
-        rect.origin.y = 0;
-        blurImageView.frame = rect;
-        
-        [self.view addSubview:blurImageView];
+        [self addBlurScreenshot];
     }
     else if (self.alertStyler.backgroundViewTintColor) {
         self.view.backgroundColor = self.alertStyler.backgroundViewTintColor;
@@ -107,6 +99,29 @@
     }
 }
 
+- (void)addBlurScreenshot {
+    [self addBlurScreenshotOfSize:CGSizeZero];
+}
+
+- (void)addBlurScreenshotOfSize:(CGSize)size {
+    CGRect rect = self.viewForScreenshot.bounds;
+    if (!CGSizeEqualToSize(size, CGSizeZero)) {
+        rect.size = size;
+    }
+    
+    UIImage *screenShot = [UIImage urbn_screenShotOfView:self.viewForScreenshot afterScreenUpdates:YES];
+    
+    if (screenShot) {
+        UIImage *blurImage = [screenShot applyBlurWithRadius:self.alertStyler.blurRadius.floatValue tintColor:self.alertStyler.blurTintColor saturationDeltaFactor:self.alertStyler.blurSaturationDelta.floatValue maskImage:nil];
+        if (!self.blurImageView) {
+            self.blurImageView = [[UIImageView alloc] initWithFrame:rect];
+            self.blurImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+            [self.blurImageView urbn_wrapInContainerViewWithView:self.view];
+        }
+        [self.blurImageView setImage:blurImage];
+    }
+}
+
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
     NSAssert(!self.textField, @"URBNAlertController: Active alerts only supports up 1 input text field at the moment. Please create an issue if you want more!");
     
@@ -123,19 +138,19 @@
     self.alertView.alpha = 0;
     self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
     
-    CGFloat screenWdith;
+    CGFloat screenWidth;
     
     if (self.alertConfig.presentationView) {
-        screenWdith = self.alertConfig.presentationView.frame.size.width;
+        screenWidth = self.alertConfig.presentationView.frame.size.width;
     }
     else if ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]) {
-        screenWdith = [UIScreen mainScreen].nativeBounds.size.width;
+        screenWidth = [UIScreen mainScreen].nativeBounds.size.width;
     }
     else {
-        screenWdith = [UIScreen mainScreen].bounds.size.width;
+        screenWidth = [UIScreen mainScreen].bounds.size.width;
     }
     
-    CGFloat sideMargins = screenWdith * 0.05;
+    CGFloat sideMargins = screenWidth * 0.05;
     
     NSDictionary *metrics = @{@"sideMargins" : @(sideMargins)};
     [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-sideMargins-[_alertView]-sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
@@ -211,6 +226,10 @@
     [self.alertView setLoadingState:NO];
 }
 
+- (UIView *)viewForScreenshot {
+    return self.alertConfig.presentationView ?: self.alertController.presentingWindow;
+}
+
 #pragma mark - Action
 - (void)dismissAlert:(id)sender {
     [self.view endEditing:YES];
@@ -227,6 +246,31 @@
     }];
 }
 
+#pragma mark - Orientation Notifications
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
+    [self addBlurScreenshotOfSize:size];
+    
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        [self addBlurScreenshot];
+    }];
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    if (![UIViewController instancesRespondToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+        CGSize size = self.viewForScreenshot.bounds.size;
+        size.height = size.width;
+        size.width = self.viewForScreenshot.bounds.size.height;
+        [self addBlurScreenshotOfSize:size];
+    }
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    if (![UIViewController instancesRespondToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+        [self addBlurScreenshot];
+    }
+}
 
 #pragma mark - Keyboard Notifications
 - (void)keyboardWillShow:(NSNotification *)sender {
