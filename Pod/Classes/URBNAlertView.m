@@ -14,6 +14,8 @@
 #import <URBNConvenience/UIView+URBNLayout.h>
 #import <URBNConvenience/URBNMacros.h>
 
+static NSInteger const kURBNAlertViewHeightPadding = 80.f;
+
 @interface URBNAlertView()
 
 @property (nonatomic, strong) URBNAlertConfig *alertConfig;
@@ -37,16 +39,16 @@
         self.textField = textField;
         
         if (!customView) {
-            UIView *dummyView = [UIView new];
-            dummyView.translatesAutoresizingMaskIntoConstraints = NO;
-            self.customView = dummyView;
+            // Give it a dummy view
+            self.customView = [UIView new];
         }
         else {
-            customView.translatesAutoresizingMaskIntoConstraints = NO;
             self.customView = customView;
             self.sectionCount++;
         }
         
+        self.customView.translatesAutoresizingMaskIntoConstraints = NO;
+
         self.backgroundColor = self.alertStyler.backgroundColor ?: [UIColor whiteColor];
         self.layer.cornerRadius = self.alertStyler.alertCornerRadius.floatValue;
         
@@ -153,17 +155,15 @@
 }
 
 - (void)layoutSubviews {
-    [super layoutSubviews];
     
     [self.messageTextView sizeToFit];
     [self.messageTextView layoutIfNeeded];
     
-    // 80 of extra padding so it does not go all the way to the edge
     CGFloat buttonHeight = self.buttons.count == 0 ? 0 : self.alertStyler.buttonHeight.floatValue;
-    CGFloat maxHeight = SCREEN_HEIGHT - self.titleLabel.intrinsicContentSize.height - (self.alertStyler.sectionVerticalMargin.floatValue * self.sectionCount) - buttonHeight - 80;
+    CGFloat maxHeight = SCREEN_HEIGHT - self.titleLabel.intrinsicContentSize.height - (self.alertStyler.sectionVerticalMargin.floatValue * self.sectionCount) - buttonHeight - kURBNAlertViewHeightPadding;
 
     if (!self.messageTextView.urbn_heightLayoutConstraint) {
-        [self.messageTextView urbn_addHeightLayoutConstraintWithConstant:0];
+        [self.messageTextView urbn_addHeightLayoutConstraintWithConstant:10];
     }
     
     if (self.messageTextView.text.length > 0) {
@@ -174,7 +174,10 @@
             self.messageTextView.urbn_heightLayoutConstraint.constant = self.messageTextView.contentSize.height;
         }
     }
+    // code above needs to be called before super. Crashes on iOS 7 if called after
     
+    [super layoutSubviews];
+
     self.titleLabel.preferredMaxLayoutWidth = self.titleLabel.frame.size.width;
     
     self.layer.shadowColor = self.alertStyler.alertViewShadowColor.CGColor;
@@ -209,7 +212,7 @@
         _messageTextView.textAlignment = self.alertStyler.messageAlignment;
         _messageTextView.scrollEnabled = YES;
         _messageTextView.editable = NO;
-        [_messageTextView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        [_messageTextView setContentInset:UIEdgeInsetsZero];
         [_messageTextView scrollRangeToVisible:NSMakeRange(0, 0)];
     }
     

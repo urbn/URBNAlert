@@ -86,7 +86,8 @@
     uac.alertStyler.buttonCornerRadius = @0;
     uac.alertStyler.alertCornerRadius = @20;
     uac.alertStyler.buttonHeight = @30;
-    uac.alertStyler.animationDuration = @0.2f;
+    uac.alertStyler.animationDuration = @0.5f;
+    uac.alertStyler.animationDamping = @0.9f;
     uac.alertStyler.alertShadowOffset = CGSizeMake(6, 6);
     uac.alertStyler.alertViewShadowColor = [UIColor greenColor];
     uac.alertStyler.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
