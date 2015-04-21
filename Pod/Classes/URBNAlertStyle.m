@@ -174,19 +174,19 @@
     styler.messageAlignment = self.messageAlignment;
     
     // NSNumbers
-    styler.buttonCornerRadius = [self.alertCornerRadius copy];
-    styler.alertCornerRadius = [self.alertCornerRadius copy];
-    styler.textFieldMaxLength = [self.textFieldMaxLength copy];
-    styler.buttonHeight = [self.buttonHeight copy];
-    styler.sectionVerticalMargin = [self.sectionVerticalMargin copy];
-    styler.labelHorizontalMargin = [self.labelHorizontalMargin copy];
-    styler.buttonHorizontalMargin = [self.buttonHorizontalMargin copy];
-    styler.customViewMargin = [self.customViewMargin copy];
-    styler.animationDuration = [self.animationDuration copy];
-    styler.alertViewShadowOpacity = [self.alertViewShadowOpacity copy];
-    styler.alertViewShadowRadius = [self.alertViewShadowRadius copy];
-    styler.blurSaturationDelta = [self.blurSaturationDelta copy];
-    styler.alertCornerRadius = [self.alertCornerRadius copy];
+    styler.buttonCornerRadius = self.alertCornerRadius;
+    styler.alertCornerRadius = self.alertCornerRadius;
+    styler.textFieldMaxLength = self.textFieldMaxLength;
+    styler.buttonHeight = self.buttonHeight;
+    styler.sectionVerticalMargin = self.sectionVerticalMargin;
+    styler.labelHorizontalMargin = self.labelHorizontalMargin;
+    styler.buttonHorizontalMargin = self.buttonHorizontalMargin;
+    styler.customViewMargin = self.customViewMargin;
+    styler.animationDuration = self.animationDuration;
+    styler.alertViewShadowOpacity = self.alertViewShadowOpacity;
+    styler.alertViewShadowRadius = self.alertViewShadowRadius;
+    styler.blurSaturationDelta = self.blurSaturationDelta;
+    styler.alertCornerRadius = self.alertCornerRadius;
 
     return styler;
 }
