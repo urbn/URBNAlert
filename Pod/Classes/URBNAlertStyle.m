@@ -155,44 +155,48 @@
     return _blurTintColor;
 }
 
-- (id)copyWithZone:(NSZone *)zone {
+- (instancetype)copyWithZone:(NSZone *)zone {
     URBNAlertStyle *styler = [URBNAlertStyle new];
     
     // UIColors
-    styler.buttonBackgroundColor = [[UIColor alloc] initWithCGColor:self.buttonBackgroundColor.CGColor];
-    styler.destructionButtonBackgroundColor = [[UIColor alloc] initWithCGColor:self.destructionButtonBackgroundColor.CGColor];
-    styler.buttonTitleColor = [[UIColor alloc] initWithCGColor:self.buttonTitleColor.CGColor];
-    styler.backgroundColor = [[UIColor alloc] initWithCGColor:self.backgroundColor.CGColor];
-    styler.titleColor = [[UIColor alloc] initWithCGColor:self.titleColor.CGColor];
-    styler.messageColor = [[UIColor alloc] initWithCGColor:self.messageColor.CGColor];
-    styler.alertViewShadowColor = [[UIColor alloc] initWithCGColor:self.alertViewShadowColor.CGColor];
-    styler.blurTintColor = [[UIColor alloc] initWithCGColor:self.blurTintColor.CGColor];
+    styler.buttonBackgroundColor = self.buttonBackgroundColor;
+    styler.destructionButtonBackgroundColor = self.destructionButtonBackgroundColor;
+    styler.destructiveButtonTitleColor = self.destructiveButtonTitleColor;
+    styler.buttonTitleColor = self.buttonTitleColor;
+    styler.backgroundColor = self.backgroundColor;
+    styler.titleColor = self.titleColor;
+    styler.messageColor = self.messageColor;
+    styler.alertViewShadowColor = self.alertViewShadowColor;
+    styler.blurTintColor = self.blurTintColor;
+    styler.backgroundViewTintColor = self.backgroundViewTintColor;
+    styler.errorTextColor = self.errorTextColor;
 
     // UIFonts
-    styler.titleFont = self.titleFont.copy;
-    styler.messageFont = self.messageFont.copy;
-    styler.buttonFont = self.buttonFont.copy;
+    styler.titleFont = self.titleFont;
+    styler.messageFont = self.messageFont;
+    styler.buttonFont = self.buttonFont;
+    styler.errorTextFont = self.errorTextFont;
     
     // NSTextAlignment
     styler.titleAlignment = self.titleAlignment;
     styler.messageAlignment = self.messageAlignment;
     
     // NSNumbers
-    styler.buttonCornerRadius = self.alertCornerRadius.copy;
-    styler.alertCornerRadius = self.alertCornerRadius.copy;
-    styler.textFieldMaxLength = self.textFieldMaxLength.copy;
-    styler.buttonHeight = self.buttonHeight.copy;
-    styler.sectionVerticalMargin = self.sectionVerticalMargin.copy;
-    styler.labelHorizontalMargin = self.labelHorizontalMargin.copy;
-    styler.buttonHorizontalMargin = self.buttonHorizontalMargin.copy;
-    styler.customViewMargin = self.customViewMargin.copy;
-    styler.alertViewShadowOpacity = self.alertViewShadowOpacity.copy;
-    styler.alertViewShadowRadius = self.alertViewShadowRadius.copy;
-    styler.blurSaturationDelta = self.blurSaturationDelta.copy;
-    styler.alertCornerRadius = self.alertCornerRadius.copy;
-    styler.animationInitialVelocity = self.animationInitialVelocity.copy;
-    styler.animationDamping = self.animationDamping.copy;
-    styler.animationDuration = self.animationDuration.copy;
+    styler.buttonCornerRadius = self.alertCornerRadius;
+    styler.alertCornerRadius = self.alertCornerRadius;
+    styler.textFieldMaxLength = self.textFieldMaxLength;
+    styler.buttonHeight = self.buttonHeight;
+    styler.sectionVerticalMargin = self.sectionVerticalMargin;
+    styler.labelHorizontalMargin = self.labelHorizontalMargin;
+    styler.buttonHorizontalMargin = self.buttonHorizontalMargin;
+    styler.customViewMargin = self.customViewMargin;
+    styler.alertViewShadowOpacity = self.alertViewShadowOpacity;
+    styler.alertViewShadowRadius = self.alertViewShadowRadius;
+    styler.blurSaturationDelta = self.blurSaturationDelta;
+    styler.alertCornerRadius = self.alertCornerRadius;
+    styler.animationInitialVelocity = self.animationInitialVelocity;
+    styler.animationDamping = self.animationDamping;
+    styler.animationDuration = self.animationDuration;
 
     return styler;
 }
