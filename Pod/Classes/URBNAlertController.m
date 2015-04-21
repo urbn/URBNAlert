@@ -129,6 +129,7 @@
     self.alertWindow = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.alertWindow.windowLevel = UIWindowLevelAlert;
     self.alertWindow.hidden = NO;
+    self.alertWindow.backgroundColor = [UIColor clearColor];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(resignActive:) name:UIWindowDidBecomeKeyNotification object:nil];
 }

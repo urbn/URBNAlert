@@ -249,16 +249,19 @@
 
 #pragma mark - Orientation Notifications
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-    [self addBlurScreenshotOfSize:size];
-    
-    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
-        [self addBlurScreenshot];
-    }];
+    if (self.alertStyler.blurEnabled.boolValue) {
+        [self addBlurScreenshotOfSize:size];
+        
+        [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+            [self addBlurScreenshot];
+        }];
+    }
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    if (![UIViewController instancesRespondToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+    
+    if (self.alertStyler.blurEnabled.boolValue && ![UIViewController instancesRespondToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
         CGSize size = self.viewForScreenshot.bounds.size;
         size.height = size.width;
         size.width = self.viewForScreenshot.bounds.size.height;
@@ -268,7 +271,8 @@
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    if (![UIViewController instancesRespondToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
+
+    if (self.alertStyler.blurEnabled.boolValue && ![UIViewController instancesRespondToSelector:@selector(viewWillTransitionToSize:withTransitionCoordinator:)]) {
         [self addBlurScreenshot];
     }
 }
