@@ -33,14 +33,8 @@
         self.alertStyler = alertStyler;
         self.textField = textField;
         
-        if (!customView) {
-            UIView *dummyView = [UIView new];
-            dummyView.translatesAutoresizingMaskIntoConstraints = NO;
-            self.customView = dummyView;
-        }
-        else {
-            self.customView = customView;
-        }
+        self.customView = customView ?: [UIView new];
+        self.customView.translatesAutoresizingMaskIntoConstraints = NO;
         
         self.backgroundColor = self.alertStyler.backgroundColor ?: [UIColor whiteColor];
         self.layer.cornerRadius = self.alertStyler.alertCornerRadius.floatValue;

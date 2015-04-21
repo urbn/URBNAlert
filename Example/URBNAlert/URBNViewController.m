@@ -268,7 +268,6 @@
 - (UIView *)customView {
     if (!_customView) {
         _customView = [[UIView alloc] init];
-        _customView.translatesAutoresizingMaskIntoConstraints = NO;
         _customView.backgroundColor = [UIColor greenColor];
         
         UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beagle"]];
