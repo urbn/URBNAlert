@@ -18,7 +18,10 @@ After adding URBNALERT to your projects Podfile, import URBNAlert using the foll
 
 `#import <URBNAlert/URBNAlert.h>`
 
-Checkout & run the pod's example project to see what URBNAlert is capable of. 
+Checkout & run the pod's example project to see what URBNAlert is capable of.
+
+### Special Note: To support background blur on iPhone 6 or 6+, you need to include a Launch image or xib that supports those devices.
+During bluring of the background, there seems to be an issue with Apple’s `drawViewHierarchyInRect:afterScreenUpdates:` when `afterScreenUpdates = YES`. If no launch image or xib is supplied for the iPhone 6 or 6+, `drawViewHierarchyInRect:afterScreenUpdates:` will resize the view briefly and cause an animation artifact. To properly support background blur on those devices, a Launch image or xib must be included.
 
 #####Setting a global alert stlyle:
 ```objective-c
