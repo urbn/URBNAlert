@@ -11,20 +11,23 @@
 #import "URBNAlertConfig.h"
 #import "URBNAlertAction.h"
 #import <URBNConvenience/UITextField+URBNLoadingIndicator.h>
+#import <URBNConvenience/UIView+URBNLayout.h>
+#import <URBNConvenience/URBNMacros.h>
 
 @interface URBNAlertView()
 
 @property (nonatomic, strong) URBNAlertConfig *alertConfig;
 @property (nonatomic, strong) URBNAlertStyle *alertStyler;
 @property (nonatomic, strong) UILabel *titleLabel;
-@property (nonatomic, strong) UILabel *messageLabel;
+@property (nonatomic, strong) UITextView *messageTextView;
 @property (nonatomic, strong) UILabel *errorLabel;
 @property (nonatomic, strong) UIView *customView;
 @property (nonatomic, copy) NSArray *buttons;
+@property (nonatomic, assign) NSInteger sectionCount;
 
 @end
 
-@implementation URBNAlertView 
+@implementation URBNAlertView
 
 - (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertStyler:(URBNAlertStyle *)alertStyler customView:(UIView *)customView textField:(UITextField *)textField {
     self = [super init];
@@ -33,17 +36,25 @@
         self.alertStyler = alertStyler;
         self.textField = textField;
         
-        self.customView = customView ?: [UIView new];
-        self.customView.translatesAutoresizingMaskIntoConstraints = NO;
+        if (!customView) {
+            UIView *dummyView = [UIView new];
+            dummyView.translatesAutoresizingMaskIntoConstraints = NO;
+            self.customView = dummyView;
+        }
+        else {
+            customView.translatesAutoresizingMaskIntoConstraints = NO;
+            self.customView = customView;
+            self.sectionCount++;
+        }
         
         self.backgroundColor = self.alertStyler.backgroundColor ?: [UIColor whiteColor];
         self.layer.cornerRadius = self.alertStyler.alertCornerRadius.floatValue;
-    
+        
         UIView *buttonContainer = [UIView new];
         NSDictionary *views;
         
         [self addSubview:self.titleLabel];
-        [self addSubview:self.messageLabel];
+        [self addSubview:self.messageTextView];
         [self addSubview:self.errorLabel];
         [self addSubview:self.customView];
         
@@ -51,10 +62,11 @@
             self.textField.delegate = self;
             self.textField.translatesAutoresizingMaskIntoConstraints = NO;
             [self addSubview:self.textField];
-            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer, _textField, _errorLabel);
+            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageTextView, buttonContainer, _textField, _errorLabel);
+            self.sectionCount++;
         }
         else {
-            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageLabel, buttonContainer, _errorLabel);
+            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageTextView, buttonContainer, _errorLabel);
         }
         
         // Add some buttons
@@ -69,49 +81,59 @@
                 [btns addObject:btn];
             }
         }];
-
+        
         [self addSubview:buttonContainer];
         
         // Handle if no title or messages, give 0 margins
         NSNumber *titleMargin = self.alertConfig.title.length > 0 ? self.alertStyler.sectionVerticalMargin : @0;
         NSNumber *msgMargin = self.alertConfig.message.length > 0 ? self.alertStyler.sectionVerticalMargin : @0;
+        
+        if (titleMargin.floatValue > 0) {
+            self.sectionCount++;
+        }
+        
+        if (msgMargin.floatValue > 0) {
+            self.sectionCount++;
+        }
 
         NSDictionary *metrics = @{@"sectionMargin" : self.alertStyler.sectionVerticalMargin,
-                                           @"btnH" : self.alertStyler.buttonHeight,
-                                     @"lblHMargin" : self.alertStyler.labelHorizontalMargin,
-                                   @"titleVMargin" : titleMargin,
-                                     @"msgVMargin" : msgMargin,
-                                      @"btnMargin" : self.alertStyler.buttonHorizontalMargin,
-                                       @"cvMargin" : self.alertStyler.customViewMargin};
+                                  @"btnH" : self.alertStyler.buttonHeight,
+                                  @"lblHMargin" : self.alertStyler.labelHorizontalMargin,
+                                  @"titleVMargin" : titleMargin,
+                                  @"msgVMargin" : msgMargin,
+                                  @"btnMargin" : self.alertStyler.buttonHorizontalMargin,
+                                  @"cvMargin" : self.alertStyler.customViewMargin};
         
-        for (UILabel *lbl in @[self.titleLabel, self.messageLabel, self.errorLabel]) {
+        for (UIView *lbl in @[self.titleLabel, self.messageTextView, self.errorLabel]) {
             lbl.translatesAutoresizingMaskIntoConstraints = NO;
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblHMargin-[lbl]-lblHMargin-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(lbl)]];
         }
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-cvMargin-[_customView]-cvMargin-|" options:0 metrics:metrics views:views]];
-
+        
         if (!self.textField) {
             if (self.alertConfig.isActiveAlert) {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-5-[_errorLabel]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-5-[_errorLabel]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
             }
             // Passive alert, dont added margins for buttonContainer
             else {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-cvMargin-|" options:0 metrics:metrics views:views]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-|" options:0 metrics:metrics views:views]];
             }
         }
         else {
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblHMargin-[_textField]-lblHMargin-|" options:0 metrics:metrics views:views]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageLabel]-cvMargin-[_customView]-cvMargin-[_textField]-5-[_errorLabel]-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-[_textField]-5-[_errorLabel]-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
         }
         
         // Button Constraints
         self.buttons = [btns copy];
         if (self.buttons.count == 1) {
+            self.sectionCount++;
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[btnOne]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnOne(btnH)]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
         }
         else if (self.buttons.count == 2) {
+            self.sectionCount++;
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[btnOne]-[btnTwo(==btnOne)]|" options:0 metrics:nil views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons[1]}]];
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnOne(btnH)]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnTwo(btnH)]|" options:0 metrics:metrics views:@{@"btnTwo" : self.buttons[1]}]];
@@ -133,9 +155,28 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
-    self.messageLabel.preferredMaxLayoutWidth = self.messageLabel.frame.size.width;
-    self.titleLabel.preferredMaxLayoutWidth = self.titleLabel.frame.size.width;
+    [self.messageTextView sizeToFit];
+    [self.messageTextView layoutIfNeeded];
+    
+    // 80 of extra padding so it does not go all the way to the edge
+    CGFloat buttonHeight = self.buttons.count == 0 ? 0 : self.alertStyler.buttonHeight.floatValue;
+    CGFloat maxHeight = SCREEN_HEIGHT - self.titleLabel.intrinsicContentSize.height - (self.alertStyler.sectionVerticalMargin.floatValue * self.sectionCount) - buttonHeight - 80;
 
+    if (!self.messageTextView.urbn_heightLayoutConstraint) {
+        [self.messageTextView urbn_addHeightLayoutConstraintWithConstant:0];
+    }
+    
+    if (self.messageTextView.text.length > 0) {
+        if (self.messageTextView.contentSize.height > maxHeight) {
+            self.messageTextView.urbn_heightLayoutConstraint.constant = maxHeight;
+        }
+        else {
+            self.messageTextView.urbn_heightLayoutConstraint.constant = self.messageTextView.contentSize.height;
+        }
+    }
+    
+    self.titleLabel.preferredMaxLayoutWidth = self.titleLabel.frame.size.width;
+    
     self.layer.shadowColor = self.alertStyler.alertViewShadowColor.CGColor;
     self.layer.shadowOffset = self.alertStyler.alertShadowOffset;
     self.layer.shadowOpacity = self.alertStyler.alertViewShadowOpacity.floatValue;
@@ -148,7 +189,7 @@
     if (!_titleLabel) {
         _titleLabel = [UILabel new];
         _titleLabel.numberOfLines = 2;
-        _titleLabel.textAlignment = self.alertStyler.titleAlignment;
+        _titleLabel.textAlignment = NSTextAlignmentCenter;
         _titleLabel.adjustsFontSizeToFitWidth = YES;
         _titleLabel.font = self.alertStyler.titleFont;
         _titleLabel.textColor = self.alertStyler.titleColor;
@@ -158,17 +199,21 @@
     return _titleLabel;
 }
 
-- (UILabel *)messageLabel {
-    if (!_messageLabel) {
-        _messageLabel = [UILabel new];
-        _messageLabel.numberOfLines = 0;
-        _messageLabel.font = self.alertStyler.messageFont;
-        _messageLabel.textColor = self.alertStyler.messageColor;
-        _messageLabel.text = self.alertConfig.message;
-        _messageLabel.textAlignment = self.alertStyler.messageAlignment;
+- (UITextView *)messageTextView {
+    if (!_messageTextView) {
+        _messageTextView = [UITextView new];
+        _messageTextView.backgroundColor = [UIColor clearColor];
+        _messageTextView.font = self.alertStyler.messageFont;
+        _messageTextView.textColor = self.alertStyler.messageColor;
+        _messageTextView.text = self.alertConfig.message;
+        _messageTextView.textAlignment = self.alertStyler.messageAlignment;
+        _messageTextView.scrollEnabled = YES;
+        _messageTextView.editable = NO;
+        [_messageTextView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+        [_messageTextView scrollRangeToVisible:NSMakeRange(0, 0)];
     }
     
-    return _messageLabel;
+    return _messageTextView;
 }
 
 - (UILabel *)errorLabel {
