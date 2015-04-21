@@ -175,7 +175,6 @@
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)(URBNAlertViewController *alertVC, BOOL finished))complete {
     self.visible = visible;
     
-    CGFloat animationDuration = self.alertStyler.animationDuration.floatValue;
     CGFloat scaler = 0.3f;
     if (visible) {
         self.alertView.alpha = 0.0;
@@ -184,7 +183,6 @@
     
     CGFloat alpha = visible ? 1.0 : 0.0;
     CGAffineTransform transform = visible ? CGAffineTransformIdentity : CGAffineTransformMakeScale(scaler, scaler);
-    CGFloat initialSpringVelocity = visible ? 0 : -10;
     
     void (^bounceAnimation)() = ^(void) {
         self.alertView.transform = transform;
@@ -196,14 +194,17 @@
     };
     
     if (animated) {
-        CGFloat doubleDuration = animationDuration * 2;
-        [UIView animateWithDuration:doubleDuration delay:0 usingSpringWithDamping:doubleDuration initialSpringVelocity:initialSpringVelocity options:0 animations:bounceAnimation completion:^(BOOL finished) {
+        CGFloat duration = self.alertStyler.animationDuration.floatValue;
+        CGFloat damping = self.alertStyler.animationDamping.floatValue;
+        CGFloat initialVelocity = visible ? 0 : self.alertStyler.animationInitialVelocity.floatValue;
+
+        [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:damping initialSpringVelocity:initialVelocity options:0 animations:bounceAnimation completion:^(BOOL finished) {
             if (complete) {
                 complete(self, finished);
             }
         }];
         
-        [UIView animateWithDuration:animationDuration animations:fadeAnimation completion:nil];
+        [UIView animateWithDuration:duration / 2 animations:fadeAnimation completion:nil];
     }
     else {
         fadeAnimation();

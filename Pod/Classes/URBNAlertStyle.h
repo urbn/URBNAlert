@@ -116,6 +116,16 @@
 @property (nonatomic, strong) NSNumber *animationDuration;
 
 /**
+ *  Spring damping for the presenting and dismissing of the alert view
+ */
+@property (nonatomic, strong) NSNumber *animationDamping;
+
+/**
+ *  Spring initial velocity for the presenting and dismissing of the alert view
+ */
+@property (nonatomic, strong) NSNumber *animationInitialVelocity;
+
+/**
  * Opacity of the alert view's shadow
  */
 @property (nonatomic, strong) NSNumber *alertViewShadowOpacity;
