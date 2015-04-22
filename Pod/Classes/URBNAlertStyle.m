@@ -158,7 +158,6 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     URBNAlertStyle *styler = [URBNAlertStyle new];
     
-    // UIColors
     styler.buttonBackgroundColor = self.buttonBackgroundColor;
     styler.destructionButtonBackgroundColor = self.destructionButtonBackgroundColor;
     styler.destructiveButtonTitleColor = self.destructiveButtonTitleColor;
@@ -166,23 +165,12 @@
     styler.backgroundColor = self.backgroundColor;
     styler.titleColor = self.titleColor;
     styler.messageColor = self.messageColor;
-    styler.alertViewShadowColor = self.alertViewShadowColor;
-    styler.blurTintColor = self.blurTintColor;
-    styler.backgroundViewTintColor = self.backgroundViewTintColor;
-    styler.errorTextColor = self.errorTextColor;
-
-    // UIFonts
     styler.titleFont = self.titleFont;
-    styler.messageFont = self.messageFont;
-    styler.buttonFont = self.buttonFont;
-    styler.errorTextFont = self.errorTextFont;
-    
-    // NSTextAlignment
     styler.titleAlignment = self.titleAlignment;
+    styler.messageFont = self.messageFont;
     styler.messageAlignment = self.messageAlignment;
-    
-    // NSNumbers
-    styler.buttonCornerRadius = self.alertCornerRadius;
+    styler.buttonFont = self.buttonFont;
+    styler.buttonCornerRadius = self.buttonCornerRadius;
     styler.alertCornerRadius = self.alertCornerRadius;
     styler.textFieldMaxLength = self.textFieldMaxLength;
     styler.buttonHeight = self.buttonHeight;
@@ -190,13 +178,20 @@
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
     styler.buttonHorizontalMargin = self.buttonHorizontalMargin;
     styler.customViewMargin = self.customViewMargin;
+    styler.animationDuration = self.animationDuration;
+    styler.animationDamping = self.animationDamping;
+    styler.animationInitialVelocity = self.animationInitialVelocity;
     styler.alertViewShadowOpacity = self.alertViewShadowOpacity;
     styler.alertViewShadowRadius = self.alertViewShadowRadius;
+    styler.alertViewShadowColor = self.alertViewShadowColor;
+    styler.alertShadowOffset = self.alertShadowOffset;
+    styler.blurEnabled = self.blurEnabled;
+    styler.blurTintColor = self.blurTintColor;
+    styler.backgroundViewTintColor = self.backgroundViewTintColor;
+    styler.blurRadius = self.blurRadius;
     styler.blurSaturationDelta = self.blurSaturationDelta;
-    styler.alertCornerRadius = self.alertCornerRadius;
-    styler.animationInitialVelocity = self.animationInitialVelocity;
-    styler.animationDamping = self.animationDamping;
-    styler.animationDuration = self.animationDuration;
+    styler.errorTextColor = self.errorTextColor;
+    styler.errorTextFont = self.errorTextFont;
 
     return styler;
 }
