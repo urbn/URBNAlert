@@ -52,6 +52,7 @@
     
     if (self.alertStyler.blurEnabled.boolValue) {
         [self addBlurScreenshot];
+        self.blurImageView.alpha = 0.0;
     }
     else if (self.alertStyler.backgroundViewTintColor) {
         self.view.backgroundColor = self.alertStyler.backgroundViewTintColor;
@@ -191,6 +192,9 @@
     void (^fadeAnimation)() = ^(void) {
         self.alertView.alpha = alpha;
         self.view.alpha = alpha;
+        if (self.alertStyler.blurEnabled.boolValue) {
+            self.blurImageView.alpha = alpha;
+        }
     };
     
     if (animated) {
@@ -204,7 +208,7 @@
             }
         }];
         
-        [UIView animateWithDuration:duration / 2 animations:fadeAnimation completion:nil];
+        [UIView animateWithDuration:(duration / 2.0) animations:fadeAnimation completion:nil];
     }
     else {
         fadeAnimation();
