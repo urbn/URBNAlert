@@ -20,7 +20,8 @@
 @property (nonatomic, strong) URBNAlertController *alertController;
 @property (nonatomic, strong) NSLayoutConstraint *yPosConstraint;
 @property (nonatomic, strong) UIImageView *blurImageView;
-@property (nonatomic, assign) BOOL visible;
+@property (nonatomic, assign) BOOL alertVisible;
+@property (nonatomic, assign) BOOL viewControllerVisible;
 @property (nonatomic, readonly) UIView *viewForScreenshot;
 
 @end
@@ -67,7 +68,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    if (self.alertConfig.touchOutsideViewToDismiss) {
+    if (self.alertConfig.touchOutsideViewToDismiss && !self.viewControllerVisible) {
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissAlert:)];
         [self.view addGestureRecognizer:tapGesture];
     }
@@ -76,7 +77,14 @@
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self setVisible:YES animated:YES completion:nil];
+    // Added this check so if you presented a modal via a passive alert then
+    //   dismissed that modal, another alert is not added to the view if the alert
+    //   did not finish dismissing yet
+    if (!self.viewControllerVisible) {
+        [self setVisible:YES animated:YES completion:nil];
+    }
+    
+    self.viewControllerVisible = YES;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -84,6 +92,8 @@
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    
+    self.viewControllerVisible = NO;
 }
 
 #pragma mark - Methods
@@ -174,7 +184,7 @@
 
 #pragma mark - Methods
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)(URBNAlertViewController *alertVC, BOOL finished))complete {
-    self.visible = visible;
+    self.alertVisible = visible;
     
     CGFloat scaler = 0.3f;
     if (visible) {
