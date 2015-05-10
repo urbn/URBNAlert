@@ -10,11 +10,33 @@
 
 @interface URBNAlertConfig : NSObject
 
+/**
+ *  Title text for the alert
+ */
 @property (nonatomic, copy) NSString *title;
+
+/**
+ *  Message text for the alert
+ */
 @property (nonatomic, copy) NSString *message;
+
+/**
+ *  Array of actions added to the alert
+ */
 @property (nonatomic, copy) NSArray *actions;
+
+@property (nonatomic, copy) NSArray *inputs;
+
+/**
+ *  The view to present from when using showInView:
+ */
 @property (nonatomic, weak) UIView *presentationView;
+
 @property (nonatomic, assign) BOOL hasInput;
+
+/**
+ *  Flag if the alert is active. False = a passive alert
+ */
 @property (nonatomic, assign) BOOL isActiveAlert;
 
 /**

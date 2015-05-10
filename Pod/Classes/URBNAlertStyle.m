@@ -116,6 +116,10 @@
     return _textFieldMaxLength ?: @25;
 }
 
+- (NSNumber *)textFieldVerticalMargin {
+    return _textFieldVerticalMargin ?: @8;
+}
+
 #pragma mark - Shadow
 - (NSNumber *)alertViewShadowRadius {
     return _alertViewShadowRadius ?: @2;
@@ -173,6 +177,7 @@
     styler.buttonCornerRadius = self.buttonCornerRadius;
     styler.alertCornerRadius = self.alertCornerRadius;
     styler.textFieldMaxLength = self.textFieldMaxLength;
+    styler.textFieldVerticalMargin = self.textFieldVerticalMargin;
     styler.buttonHeight = self.buttonHeight;
     styler.sectionVerticalMargin = self.sectionVerticalMargin;
     styler.labelHorizontalMargin = self.labelHorizontalMargin;

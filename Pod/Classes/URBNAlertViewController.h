@@ -58,7 +58,7 @@ typedef void(^URBNAlertViewControllerFinishedDismissing)(BOOL wasTouchedOutside)
 /**
  *  The textField displayed in the alert, if added
  */
-@property (nonatomic, strong) UITextField *textField;
+@property (nonatomic, strong) NSArray *textFields;
 
 /**
  *  The customView displayed in the alert, if passed

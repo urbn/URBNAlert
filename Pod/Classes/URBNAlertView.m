@@ -31,12 +31,12 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
 
 @implementation URBNAlertView
 
-- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertStyler:(URBNAlertStyle *)alertStyler customView:(UIView *)customView textField:(UITextField *)textField {
+- (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertStyler:(URBNAlertStyle *)alertStyler customView:(UIView *)customView {
     self = [super init];
     if (self) {
         self.alertConfig = config;
         self.alertStyler = alertStyler;
-        self.textField = textField;
+        //self.textField = textField;
         
         if (!customView) {
             // Give it a dummy view
@@ -60,12 +60,18 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         [self addSubview:self.errorLabel];
         [self addSubview:self.customView];
         
-        if (self.textField) {
-            self.textField.delegate = self;
-            self.textField.translatesAutoresizingMaskIntoConstraints = NO;
-            [self addSubview:self.textField];
-            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageTextView, buttonContainer, _textField, _errorLabel);
-            self.sectionCount++;
+        if (self.alertConfig.inputs) {
+            __weak typeof(self) weakSelf = self;
+            NSMutableDictionary *mutableViews = [NSMutableDictionary dictionaryWithDictionary:@{@"_customView" : _customView, @"_titleLabel" : _titleLabel, @"_messageTextView" : _messageTextView, @"buttonContainer" : buttonContainer, @"_errorLabel" : _errorLabel}];
+            
+            [self.alertConfig.inputs enumerateObjectsUsingBlock:^(UITextField *tf, NSUInteger idx, BOOL *stop) {
+                tf.translatesAutoresizingMaskIntoConstraints = NO;
+                [mutableViews setObject:tf forKey:[NSString stringWithFormat:@"textField%ld", idx]];
+                weakSelf.sectionCount++;
+                [weakSelf addSubview:tf];
+            }];
+            
+            views = [mutableViews copy];
         }
         else {
             views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageTextView, buttonContainer, _errorLabel);
@@ -104,7 +110,8 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
                                   @"titleVMargin" : titleMargin,
                                   @"msgVMargin" : msgMargin,
                                   @"btnMargin" : self.alertStyler.buttonHorizontalMargin,
-                                  @"cvMargin" : self.alertStyler.customViewMargin};
+                                  @"cvMargin" : self.alertStyler.customViewMargin,
+                                  @"tfVMargin": self.alertStyler.textFieldVerticalMargin};
         
         for (UIView *lbl in @[self.titleLabel, self.messageTextView, self.errorLabel]) {
             lbl.translatesAutoresizingMaskIntoConstraints = NO;
@@ -113,7 +120,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-cvMargin-[_customView]-cvMargin-|" options:0 metrics:metrics views:views]];
         
-        if (!self.textField) {
+        if (!self.alertConfig.inputs && self.alertConfig.inputs.count == 0) {
             if (self.alertConfig.isActiveAlert) {
                 [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-5-[_errorLabel]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
             }
@@ -123,8 +130,16 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
             }
         }
         else {
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-lblHMargin-[_textField]-lblHMargin-|" options:0 metrics:metrics views:views]];
-            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-[_textField]-5-[_errorLabel]-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+            NSMutableString *vertVfl = [NSMutableString stringWithString:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-"];
+            [self.alertConfig.inputs enumerateObjectsUsingBlock:^(UITextField *tf, NSUInteger idx, BOOL *stop) {
+                [vertVfl appendString:[NSString stringWithFormat:@"[textField%ld]-tfVMargin-", idx]];
+                
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-lblHMargin-[textField%ld]-lblHMargin-|", idx] options:0 metrics:metrics views:views]];
+            }];
+            
+            [vertVfl appendString:@"[_errorLabel]-btnMargin-[buttonContainer]-btnMargin-|"];
+            
+            [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vertVfl options:0 metrics:metrics views:views]];
         }
         
         // Button Constraints
@@ -155,7 +170,6 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
 }
 
 - (void)layoutSubviews {
-    
     [self.messageTextView sizeToFit];
     [self.messageTextView layoutIfNeeded];
     
@@ -270,20 +284,22 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     }];
 }
 
-- (void)setLoadingState:(BOOL)newState {
-    if (newState) {
-        // Disable buttons, show loading
-        [self setButtonsEnabled:NO];
+- (void)setLoadingState:(BOOL)newState toTextFieldAtIndex:(NSUInteger)index {
+    if (index < self.alertConfig.inputs.count) {
+        UITextField *textField = [self.alertConfig.inputs objectAtIndex:index];
         
-        if (self.textField) {
-            [self.textField urbn_showLoading:YES animated:YES spinnerInsets:UIEdgeInsetsMake(0, 0, 0, 8)];
+        if (newState) {
+            // Disable buttons, show loading
+            [self setButtonsEnabled:NO];
+            
+            [textField urbn_showLoading:YES animated:YES spinnerInsets:UIEdgeInsetsMake(0, 0, 0, 8)];
         }
-    }
-    else {
-        [self setButtonsEnabled:YES];
-        
-        if (self.textField) {
-            [self.textField urbn_showLoading:NO animated:YES];
+        else {
+            [self setButtonsEnabled:YES];
+            
+            if (textField) {
+                [textField urbn_showLoading:NO animated:YES];
+            }
         }
     }
 }

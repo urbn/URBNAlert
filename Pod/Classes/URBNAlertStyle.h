@@ -86,6 +86,11 @@
 @property (nonatomic, strong) NSNumber *textFieldMaxLength;
 
 /**
+ *  Vertical margin between textfields
+ */
+@property (nonatomic, strong) NSNumber *textFieldVerticalMargin;
+
+/**
  * Height of the alert's buttons
  */
 @property (nonatomic, strong) NSNumber *buttonHeight;
