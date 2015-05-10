@@ -181,14 +181,14 @@
     
     __weak typeof(uac) weakUac = uac;
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
-        [weakUac startLoading];
+        [weakUac startLoadingTextFieldAtIndex:0];
         
         UITextField *textField = weakUac.textFields.firstObject;
         if (textField.text.length != 5) {
             double delayInSeconds = 2.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [weakUac stopLoading];
+                [weakUac stopLoadingTextField];
                 [weakUac showInputError:@"Error! must enter 5 characters. The error can span multiple lines."];
             });
         }

@@ -22,7 +22,7 @@ typedef void(^URBNAlertViewTouched)(URBNAlertAction *action);
 - (instancetype)initWithAlertConfig:(URBNAlertConfig *)config alertStyler:(URBNAlertStyle *)alertStyler customView:(UIView *)customView;
 
 - (void)setErrorLabelText:(NSString *)errorText;
-- (void)setLoadingState:(BOOL)newState toTextFieldAtIndex:(NSUInteger)index;
+- (void)setLoadingState:(BOOL)newState forTextFieldAtIndex:(NSUInteger)index;
 
 // Blocks
 @property (nonatomic, copy) URBNAlertViewButtonTouched buttonTouchedBlock;

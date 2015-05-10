@@ -284,7 +284,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     }];
 }
 
-- (void)setLoadingState:(BOOL)newState toTextFieldAtIndex:(NSUInteger)index {
+- (void)setLoadingState:(BOOL)newState forTextFieldAtIndex:(NSUInteger)index {
     if (index < self.alertConfig.inputs.count) {
         UITextField *textField = [self.alertConfig.inputs objectAtIndex:index];
         

@@ -117,12 +117,12 @@ typedef void(^URBNAlertViewControllerFinishedDismissing)(BOOL wasTouchedOutside)
  *  When called, the buttons are disabled until stopLoading is called.
  *  If a textField is present, a loading indicator is added
  */
-- (void)startLoading;
+- (void)startLoadingTextFieldAtIndex:(NSUInteger)index;
 
 /**
  *  Enables all buttons and removes the textField loading spinner if present
  */
-- (void)stopLoading;
+- (void)stopLoadingTextField;
 
 /**
  *  Used to detect when the alert has completed its dismissing animation

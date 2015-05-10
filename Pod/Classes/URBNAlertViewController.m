@@ -236,12 +236,12 @@
     [self.alertView setErrorLabelText:errorText];
 }
 
-- (void)startLoading {
-    [self.alertView setLoadingState:YES];
+- (void)startLoadingTextFieldAtIndex:(NSUInteger)index {
+    [self.alertView setLoadingState:YES forTextFieldAtIndex:index];
 }
 
-- (void)stopLoading {
-    [self.alertView setLoadingState:NO];
+- (void)stopLoadingTextField {
+    [self.alertView setLoadingState:NO forTextFieldAtIndex:0];
 }
 
 - (UIView *)viewForScreenshot {
