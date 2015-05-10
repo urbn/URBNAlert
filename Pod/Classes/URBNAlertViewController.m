@@ -23,6 +23,7 @@
 @property (nonatomic, assign) BOOL alertVisible;
 @property (nonatomic, assign) BOOL viewControllerVisible;
 @property (nonatomic, readonly) UIView *viewForScreenshot;
+@property (nonatomic, strong) NSArray *textFields;
 
 @end
 
@@ -242,6 +243,10 @@
 
 - (void)stopLoadingTextField {
     [self.alertView setLoadingState:NO forTextFieldAtIndex:0];
+}
+
+- (UITextField *)textFieldAtIndex:(NSUInteger)index {
+    return [self.textFields objectAtIndex:index];
 }
 
 - (UIView *)viewForScreenshot {

@@ -144,9 +144,9 @@
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Input Alert" message:@"Enter some info bro:" view:nil];
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
-        NSLog(@"input 1: %@", [[uac.textFields objectAtIndex:0] text]);
-        NSLog(@"input 2: %@", [[uac.textFields objectAtIndex:1] text]);
-        NSLog(@"input 3: %@", [[uac.textFields objectAtIndex:2] text]);
+        NSLog(@"input 1: %@", [[uac textFieldAtIndex:0] text]);
+        NSLog(@"input 2: %@", [[uac textFieldAtIndex:1] text]);
+        NSLog(@"input 3: %@", [[uac textFieldAtIndex:2] text]);
     }]];
     
     [uac addTextFieldWithConfigurationHandler:^(UITextField *textField) {
@@ -183,7 +183,7 @@
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
         [weakUac startLoadingTextFieldAtIndex:0];
         
-        UITextField *textField = weakUac.textFields.firstObject;
+        UITextField *textField = [weakUac textFieldAtIndex:0];
         if (textField.text.length != 5) {
             double delayInSeconds = 2.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
