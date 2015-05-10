@@ -109,8 +109,10 @@ typedef void(^URBNAlertViewControllerFinishedDismissing)(BOOL wasTouchedOutside)
 - (void)showInputError:(NSString *)errorText;
 
 /**
- *  When called, the buttons are disabled until stopLoading is called.
- *  If a textField is present, a loading indicator is added
+ *  When called, any buttons are disabled and the textfield at the given index 
+ *     animates with a loading indicator
+ *
+ *  @param index Index of the textfield you wish to animate
  */
 - (void)startLoadingTextFieldAtIndex:(NSUInteger)index;
 

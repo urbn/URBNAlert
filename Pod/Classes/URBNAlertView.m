@@ -36,7 +36,6 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     if (self) {
         self.alertConfig = config;
         self.alertStyler = alertStyler;
-        //self.textField = textField;
         
         if (!customView) {
             // Give it a dummy view
@@ -60,9 +59,10 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         [self addSubview:self.errorLabel];
         [self addSubview:self.customView];
         
-        if (self.alertConfig.inputs) {
+        NSMutableDictionary *mutableViews = [NSMutableDictionary dictionaryWithDictionary:@{@"_customView" : _customView, @"_titleLabel" : _titleLabel, @"_messageTextView" : _messageTextView, @"buttonContainer" : buttonContainer, @"_errorLabel" : _errorLabel}];
+
+        if (self.alertConfig.inputs && self.alertConfig.inputs.count > 0) {
             __weak typeof(self) weakSelf = self;
-            NSMutableDictionary *mutableViews = [NSMutableDictionary dictionaryWithDictionary:@{@"_customView" : _customView, @"_titleLabel" : _titleLabel, @"_messageTextView" : _messageTextView, @"buttonContainer" : buttonContainer, @"_errorLabel" : _errorLabel}];
             
             [self.alertConfig.inputs enumerateObjectsUsingBlock:^(UITextField *tf, NSUInteger idx, BOOL *stop) {
                 tf.translatesAutoresizingMaskIntoConstraints = NO;
@@ -70,12 +70,9 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
                 weakSelf.sectionCount++;
                 [weakSelf addSubview:tf];
             }];
-            
-            views = [mutableViews copy];
         }
-        else {
-            views = NSDictionaryOfVariableBindings(_customView, _titleLabel, _messageTextView, buttonContainer, _errorLabel);
-        }
+        
+        views = [mutableViews copy];
         
         // Add some buttons
         NSMutableArray *btns = [NSMutableArray new];
@@ -131,9 +128,9 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         }
         else {
             NSMutableString *vertVfl = [NSMutableString stringWithString:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-"];
+          
             [self.alertConfig.inputs enumerateObjectsUsingBlock:^(UITextField *tf, NSUInteger idx, BOOL *stop) {
                 [vertVfl appendString:[NSString stringWithFormat:@"[textField%ld]-tfVMargin-", idx]];
-                
                 [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-lblHMargin-[textField%ld]-lblHMargin-|", idx] options:0 metrics:metrics views:views]];
             }];
             

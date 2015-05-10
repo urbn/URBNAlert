@@ -25,14 +25,15 @@
  */
 @property (nonatomic, copy) NSArray *actions;
 
+/**
+ *  Array of UITextFields added to the array
+ */
 @property (nonatomic, copy) NSArray *inputs;
 
 /**
  *  The view to present from when using showInView:
  */
 @property (nonatomic, weak) UIView *presentationView;
-
-@property (nonatomic, assign) BOOL hasInput;
 
 /**
  *  Flag if the alert is active. False = a passive alert

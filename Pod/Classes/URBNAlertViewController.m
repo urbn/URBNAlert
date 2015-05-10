@@ -22,8 +22,8 @@
 @property (nonatomic, strong) UIImageView *blurImageView;
 @property (nonatomic, assign) BOOL alertVisible;
 @property (nonatomic, assign) BOOL viewControllerVisible;
+@property (nonatomic, assign) NSUInteger indexOfLoadingTextField;
 @property (nonatomic, readonly) UIView *viewForScreenshot;
-@property (nonatomic, strong) NSArray *textFields;
 
 @end
 
@@ -137,8 +137,6 @@
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
     NSMutableArray *inputs = [self.alertConfig.inputs mutableCopy] ?: [NSMutableArray new];
     
-    //NSAssert(!self.textField, @"URBNAlertController: Active alerts only supports up 1 input text field at the moment. Please create an issue if you want more!");
-    
     UITextField *textField = [UITextField new];
     if (configurationHandler) {
         configurationHandler(textField);
@@ -238,24 +236,20 @@
 }
 
 - (void)startLoadingTextFieldAtIndex:(NSUInteger)index {
+    self.indexOfLoadingTextField = index;
     [self.alertView setLoadingState:YES forTextFieldAtIndex:index];
 }
 
 - (void)stopLoadingTextField {
-    [self.alertView setLoadingState:NO forTextFieldAtIndex:0];
+    [self.alertView setLoadingState:NO forTextFieldAtIndex:self.indexOfLoadingTextField];
 }
 
 - (UITextField *)textFieldAtIndex:(NSUInteger)index {
-    return [self.textFields objectAtIndex:index];
+    return [self.alertConfig.inputs objectAtIndex:index];
 }
 
 - (UIView *)viewForScreenshot {
     return self.alertConfig.presentationView ?: self.alertController.presentingWindow;
-}
-
-#pragma mark - Getters
-- (NSArray *)textFields {
-    return self.alertConfig.inputs;
 }
 
 #pragma mark - Action
