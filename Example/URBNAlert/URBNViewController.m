@@ -144,7 +144,7 @@
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Input Alert" message:@"Enter some info bro:" view:nil];
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
-        NSLog(@"input 1: %@", [[uac textFieldAtIndex:0] text]);
+        NSLog(@"input 1: %@", uac.textField.text);
         NSLog(@"input 2: %@", [[uac textFieldAtIndex:1] text]);
         NSLog(@"input 3: %@", [[uac textFieldAtIndex:2] text]);
     }]];

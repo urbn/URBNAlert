@@ -184,7 +184,6 @@
     [self dismissAlert:nil];
 }
 
-#pragma mark - Methods
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)(URBNAlertViewController *alertVC, BOOL finished))complete {
     self.alertVisible = visible;
     
@@ -245,7 +244,15 @@
 }
 
 - (UITextField *)textFieldAtIndex:(NSUInteger)index {
-    return [self.alertConfig.inputs objectAtIndex:index];
+    if (index < self.alertConfig.inputs.count)  {
+        return [self.alertConfig.inputs objectAtIndex:index];
+    }
+    
+    return nil;
+}
+
+- (UITextField *)textField {
+    return [self textFieldAtIndex:0];
 }
 
 - (UIView *)viewForScreenshot {

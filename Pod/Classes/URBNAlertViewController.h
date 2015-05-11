@@ -122,6 +122,11 @@ typedef void(^URBNAlertViewControllerFinishedDismissing)(BOOL wasTouchedOutside)
 - (void)stopLoadingTextField;
 
 /**
+ *  Getter for the 1st textField added to the alert. Kept for convenience & backwards compatability
+ */
+- (UITextField *)textField;
+
+/**
  *  Helpers to get a textfield for a given index
  *
  *  @param index The index of the textfield you wish to get
