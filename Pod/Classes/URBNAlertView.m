@@ -70,7 +70,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
             
             [self.alertConfig.inputs enumerateObjectsUsingBlock:^(UITextField *tf, NSUInteger idx, BOOL *stop) {
                 tf.translatesAutoresizingMaskIntoConstraints = NO;
-                [mutableViews setObject:tf forKey:[NSString stringWithFormat:@"textField%ld", idx]];
+                [mutableViews setObject:tf forKey:[NSString stringWithFormat:@"textField%lu", (unsigned long)idx]];
                 weakSelf.sectionCount++;
                 [weakSelf addSubview:tf];
             }];
@@ -135,8 +135,8 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
             NSMutableString *vertVfl = [NSMutableString stringWithString:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-"];
           
             [self.alertConfig.inputs enumerateObjectsUsingBlock:^(UITextField *tf, NSUInteger idx, BOOL *stop) {
-                [vertVfl appendString:[NSString stringWithFormat:@"[textField%ld]-tfVMargin-", idx]];
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-lblHMargin-[textField%ld]-lblHMargin-|", idx] options:0 metrics:metrics views:views]];
+                [vertVfl appendString:[NSString stringWithFormat:@"[textField%lu]-tfVMargin-", (unsigned long)idx]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-lblHMargin-[textField%lu]-lblHMargin-|", (unsigned long)idx] options:0 metrics:metrics views:views]];
             }];
             
             [vertVfl appendString:@"[_errorLabel]-btnMargin-[buttonContainer]-btnMargin-|"];
