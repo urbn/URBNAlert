@@ -117,6 +117,12 @@ typedef void(^URBNAlertViewControllerFinishedDismissing)(BOOL wasTouchedOutside)
 - (void)startLoadingTextFieldAtIndex:(NSUInteger)index;
 
 /**
+ *  When called, any buttons are disabled and the first textfield
+ *      adnimates with a loading indicator. Kept for convenience & backwards compatability
+ */
+- (void)startLoading;
+
+/**
  *  Enables all buttons and removes the textField loading spinner if present
  */
 - (void)stopLoadingTextField;

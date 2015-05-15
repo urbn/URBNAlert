@@ -234,6 +234,10 @@
     [self.alertView setErrorLabelText:errorText];
 }
 
+- (void)startLoading {
+    [self startLoadingTextFieldAtIndex:0];
+}
+
 - (void)startLoadingTextFieldAtIndex:(NSUInteger)index {
     self.indexOfLoadingTextField = index;
     [self.alertView setLoadingState:YES forTextFieldAtIndex:index];

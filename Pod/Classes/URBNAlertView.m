@@ -14,6 +14,10 @@
 #import <URBNConvenience/UIView+URBNLayout.h>
 #import <URBNConvenience/URBNMacros.h>
 
+@implementation URBNAlertActionButton
+
+@end
+
 static NSInteger const kURBNAlertViewHeightPadding = 80.f;
 
 @interface URBNAlertView()
@@ -81,9 +85,10 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         __weak typeof(self) weakSelf = self;
         [self.alertConfig.actions enumerateObjectsUsingBlock:^(URBNAlertAction *action, NSUInteger idx, BOOL *stop) {
             if (action.isButton) {
-                UIButton *btn = [weakSelf createAlertViewButtonWithAction:action atIndex:idx];
+                URBNAlertActionButton *btn = [weakSelf createAlertViewButtonWithAction:action atIndex:idx];
                 [buttonContainer addSubview:btn];
                 [btns addObject:btn];
+                action.actionButton = btn;
             }
         }];
         
@@ -251,7 +256,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
 }
 
 #pragma mark - Methods
-- (UIButton *)createAlertViewButtonWithAction:(URBNAlertAction *)action atIndex:(NSInteger)index {
+- (URBNAlertActionButton *)createAlertViewButtonWithAction:(URBNAlertAction *)action atIndex:(NSInteger)index {
     UIColor *bgColor = self.alertStyler.buttonBackgroundColor;
     UIColor *titleColor = self.alertStyler.buttonTitleColor;
     
@@ -259,13 +264,19 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         titleColor = self.alertStyler.destructiveButtonTitleColor;
         bgColor = self.alertStyler.destructionButtonBackgroundColor;
     }
+    else if (action.actionType == URBNAlertActionTypeCancel) {
+        titleColor = self.alertStyler.cancelButtonTitleColor;
+        bgColor = self.alertStyler.cancelButtonBackgroundColor;
+    }
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    URBNAlertActionButton *btn = [URBNAlertActionButton buttonWithType:UIButtonTypeCustom];
     btn.translatesAutoresizingMaskIntoConstraints = NO;
     btn.backgroundColor = bgColor;
     btn.titleLabel.font = self.alertStyler.buttonFont;
     btn.layer.cornerRadius = self.alertStyler.buttonCornerRadius.floatValue;
     btn.tag = index;
+    btn.actionType = action.actionType;
+    btn.alertStyler = self.alertStyler;
     
     [btn setTitle:action.title forState:UIControlStateNormal];
     [btn setTitleColor:titleColor forState:UIControlStateNormal];
@@ -302,9 +313,8 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
 }
 
 - (void)setButtonsEnabled:(BOOL)enabled {
-    for (UIButton *btn in self.buttons) {
-        btn.enabled = enabled;
-        btn.alpha = enabled ? 1.f : 0.5f;
+    for (URBNAlertAction *action in self.alertConfig.actions) {
+        [action setEnabled:enabled];
     }
 }
 

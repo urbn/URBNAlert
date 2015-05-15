@@ -66,6 +66,14 @@
     return _destructiveButtonTitleColor ?: [UIColor whiteColor];
 }
 
+- (UIColor *)cancelButtonBackgroundColor {
+    return _destructionButtonBackgroundColor ?: [UIColor lightGrayColor];
+}
+
+- (UIColor *)cancelButtonTitleColor {
+    return _destructiveButtonTitleColor ?: [UIColor whiteColor];
+}
+
 - (NSNumber *)buttonCornerRadius {
     return _buttonCornerRadius ?: @8;
 }
@@ -159,12 +167,63 @@
     return _blurTintColor;
 }
 
+#pragma mark - Disabled button styling
+- (UIColor *)buttonTitleColorForActionType:(URBNAlertActionType)actionType isEnabled:(BOOL)enabled {
+    if (self.disabledButtonTitleColor && !enabled) {
+        return self.disabledButtonTitleColor;
+    }
+    
+    switch (actionType) {
+        case URBNAlertActionTypeCancel:
+            return self.cancelButtonTitleColor;
+            break;
+        case URBNAlertActionTypeNormal:
+            return self.buttonTitleColor;
+            break;
+        case URBNAlertActionTypeDestructive:
+            return self.destructiveButtonTitleColor;
+            break;
+        default:
+            return self.buttonTitleColor;
+            break;
+    }
+}
+
+- (UIColor *)buttonBackgroundColorForActionType:(URBNAlertActionType)actionType isEnabled:(BOOL)enabled {
+    if (self.disabledButtonBackgroundColor && !enabled) {
+        return self.disabledButtonBackgroundColor;
+    }
+    
+    switch (actionType) {
+        case URBNAlertActionTypeCancel:
+            return self.cancelButtonBackgroundColor;
+            break;
+        case URBNAlertActionTypeNormal:
+            return self.buttonBackgroundColor;
+            break;
+        case URBNAlertActionTypeDestructive:
+            return self.destructionButtonBackgroundColor;
+            break;
+        default:
+            return self.buttonBackgroundColor;
+            break;
+    }
+}
+
+
+- (NSNumber *)disabledButtonAlpha {
+    return _disabledButtonAlpha ?: @(0.5f);
+}
+
+#pragma mark - Copying
 - (instancetype)copyWithZone:(NSZone *)zone {
     URBNAlertStyle *styler = [URBNAlertStyle new];
     
     styler.buttonBackgroundColor = self.buttonBackgroundColor;
     styler.destructionButtonBackgroundColor = self.destructionButtonBackgroundColor;
     styler.destructiveButtonTitleColor = self.destructiveButtonTitleColor;
+    styler.cancelButtonBackgroundColor = self.cancelButtonBackgroundColor;
+    styler.cancelButtonTitleColor = self.cancelButtonTitleColor;
     styler.buttonTitleColor = self.buttonTitleColor;
     styler.backgroundColor = self.backgroundColor;
     styler.titleColor = self.titleColor;

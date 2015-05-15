@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "URBNAlertAction.h"
 
 @interface URBNAlertStyle : NSObject <NSCopying>
 /**
@@ -24,6 +25,31 @@
  * Text color of destructive button colors
  */
 @property (nonatomic, strong) UIColor *destructiveButtonTitleColor;
+
+/**
+ * Background color of the cancel button for an active alert
+ */
+@property (nonatomic, strong) UIColor *cancelButtonBackgroundColor;
+
+/**
+ * Text color of cancel button colors
+ */
+@property (nonatomic, strong) UIColor *cancelButtonTitleColor;
+
+/**
+ * Background color of a disabled button for an active alert
+ */
+@property (nonatomic, strong) UIColor *disabledButtonBackgroundColor;
+
+/**
+ * Text color of a disabled button
+ */
+@property (nonatomic, strong) UIColor *disabledButtonTitleColor;
+
+/**
+ * Alpha value of a disabled button
+ */
+@property (nonatomic, strong) NSNumber *disabledButtonAlpha;
 
 /**
  * Text color of the button titles
@@ -184,5 +210,23 @@
  * Text color of the error label text
  */
 @property (nonatomic, strong) UIFont *errorTextFont;
+
+/**
+ *  Returns the correct background color for given an actionType
+ *
+ *  @param actionType Action type associated with the button
+ *
+ *  @return
+ */
+- (UIColor *)buttonTitleColorForActionType:(URBNAlertActionType)actionType isEnabled:(BOOL)enabled;
+
+/**
+ *  Returns the correct title color for given an actionType
+ *
+ *  @param actionType Action type associated with the button
+ *
+ *  @return
+ */
+- (UIColor *)buttonBackgroundColorForActionType:(URBNAlertActionType)actionType isEnabled:(BOOL)enabled;
 
 @end

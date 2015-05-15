@@ -29,7 +29,7 @@
     // Set global stlying. This can be done sometime during app launch. You can change style options per alert as well.
     self.alertController = [URBNAlertController sharedInstance];
     self.alertController.alertStyler.buttonBackgroundColor = [UIColor blueColor];
-    self.alertController.alertStyler.destructionButtonBackgroundColor = [UIColor greenColor];
+    self.alertController.alertStyler.cancelButtonTitleColor = [UIColor redColor];
     
     self.navigationItem.title = @"URBNAlert";
     
@@ -178,10 +178,15 @@
 
 - (IBAction)activeAlertValidateInput:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Validated Input Alert" message:@"Input must be 5 characters long to pass."];
+    uac.alertStyler.disabledButtonTitleColor = [UIColor orangeColor];
+    uac.alertStyler.disabledButtonBackgroundColor = [UIColor blackColor];
+    uac.alertStyler.disabledButtonAlpha = @1.f;
+    
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Cancel" actionType:URBNAlertActionTypeCancel actionCompleted:nil]];
     
     __weak typeof(uac) weakUac = uac;
-    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
-        [weakUac startLoadingTextFieldAtIndex:0];
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Submit" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
+        [weakUac startLoading];
         
         UITextField *textField = [weakUac textFieldAtIndex:0];
         if (textField.text.length != 5) {
@@ -189,7 +194,8 @@
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                 [weakUac stopLoadingTextField];
-                [weakUac showInputError:@"Error! must enter 5 characters. The error can span multiple lines."];
+                [weakUac showInputError:@"Error! must enter 5 characters. You must now cancel.\nBTW This message can span multiple lines."];
+                [action setEnabled:NO];
             });
         }
         else {
