@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "URBNAlertAction.h"
 
 @class URBNAlertController;
 @class URBNAlertView;
 @class URBNAlertConfig;
-@class URBNAlertAction;
 @class URBNAlertStyle;
 
 typedef void(^URBNAlertViewButtonTouched)(URBNAlertAction *action);
@@ -34,3 +34,11 @@ typedef void(^URBNAlertViewTouched)(URBNAlertAction *action);
 - (void)setAlertViewTouchedBlock:(URBNAlertViewTouched)alertViewTouchedBlock;
 
 @end
+
+// URBNAlertActionButton
+@interface URBNAlertActionButton : UIButton
+
+@property (nonatomic, assign) URBNAlertActionType actionType;
+
+@end
+

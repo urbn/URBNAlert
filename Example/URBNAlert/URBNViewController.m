@@ -163,8 +163,11 @@
 - (IBAction)activeAlertValidateInput:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Validated Input Alert" message:@"Input must be 5 characters long to pass."];
     
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Cancel" actionType:URBNAlertActionTypeCancel actionCompleted:nil]];
+    
     __weak typeof(uac) weakUac = uac;
-    [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
+    
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Submit" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
         [weakUac startLoading];
         
         if (weakUac.textField.text.length != 5) {
@@ -173,6 +176,7 @@
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
                 [weakUac stopLoading];
                 [weakUac showInputError:@"Error! must enter 5 characters. The error can span multiple lines."];
+                [action setEnabled:NO];
             });
         }
         else {

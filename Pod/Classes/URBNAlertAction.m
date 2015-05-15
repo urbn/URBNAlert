@@ -7,6 +7,7 @@
 //
 
 #import "URBNAlertAction.h"
+#import "URBNAlertView.h"
 
 @implementation URBNAlertAction
 
@@ -26,6 +27,13 @@
 
 - (BOOL)isButton {
     return (self.actionType == URBNAlertActionTypeNormal || self.actionType == URBNAlertActionTypeDestructive || self.actionType == URBNAlertActionTypeCancel);
+}
+
+- (void)setEnabled:(BOOL)enabled {
+    if (self.isButton && self.actionButton) {
+        [self.actionButton setEnabled:enabled];
+        self.actionButton.alpha = enabled ? 1.f : 0.5f;
+    }
 }
 
 @end
