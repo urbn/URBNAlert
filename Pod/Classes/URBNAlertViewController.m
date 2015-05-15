@@ -243,7 +243,7 @@
     [self.alertView setLoadingState:YES forTextFieldAtIndex:index];
 }
 
-- (void)stopLoadingTextField {
+- (void)stopLoading {
     [self.alertView setLoadingState:NO forTextFieldAtIndex:self.indexOfLoadingTextField];
 }
 

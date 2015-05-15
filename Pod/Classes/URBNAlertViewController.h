@@ -125,7 +125,7 @@ typedef void(^URBNAlertViewControllerFinishedDismissing)(BOOL wasTouchedOutside)
 /**
  *  Enables all buttons and removes the textField loading spinner if present
  */
-- (void)stopLoadingTextField;
+- (void)stopLoading;
 
 /**
  *  Getter for the 1st textField added to the alert. Kept for convenience & backwards compatability
