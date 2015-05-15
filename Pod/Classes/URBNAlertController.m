@@ -58,10 +58,10 @@
             }
             
             // If the queue is empty, remove the window. If not keep visible to present next alert(s)
-            if (!self.queue || self.queue.count == 0) {
-                [self.presentingWindow makeKeyAndVisible];
-                self.alertWindow.hidden = YES;
-                self.alertWindow = nil;
+            if (!weakSelf.queue || weakSelf.queue.count == 0) {
+                [weakSelf.presentingWindow makeKeyAndVisible];
+                weakSelf.alertWindow.hidden = YES;
+                weakSelf.alertWindow = nil;
             }
         }];
         
