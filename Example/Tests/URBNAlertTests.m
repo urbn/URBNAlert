@@ -76,16 +76,6 @@
     [uac addAction:[URBNAlertAction actionWithTitle:@"btn" actionType:URBNAlertActionTypeNormal actionCompleted:nil]];
     XCTAssertNoThrow([uac show]);
     
-    // Test 1 input
-    uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
-    [uac addTextFieldWithConfigurationHandler:nil];
-    XCTAssertNoThrow([uac show]);
-    
-    // Test 2 input
-    uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
-    [uac addTextFieldWithConfigurationHandler:nil];
-    XCTAssertThrows([uac addTextFieldWithConfigurationHandler:nil]);
-    
     // Test nil title & message
     uac = [[URBNAlertViewController alloc] initWithTitle:nil message:nil];
     [uac addAction:[URBNAlertAction actionWithTitle:@"btn" actionType:URBNAlertActionTypeNormal actionCompleted:nil]];

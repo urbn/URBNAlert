@@ -141,15 +141,31 @@
 
 
 - (IBAction)activeAlertInputTouch:(id)sender {
-    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Input Alert" message:@"Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. and message and message and going on forever and ever." view:nil];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Input Alert" message:@"Enter some info bro:" view:nil];
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
-        NSLog(@"input: %@", uac.textField.text);
+        NSLog(@"input 1: %@", uac.textField.text);
+        NSLog(@"input 2: %@", [[uac textFieldAtIndex:1] text]);
+        NSLog(@"input 3: %@", [[uac textFieldAtIndex:2] text]);
     }]];
     
     [uac addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.borderStyle = UITextBorderStyleRoundedRect;
         textField.placeholder = @"e-mail";
+        textField.returnKeyType = UIReturnKeyDone;
+        textField.keyboardType = UIKeyboardTypeEmailAddress;
+    }];
+    
+    [uac addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.borderStyle = UITextBorderStyleRoundedRect;
+        textField.placeholder = @"password";
+        textField.returnKeyType = UIReturnKeyDone;
+        textField.keyboardType = UIKeyboardTypeEmailAddress;
+    }];
+    
+    [uac addTextFieldWithConfigurationHandler:^(UITextField *textField) {
+        textField.borderStyle = UITextBorderStyleRoundedRect;
+        textField.placeholder = @"confirm";
         textField.returnKeyType = UIReturnKeyDone;
         textField.keyboardType = UIKeyboardTypeEmailAddress;
     }];
@@ -165,13 +181,14 @@
     
     __weak typeof(uac) weakUac = uac;
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
-        [weakUac startLoading];
+        [weakUac startLoadingTextFieldAtIndex:0];
         
-        if (weakUac.textField.text.length != 5) {
+        UITextField *textField = [weakUac textFieldAtIndex:0];
+        if (textField.text.length != 5) {
             double delayInSeconds = 2.0;
             dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
             dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                [weakUac stopLoading];
+                [weakUac stopLoadingTextField];
                 [weakUac showInputError:@"Error! must enter 5 characters. The error can span multiple lines."];
             });
         }

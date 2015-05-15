@@ -56,11 +56,6 @@ typedef void(^URBNAlertViewControllerFinishedDismissing)(BOOL wasTouchedOutside)
 @property (nonatomic, strong) URBNAlertConfig *alertConfig;
 
 /**
- *  The textField displayed in the alert, if added
- */
-@property (nonatomic, strong) UITextField *textField;
-
-/**
  *  The customView displayed in the alert, if passed
  */
 @property (nonatomic, strong) UIView *customView;
@@ -114,15 +109,31 @@ typedef void(^URBNAlertViewControllerFinishedDismissing)(BOOL wasTouchedOutside)
 - (void)showInputError:(NSString *)errorText;
 
 /**
- *  When called, the buttons are disabled until stopLoading is called.
- *  If a textField is present, a loading indicator is added
+ *  When called, any buttons are disabled and the textfield at the given index 
+ *     animates with a loading indicator
+ *
+ *  @param index Index of the textfield you wish to animate
  */
-- (void)startLoading;
+- (void)startLoadingTextFieldAtIndex:(NSUInteger)index;
 
 /**
  *  Enables all buttons and removes the textField loading spinner if present
  */
-- (void)stopLoading;
+- (void)stopLoadingTextField;
+
+/**
+ *  Getter for the 1st textField added to the alert. Kept for convenience & backwards compatability
+ */
+- (UITextField *)textField;
+
+/**
+ *  Helpers to get a textfield for a given index
+ *
+ *  @param index The index of the textfield you wish to get
+ *
+ *  @return
+ */
+- (UITextField *)textFieldAtIndex:(NSUInteger)index;
 
 /**
  *  Used to detect when the alert has completed its dismissing animation

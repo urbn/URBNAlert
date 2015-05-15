@@ -22,6 +22,7 @@
 @property (nonatomic, strong) UIImageView *blurImageView;
 @property (nonatomic, assign) BOOL alertVisible;
 @property (nonatomic, assign) BOOL viewControllerVisible;
+@property (nonatomic, assign) NSUInteger indexOfLoadingTextField;
 @property (nonatomic, readonly) UIView *viewForScreenshot;
 
 @end
@@ -134,18 +135,19 @@
 }
 
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
-    NSAssert(!self.textField, @"URBNAlertController: Active alerts only supports up 1 input text field at the moment. Please create an issue if you want more!");
+    NSMutableArray *inputs = [self.alertConfig.inputs mutableCopy] ?: [NSMutableArray new];
     
     UITextField *textField = [UITextField new];
     if (configurationHandler) {
         configurationHandler(textField);
     }
     
-    self.textField = textField;
+    [inputs addObject:textField];
+    self.alertConfig.inputs = inputs;
 }
 
 - (void)show {
-    self.alertView = [[URBNAlertView alloc] initWithAlertConfig:self.alertConfig alertStyler:self.alertStyler customView:self.customView textField:self.textField];
+    self.alertView = [[URBNAlertView alloc] initWithAlertConfig:self.alertConfig alertStyler:self.alertStyler customView:self.customView];
     self.alertView.alpha = 0;
     self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
     
@@ -182,7 +184,6 @@
     [self dismissAlert:nil];
 }
 
-#pragma mark - Methods
 - (void)setVisible:(BOOL)visible animated:(BOOL)animated completion:(void (^)(URBNAlertViewController *alertVC, BOOL finished))complete {
     self.alertVisible = visible;
     
@@ -233,12 +234,25 @@
     [self.alertView setErrorLabelText:errorText];
 }
 
-- (void)startLoading {
-    [self.alertView setLoadingState:YES];
+- (void)startLoadingTextFieldAtIndex:(NSUInteger)index {
+    self.indexOfLoadingTextField = index;
+    [self.alertView setLoadingState:YES forTextFieldAtIndex:index];
 }
 
-- (void)stopLoading {
-    [self.alertView setLoadingState:NO];
+- (void)stopLoadingTextField {
+    [self.alertView setLoadingState:NO forTextFieldAtIndex:self.indexOfLoadingTextField];
+}
+
+- (UITextField *)textFieldAtIndex:(NSUInteger)index {
+    if (index < self.alertConfig.inputs.count)  {
+        return [self.alertConfig.inputs objectAtIndex:index];
+    }
+    
+    return nil;
+}
+
+- (UITextField *)textField {
+    return [self textFieldAtIndex:0];
 }
 
 - (UIView *)viewForScreenshot {
