@@ -25,7 +25,7 @@
 }
 
 - (BOOL)isButton {
-    return (self.actionType == URBNAlertActionTypeNormal || self.actionType == URBNAlertActionTypeDestructive);
+    return (self.actionType == URBNAlertActionTypeNormal || self.actionType == URBNAlertActionTypeDestructive || self.actionType == URBNAlertActionTypeCancel);
 }
 
 @end

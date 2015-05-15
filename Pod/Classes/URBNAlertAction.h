@@ -13,6 +13,7 @@
 typedef NS_ENUM(NSInteger, URBNAlertActionType) {
     URBNAlertActionTypeNormal,
     URBNAlertActionTypeDestructive,
+    URBNAlertActionTypeCancel,
     URBNAlertActionTypePassive
 };
 

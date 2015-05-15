@@ -26,6 +26,16 @@
 @property (nonatomic, strong) UIColor *destructiveButtonTitleColor;
 
 /**
+ * Background color of the cancel button for an active alert
+ */
+@property (nonatomic, strong) UIColor *cancelButtonBackgroundColor;
+
+/**
+ * Text color of cancel button colors
+ */
+@property (nonatomic, strong) UIColor *cancelButtonTitleColor;
+
+/**
  * Text color of the button titles
  */
 @property (nonatomic, strong) UIColor *buttonTitleColor;

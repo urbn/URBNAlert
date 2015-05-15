@@ -248,6 +248,10 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         titleColor = self.alertStyler.destructiveButtonTitleColor;
         bgColor = self.alertStyler.destructionButtonBackgroundColor;
     }
+    else if (action.actionType == URBNAlertActionTypeCancel) {
+        titleColor = self.alertStyler.cancelButtonTitleColor;
+        bgColor = self.alertStyler.cancelButtonBackgroundColor;
+    }
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.translatesAutoresizingMaskIntoConstraints = NO;

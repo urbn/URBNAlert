@@ -66,6 +66,14 @@
     return _destructiveButtonTitleColor ?: [UIColor whiteColor];
 }
 
+- (UIColor *)cancelButtonBackgroundColor {
+    return _destructionButtonBackgroundColor ?: [UIColor lightGrayColor];
+}
+
+- (UIColor *)cancelButtonTitleColor {
+    return _destructiveButtonTitleColor ?: [UIColor whiteColor];
+}
+
 - (NSNumber *)buttonCornerRadius {
     return _buttonCornerRadius ?: @8;
 }
@@ -161,6 +169,8 @@
     styler.buttonBackgroundColor = self.buttonBackgroundColor;
     styler.destructionButtonBackgroundColor = self.destructionButtonBackgroundColor;
     styler.destructiveButtonTitleColor = self.destructiveButtonTitleColor;
+    styler.cancelButtonBackgroundColor = self.cancelButtonBackgroundColor;
+    styler.cancelButtonTitleColor = self.cancelButtonTitleColor;
     styler.buttonTitleColor = self.buttonTitleColor;
     styler.backgroundColor = self.backgroundColor;
     styler.titleColor = self.titleColor;

@@ -105,7 +105,7 @@
     
     self.alertConfig.actions = [actions copy];
     
-    if (action.actionType != URBNAlertActionTypePassive) {
+    if (action.actionType != buttonPassive) {
         self.alertConfig.isActiveAlert = YES;
     }
 }
