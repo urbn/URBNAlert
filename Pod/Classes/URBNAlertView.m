@@ -276,6 +276,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     btn.layer.cornerRadius = self.alertStyler.buttonCornerRadius.floatValue;
     btn.tag = index;
     btn.actionType = action.actionType;
+    btn.alertStyler = self.alertStyler;
     
     [btn setTitle:action.title forState:UIControlStateNormal];
     [btn setTitleColor:titleColor forState:UIControlStateNormal];
@@ -312,11 +313,8 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
 }
 
 - (void)setButtonsEnabled:(BOOL)enabled {
-    for (URBNAlertActionButton *btn in self.buttons) {
-        if (btn.actionType != URBNAlertActionTypeCancel) {
-            btn.enabled = enabled;
-            btn.alpha = enabled ? 1.f : 0.5f;
-        }
+    for (URBNAlertAction *action in self.alertConfig.actions) {
+        [action setEnabled:enabled];
     }
 }
 

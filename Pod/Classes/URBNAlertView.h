@@ -37,6 +37,7 @@ typedef void(^URBNAlertViewTouched)(URBNAlertAction *action);
 @interface URBNAlertActionButton : UIButton
 
 @property (nonatomic, assign) URBNAlertActionType actionType;
+@property (nonatomic, weak) URBNAlertStyle *alertStyler;
 
 @end
 

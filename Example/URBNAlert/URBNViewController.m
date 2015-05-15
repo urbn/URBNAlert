@@ -29,7 +29,7 @@
     // Set global stlying. This can be done sometime during app launch. You can change style options per alert as well.
     self.alertController = [URBNAlertController sharedInstance];
     self.alertController.alertStyler.buttonBackgroundColor = [UIColor blueColor];
-    self.alertController.alertStyler.destructionButtonBackgroundColor = [UIColor greenColor];
+    self.alertController.alertStyler.cancelButtonTitleColor = [UIColor redColor];
     
     self.navigationItem.title = @"URBNAlert";
     
@@ -178,6 +178,9 @@
 
 - (IBAction)activeAlertValidateInput:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Validated Input Alert" message:@"Input must be 5 characters long to pass."];
+    uac.alertStyler.disabledButtonTitleColor = [UIColor orangeColor];
+    uac.alertStyler.disabledButtonBackgroundColor = [UIColor blackColor];
+    uac.alertStyler.disabledButtonAlpha = @1.f;
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Cancel" actionType:URBNAlertActionTypeCancel actionCompleted:nil]];
     

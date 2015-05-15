@@ -8,6 +8,7 @@
 
 #import "URBNAlertAction.h"
 #import "URBNAlertView.h"
+#import "URBNAlertStyle.h"
 
 @implementation URBNAlertAction
 
@@ -26,14 +27,23 @@
 }
 
 - (BOOL)isButton {
-    return (self.actionType == URBNAlertActionTypeNormal || self.actionType == URBNAlertActionTypeDestructive || self.actionType == URBNAlertActionTypeCancel);
+    return (self.actionType != URBNAlertActionTypePassive);
 }
 
 - (void)setEnabled:(BOOL)enabled {
-    if (self.isButton && self.actionButton) {
+    if (self.isButton && self.actionButton && self.actionType != URBNAlertActionTypeCancel) {
         [self.actionButton setEnabled:enabled];
-        self.actionButton.alpha = enabled ? 1.f : 0.5f;
+        [self styleButton:self.actionButton isEnabled:enabled];
     }
+}
+
+- (void)styleButton:(URBNAlertActionButton *)actionButton isEnabled:(BOOL)enabled {
+    UIColor *titleColor = [self.actionButton.alertStyler buttonTitleColorForActionType:actionButton.actionType isEnabled:enabled];
+    UIColor *bgColor = [self.actionButton.alertStyler buttonBackgroundColorForActionType:actionButton.actionType isEnabled:enabled];
+    
+    [actionButton setTitleColor:titleColor forState:UIControlStateNormal];
+    [actionButton setBackgroundColor:bgColor];
+    actionButton.alpha = enabled ? 1.f : self.actionButton.alertStyler.disabledButtonAlpha.floatValue;
 }
 
 @end
