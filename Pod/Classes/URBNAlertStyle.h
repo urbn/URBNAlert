@@ -132,9 +132,9 @@
 @property (nonatomic, strong) NSNumber *labelHorizontalMargin;
 
 /**
- * Left & Right margins of the alert's buttons
+ * UIEdgeInsets used at the margins for the buttons of the alert's buttons
  */
-@property (nonatomic, strong) NSNumber *buttonHorizontalMargin;
+@property (nonatomic, assign) UIEdgeInsets buttonMarginEdgeInsets;
 
 /**
  * Margin around the custom view if supplied

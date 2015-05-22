@@ -8,6 +8,13 @@
 
 #import "URBNAlertStyle.h"
 
+@interface URBNAlertStyle()
+
+// Need to store this so we know when to use the default values since UIEdgeInsets is not an object
+@property (nonatomic, copy) NSString *buttontnEdgeInsetsString;
+
+@end
+
 @implementation URBNAlertStyle
 
 #pragma mark - Title
@@ -82,8 +89,16 @@
     return _buttonHeight ?: @44;
 }
 
-- (NSNumber *)buttonHorizontalMargin {
-    return _buttonHorizontalMargin ?: @8;
+- (void)setButtonMarginEdgeInsets:(UIEdgeInsets)buttonMarginEdgeInsets {
+    self.buttontnEdgeInsetsString = NSStringFromUIEdgeInsets(buttonMarginEdgeInsets);
+}
+
+- (UIEdgeInsets)buttonMarginEdgeInsets {
+    if (self.buttontnEdgeInsetsString) {
+        return UIEdgeInsetsFromString(self.buttontnEdgeInsetsString);
+    }
+    
+    return UIEdgeInsetsMake(8, 8, 8, 8);
 }
 
 #pragma mark - Alert View
@@ -240,7 +255,8 @@
     styler.buttonHeight = self.buttonHeight;
     styler.sectionVerticalMargin = self.sectionVerticalMargin;
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
-    styler.buttonHorizontalMargin = self.buttonHorizontalMargin;
+    styler.buttonMarginEdgeInsets = self.buttonMarginEdgeInsets;
+    styler.buttontnEdgeInsetsString = self.buttontnEdgeInsetsString;
     styler.customViewMargin = self.customViewMargin;
     styler.animationDuration = self.animationDuration;
     styler.animationDamping = self.animationDamping;

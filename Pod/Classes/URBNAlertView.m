@@ -105,13 +105,16 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         if (msgMargin.floatValue > 0) {
             self.sectionCount++;
         }
-
+        
         NSDictionary *metrics = @{@"sectionMargin" : self.alertStyler.sectionVerticalMargin,
                                   @"btnH" : self.alertStyler.buttonHeight,
                                   @"lblHMargin" : self.alertStyler.labelHorizontalMargin,
                                   @"titleVMargin" : titleMargin,
                                   @"msgVMargin" : msgMargin,
-                                  @"btnMargin" : self.alertStyler.buttonHorizontalMargin,
+                                  @"btnTopMargin" : @(self.alertStyler.buttonMarginEdgeInsets.top),
+                                  @"btnLeftMargin" : @(self.alertStyler.buttonMarginEdgeInsets.left),
+                                  @"btnBottomMargin" : @(self.alertStyler.buttonMarginEdgeInsets.bottom),
+                                  @"btnRightMargin" : @(self.alertStyler.buttonMarginEdgeInsets.right),
                                   @"cvMargin" : self.alertStyler.customViewMargin,
                                   @"tfVMargin": self.alertStyler.textFieldVerticalMargin};
         
@@ -124,7 +127,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         
         if (!self.alertConfig.inputs && self.alertConfig.inputs.count == 0) {
             if (self.alertConfig.isActiveAlert) {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-5-[_errorLabel]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-5-[_errorLabel]-cvMargin-[buttonContainer]|" options:0 metrics:metrics views:views]];
             }
             // Passive alert, dont added margins for buttonContainer
             else {
@@ -139,7 +142,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
                 [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-lblHMargin-[textField%lu]-lblHMargin-|", (unsigned long)idx] options:0 metrics:metrics views:views]];
             }];
             
-            [vertVfl appendString:@"[_errorLabel]-btnMargin-[buttonContainer]-btnMargin-|"];
+            [vertVfl appendString:@"[_errorLabel][buttonContainer]|"];
             
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vertVfl options:0 metrics:metrics views:views]];
         }
@@ -148,18 +151,18 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         self.buttons = [btns copy];
         if (self.buttons.count == 1) {
             self.sectionCount++;
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[btnOne]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnOne(btnH)]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnOne(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
         }
         else if (self.buttons.count == 2) {
             self.sectionCount++;
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[btnOne]-[btnTwo(==btnOne)]|" options:0 metrics:nil views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons[1]}]];
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnOne(btnH)]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnTwo(btnH)]|" options:0 metrics:metrics views:@{@"btnTwo" : self.buttons[1]}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnRightMargin-[btnTwo(==btnOne)]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons[1]}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnOne(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnTwo(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnTwo" : self.buttons[1]}]];
         }
         // TODO: Handle 3+ buttons with a vertical layout
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[buttonContainer]|" options:0 metrics:metrics views:views]];
         
         // If passive alert & a passive action was added, need call back when alertview is touched
         if (!self.alertConfig.isActiveAlert && self.alertConfig.actions.count > 0) {

@@ -51,6 +51,8 @@
           // Do something
     }]];
     
+    uac.alertStyler.buttonMarginEdgeInsets = UIEdgeInsetsMake(20, 5, 0, 5);
+
     [uac show];
 }
 
@@ -83,8 +85,8 @@
     uac.alertStyler.titleColor = [UIColor purpleColor];
     uac.alertStyler.titleFont = [UIFont fontWithName:@"Chalkduster" size:30];
     uac.alertStyler.messageColor = [UIColor blackColor];
-    uac.alertStyler.buttonCornerRadius = @0;
-    uac.alertStyler.alertCornerRadius = @20;
+    uac.alertStyler.buttonCornerRadius = @2;
+    uac.alertStyler.alertCornerRadius = @2;
     uac.alertStyler.buttonHeight = @30;
     uac.alertStyler.animationDuration = @0.5f;
     uac.alertStyler.animationDamping = @0.9f;
@@ -92,6 +94,8 @@
     uac.alertStyler.alertViewShadowColor = [UIColor greenColor];
     uac.alertStyler.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     uac.alertStyler.messageAlignment = NSTextAlignmentRight;
+    uac.alertStyler.buttonMarginEdgeInsets = UIEdgeInsetsMake(20, 5, 5, 5);
+
     [uac addAction:[URBNAlertAction actionWithTitle:@"Destructive" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
         // Do something
     }]];
