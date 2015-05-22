@@ -50,7 +50,6 @@
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
           // Do something
     }]];
-    
     [uac show];
 }
 
@@ -75,9 +74,9 @@
 
 - (IBAction)activeAlertColoredTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom Styled Alert" message:@"You can change the fonts, colors, button size, corner radius, and much more."];
-    uac.alertStyler.buttonBackgroundColor = [UIColor yellowColor];
-    uac.alertStyler.destructionButtonBackgroundColor = [UIColor purpleColor];
-    uac.alertStyler.destructiveButtonTitleColor = [UIColor greenColor];
+    uac.alertStyler.buttonBackgroundColor = [UIColor greenColor];
+    uac.alertStyler.cancelButtonTitleColor = [UIColor redColor];
+    uac.alertStyler.cancelButtonTitleColor = [UIColor whiteColor];
     uac.alertStyler.backgroundColor = [UIColor orangeColor];
     uac.alertStyler.buttonTitleColor = [UIColor blackColor];
     uac.alertStyler.titleColor = [UIColor purpleColor];
@@ -92,7 +91,10 @@
     uac.alertStyler.alertViewShadowColor = [UIColor greenColor];
     uac.alertStyler.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     uac.alertStyler.messageAlignment = NSTextAlignmentRight;
-    [uac addAction:[URBNAlertAction actionWithTitle:@"Destructive" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
+    uac.alertStyler.alertMinWidth = @150;
+    uac.alertStyler.alertMaxWidth = @200;
+
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Cancel" actionType:URBNAlertActionTypeCancel actionCompleted:^(URBNAlertAction *action) {
         // Do something
     }]];
     
