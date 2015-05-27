@@ -136,6 +136,13 @@
  */
 @property (nonatomic, assign) UIEdgeInsets buttonMarginEdgeInsets;
 
+/** 
+ * !!! DO NOT USE! Use buttonMarginEdgeInsets instead. This is depricated but left for backwards compabaility !!!
+ * Left & Right margins of the alert's buttons. Also used for top & bottom margins (poor naming, but dont use it)
+ *
+ */
+@property (nonatomic, strong) NSNumber *buttonHorizontalMargin;
+
 /**
  * Margin around the custom view if supplied
  */

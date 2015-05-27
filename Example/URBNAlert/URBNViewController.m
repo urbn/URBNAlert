@@ -51,8 +51,6 @@
           // Do something
     }]];
     
-    uac.alertStyler.buttonMarginEdgeInsets = UIEdgeInsetsMake(20, 5, 0, 5);
-
     [uac show];
 }
 

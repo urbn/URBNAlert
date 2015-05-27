@@ -89,6 +89,10 @@
     return _buttonHeight ?: @44;
 }
 
+- (NSNumber *)buttonHorizontalMargin {
+    return _buttonHorizontalMargin ?: @8;
+}
+
 - (void)setButtonMarginEdgeInsets:(UIEdgeInsets)buttonMarginEdgeInsets {
     self.buttontnEdgeInsetsString = NSStringFromUIEdgeInsets(buttonMarginEdgeInsets);
 }
@@ -98,7 +102,8 @@
         return UIEdgeInsetsFromString(self.buttontnEdgeInsetsString);
     }
     
-    return UIEdgeInsetsMake(8, 8, 8, 8);
+    // Using buttonHorizontalMargin for all values to be backwards compatiable. Originally named poorly 
+    return UIEdgeInsetsMake(self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue);
 }
 
 #pragma mark - Alert View
@@ -257,6 +262,7 @@
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
     styler.buttonMarginEdgeInsets = self.buttonMarginEdgeInsets;
     styler.buttontnEdgeInsetsString = self.buttontnEdgeInsetsString;
+    styler.buttonHorizontalMargin = self.buttonHorizontalMargin;
     styler.customViewMargin = self.customViewMargin;
     styler.animationDuration = self.animationDuration;
     styler.animationDamping = self.animationDamping;
