@@ -107,6 +107,16 @@
 @property (nonatomic, strong) NSNumber *alertCornerRadius;
 
 /**
+ *  Minimum width the alert view can be. Note if using, alertMaxWidth must also be set
+ */
+@property (nonatomic, strong) NSNumber *alertMinWidth;
+
+/**
+ *  Maximum width the alert view can be. Note if using, alertMinWidth must also be set
+ */
+@property (nonatomic, strong) NSNumber *alertMaxWidth;
+
+/**
  * Max input length for the text field when enabled
  */
 @property (nonatomic, strong) NSNumber *textFieldMaxLength;
