@@ -293,18 +293,15 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
 }
 
 - (void)setLoadingState:(BOOL)newState forTextFieldAtIndex:(NSUInteger)index {
+    [self setButtonsEnabled:!newState];
     if (index < self.alertConfig.inputs.count) {
         UITextField *textField = [self.alertConfig.inputs objectAtIndex:index];
         
         if (newState) {
             // Disable buttons, show loading
-            [self setButtonsEnabled:NO];
-            
             [textField urbn_showLoading:YES animated:YES spinnerInsets:UIEdgeInsetsMake(0, 0, 0, 8)];
         }
         else {
-            [self setButtonsEnabled:YES];
-            
             if (textField) {
                 [textField urbn_showLoading:NO animated:YES];
             }
