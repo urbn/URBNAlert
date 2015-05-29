@@ -8,6 +8,13 @@
 
 #import "URBNAlertStyle.h"
 
+@interface URBNAlertStyle()
+
+// Need to store this so we know when to use the default values since UIEdgeInsets is not an object
+@property (nonatomic, copy) NSString *buttontnEdgeInsetsString;
+
+@end
+
 @implementation URBNAlertStyle
 
 #pragma mark - Title
@@ -82,8 +89,25 @@
     return _buttonHeight ?: @44;
 }
 
+// TODO: Delete when buttonHorizontalMargin property goes away
 - (NSNumber *)buttonHorizontalMargin {
     return _buttonHorizontalMargin ?: @8;
+}
+
+- (void)setButtonMarginEdgeInsets:(UIEdgeInsets)buttonMarginEdgeInsets {
+    self.buttontnEdgeInsetsString = NSStringFromUIEdgeInsets(buttonMarginEdgeInsets);
+}
+
+- (UIEdgeInsets)buttonMarginEdgeInsets {
+    if (self.buttontnEdgeInsetsString) {
+        return UIEdgeInsetsFromString(self.buttontnEdgeInsetsString);
+    }
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    // Using buttonHorizontalMargin for all values to be backwards compatiable. Originally named poorly
+    return UIEdgeInsetsMake(self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue);
+#pragma clang diagnostic pop
 }
 
 #pragma mark - Alert View
@@ -240,7 +264,12 @@
     styler.buttonHeight = self.buttonHeight;
     styler.sectionVerticalMargin = self.sectionVerticalMargin;
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
+    styler.buttonMarginEdgeInsets = self.buttonMarginEdgeInsets;
+    styler.buttontnEdgeInsetsString = self.buttontnEdgeInsetsString;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     styler.buttonHorizontalMargin = self.buttonHorizontalMargin;
+#pragma clang diagnostic pop
     styler.customViewMargin = self.customViewMargin;
     styler.animationDuration = self.animationDuration;
     styler.animationDamping = self.animationDamping;
