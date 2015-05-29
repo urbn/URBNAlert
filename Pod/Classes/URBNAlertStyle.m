@@ -89,6 +89,7 @@
     return _buttonHeight ?: @44;
 }
 
+// TODO: Delete when buttonHorizontalMargin property goes away
 - (NSNumber *)buttonHorizontalMargin {
     return _buttonHorizontalMargin ?: @8;
 }
@@ -102,8 +103,11 @@
         return UIEdgeInsetsFromString(self.buttontnEdgeInsetsString);
     }
     
-    // Using buttonHorizontalMargin for all values to be backwards compatiable. Originally named poorly 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    // Using buttonHorizontalMargin for all values to be backwards compatiable. Originally named poorly
     return UIEdgeInsetsMake(self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue);
+#pragma clang diagnostic pop
 }
 
 #pragma mark - Alert View
@@ -262,7 +266,10 @@
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
     styler.buttonMarginEdgeInsets = self.buttonMarginEdgeInsets;
     styler.buttontnEdgeInsetsString = self.buttontnEdgeInsetsString;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     styler.buttonHorizontalMargin = self.buttonHorizontalMargin;
+#pragma clang diagnostic pop
     styler.customViewMargin = self.customViewMargin;
     styler.animationDuration = self.animationDuration;
     styler.animationDamping = self.animationDamping;
