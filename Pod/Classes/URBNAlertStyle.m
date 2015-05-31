@@ -243,6 +243,8 @@
 - (instancetype)copyWithZone:(NSZone *)zone {
     URBNAlertStyle *styler = [URBNAlertStyle new];
     
+    styler.alertMinWidth = self.alertMinWidth;
+    styler.alertMaxWidth = self.alertMaxWidth;
     styler.buttonBackgroundColor = self.buttonBackgroundColor;
     styler.destructionButtonBackgroundColor = self.destructionButtonBackgroundColor;
     styler.destructiveButtonTitleColor = self.destructiveButtonTitleColor;
