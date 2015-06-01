@@ -110,6 +110,18 @@
 #pragma clang diagnostic pop
 }
 
+- (NSNumber *)buttonShadowOpacity {
+    return _buttonShadowOpacity ?: @0;
+}
+
+- (NSNumber *)buttonShadowRadius {
+    return _buttonShadowRadius ?: @0;
+}
+
+- (UIColor *)buttonShadowColor {
+    return _buttonShadowColor ?: [UIColor clearColor];
+}
+
 #pragma mark - Alert View
 - (NSNumber *)alertCornerRadius {
     return _alertCornerRadius ?: @8;
@@ -264,6 +276,12 @@
     styler.textFieldMaxLength = self.textFieldMaxLength;
     styler.textFieldVerticalMargin = self.textFieldVerticalMargin;
     styler.buttonHeight = self.buttonHeight;
+    
+    styler.buttonShadowOpacity = self.buttonShadowOpacity;
+    styler.buttonShadowRadius = self.buttonShadowRadius;
+    styler.buttonShadowColor = self.buttonShadowColor;
+    styler.buttonShadowOffset = self.buttonShadowOffset;
+    
     styler.sectionVerticalMargin = self.sectionVerticalMargin;
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
     styler.buttonMarginEdgeInsets = self.buttonMarginEdgeInsets;
