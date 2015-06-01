@@ -145,6 +145,7 @@
 
 - (IBAction)activeAlertInputTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Input Alert" message:@"Enter some info bro:" view:nil];
+    uac.alertStyler.textFieldEdgeInsets = UIEdgeInsetsMake(15.0, 15.0, 15.0, 15.0);
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
         NSLog(@"input 1: %@", uac.textField.text);
@@ -153,7 +154,7 @@
     }]];
     
     [uac addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.borderStyle = UITextBorderStyleRoundedRect;
+        textField.borderStyle = UITextBorderStyleLine;
         textField.placeholder = @"e-mail";
         textField.returnKeyType = UIReturnKeyDone;
         textField.keyboardType = UIKeyboardTypeEmailAddress;
@@ -184,6 +185,7 @@
     uac.alertStyler.disabledButtonTitleColor = [UIColor orangeColor];
     uac.alertStyler.disabledButtonBackgroundColor = [UIColor blackColor];
     uac.alertStyler.disabledButtonAlpha = @1.f;
+    uac.alertStyler.textFieldEdgeInsets = UIEdgeInsetsMake(0.0, 15.0, 0.0, 15.0);
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Cancel" actionType:URBNAlertActionTypeCancel actionCompleted:nil]];
     

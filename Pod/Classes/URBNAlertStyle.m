@@ -263,6 +263,7 @@
     styler.alertCornerRadius = self.alertCornerRadius;
     styler.textFieldMaxLength = self.textFieldMaxLength;
     styler.textFieldVerticalMargin = self.textFieldVerticalMargin;
+    styler.textFieldEdgeInsets = self.textFieldEdgeInsets;
     styler.buttonHeight = self.buttonHeight;
     styler.sectionVerticalMargin = self.sectionVerticalMargin;
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
@@ -287,7 +288,7 @@
     styler.blurSaturationDelta = self.blurSaturationDelta;
     styler.errorTextColor = self.errorTextColor;
     styler.errorTextFont = self.errorTextFont;
-
+    
     return styler;
 }
 
