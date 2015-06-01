@@ -159,6 +159,26 @@
 @property (nonatomic, strong) NSNumber *buttonHorizontalMargin __attribute__((deprecated("Replaced by buttonMarginEdgeInsets")));
 
 /**
+ * Opacity of the alert's button's shadows
+ */
+@property (nonatomic, strong) NSNumber *buttonShadowOpacity;
+
+/**
+ * Radius of the alert's button's shadows
+ */
+@property (nonatomic, strong) NSNumber *buttonShadowRadius;
+
+/**
+ * Color of the alert's button's shadows
+ */
+@property (nonatomic, strong) UIColor *buttonShadowColor;
+
+/**
+ * Offset of the alert's button's shadows
+ */
+@property (nonatomic, assign) CGSize buttonShadowOffset;
+
+/**
  * Margin around the custom view if supplied
  */
 @property (nonatomic, strong) NSNumber *customViewMargin;
