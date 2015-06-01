@@ -13,6 +13,7 @@
 #import <URBNConvenience/UITextField+URBNLoadingIndicator.h>
 #import <URBNConvenience/UIView+URBNLayout.h>
 #import <URBNConvenience/URBNMacros.h>
+#import <URBNConvenience/URBNTextField.h>
 
 @implementation URBNAlertActionButton
 
@@ -68,7 +69,8 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         if (self.alertConfig.inputs && self.alertConfig.inputs.count > 0) {
             __weak typeof(self) weakSelf = self;
             
-            [self.alertConfig.inputs enumerateObjectsUsingBlock:^(UITextField *tf, NSUInteger idx, BOOL *stop) {
+            [self.alertConfig.inputs enumerateObjectsUsingBlock:^(URBNTextField *tf, NSUInteger idx, BOOL *stop) {
+                tf.edgeInsets = alertStyler.textFieldEdgeInsets;
                 tf.translatesAutoresizingMaskIntoConstraints = NO;
                 [mutableViews setObject:tf forKey:[NSString stringWithFormat:@"textField%lu", (unsigned long)idx]];
                 weakSelf.sectionCount++;

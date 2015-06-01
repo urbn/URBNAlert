@@ -13,6 +13,7 @@
 #import <URBNConvenience/UIImage+URBN.h>
 #import <URBNConvenience/UIView+URBNLayout.h>
 #import <URBNConvenience/UIView+URBNAnimations.h>
+#import <URBNConvenience/URBNTextField.h>
 #import "URBNAlertAction.h"
 
 @interface URBNAlertViewController ()
@@ -137,7 +138,7 @@
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
     NSMutableArray *inputs = [self.alertConfig.inputs mutableCopy] ?: [NSMutableArray new];
     
-    UITextField *textField = [UITextField new];
+    UITextField *textField = [URBNTextField new];
     if (configurationHandler) {
         configurationHandler(textField);
     }

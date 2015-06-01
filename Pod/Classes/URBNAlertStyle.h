@@ -127,6 +127,11 @@
 @property (nonatomic, strong) NSNumber *textFieldVerticalMargin;
 
 /**
+ *  Text Insets for input text fields on alerts
+ */
+@property (nonatomic, assign) UIEdgeInsets textFieldEdgeInsets;
+
+/**
  * Height of the alert's buttons
  */
 @property (nonatomic, strong) NSNumber *buttonHeight;
