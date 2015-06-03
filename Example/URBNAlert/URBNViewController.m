@@ -57,7 +57,7 @@
 
 
 - (IBAction)activeAlertTwoButtonTouch:(id)sender {
-    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text.\n\n And the message that is a bunch of text."];
     uac.alertStyler.buttonShadowColor = [UIColor purpleColor];
     uac.alertStyler.buttonShadowOpacity = @1;
     uac.alertStyler.buttonShadowRadius = @2;

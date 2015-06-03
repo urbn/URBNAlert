@@ -52,7 +52,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         }
         
         self.customView.translatesAutoresizingMaskIntoConstraints = NO;
-
+        
         self.backgroundColor = self.alertStyler.backgroundColor ?: [UIColor whiteColor];
         self.layer.cornerRadius = self.alertStyler.alertCornerRadius.floatValue;
         
@@ -65,7 +65,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         [self addSubview:self.customView];
         
         NSMutableDictionary *mutableViews = [NSMutableDictionary dictionaryWithDictionary:@{@"_customView" : _customView, @"_titleLabel" : _titleLabel, @"_messageTextView" : _messageTextView, @"buttonContainer" : buttonContainer, @"_errorLabel" : _errorLabel}];
-
+        
         if (self.alertConfig.inputs && self.alertConfig.inputs.count > 0) {
             __weak typeof(self) weakSelf = self;
             
@@ -138,7 +138,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         }
         else {
             NSMutableString *vertVfl = [NSMutableString stringWithString:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-"];
-          
+            
             [self.alertConfig.inputs enumerateObjectsUsingBlock:^(UITextField *tf, NSUInteger idx, BOOL *stop) {
                 [vertVfl appendString:[NSString stringWithFormat:@"[textField%lu]-tfVMargin-", (unsigned long)idx]];
                 [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-lblHMargin-[textField%lu]-lblHMargin-|", (unsigned long)idx] options:0 metrics:metrics views:views]];
@@ -198,6 +198,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     if (self.messageTextView.text.length > 0) {
         if (self.messageTextView.contentSize.height > maxHeight) {
             self.messageTextView.urbn_heightLayoutConstraint.constant = maxHeight;
+            self.messageTextView.scrollEnabled = YES;
         }
         else {
             self.messageTextView.urbn_heightLayoutConstraint.constant = self.messageTextView.contentSize.height;
@@ -239,7 +240,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         _messageTextView.textColor = self.alertStyler.messageColor;
         _messageTextView.text = self.alertConfig.message;
         _messageTextView.textAlignment = self.alertStyler.messageAlignment;
-        _messageTextView.scrollEnabled = YES;
+        _messageTextView.scrollEnabled = NO;
         _messageTextView.editable = NO;
         [_messageTextView setContentInset:UIEdgeInsetsZero];
         [_messageTextView scrollRangeToVisible:NSMakeRange(0, 0)];
