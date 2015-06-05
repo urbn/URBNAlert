@@ -87,6 +87,10 @@
     }
     
     self.viewControllerVisible = YES;
+    
+    if (self.alertStyler.firstResponder) {
+        [self.alertStyler.firstResponder becomeFirstResponder];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {

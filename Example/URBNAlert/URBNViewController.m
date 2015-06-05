@@ -9,10 +9,20 @@
 #import "URBNViewController.h"
 #import <URBNAlert/URBNAlert.h>
 
+@interface CustomView : UIView
+
+@property (nonatomic, strong) UITextField *customTextField;
+
+@end
+
+@implementation CustomView
+
+@end
+
 @interface URBNViewController ()
 
 @property (nonatomic, strong) URBNAlertController *alertController;
-@property (nonatomic, strong) UIView *customView;
+@property (nonatomic, strong) CustomView *customView;
 @property (nonatomic, strong) IBOutlet UIView *bottomView;
 @property (nonatomic, assign) BOOL isModal;
 @property (strong, nonatomic) IBOutlet UIButton *modalButton;
@@ -117,6 +127,8 @@
 - (IBAction)activeAlertCustomViewTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom View" message:nil view:self.customView];
     
+    uac.alertStyler.firstResponder = self.customView.customTextField;
+    
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
         // Do something
     }]];
@@ -158,6 +170,7 @@
         NSLog(@"input 3: %@", [[uac textFieldAtIndex:2] text]);
     }]];
     
+    __weak typeof(uac) weakUac = uac;
     [uac addTextFieldWithConfigurationHandler:^(UITextField *textField) {
         textField.borderStyle = UITextBorderStyleLine;
         textField.placeholder = @"e-mail";
@@ -166,18 +179,20 @@
     }];
     
     [uac addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.borderStyle = UITextBorderStyleRoundedRect;
+        textField.borderStyle = UITextBorderStyleLine;
         textField.placeholder = @"password";
         textField.returnKeyType = UIReturnKeyDone;
         textField.keyboardType = UIKeyboardTypeEmailAddress;
     }];
     
     [uac addTextFieldWithConfigurationHandler:^(UITextField *textField) {
-        textField.borderStyle = UITextBorderStyleRoundedRect;
+        textField.borderStyle = UITextBorderStyleLine;
         textField.placeholder = @"confirm";
         textField.returnKeyType = UIReturnKeyDone;
         textField.keyboardType = UIKeyboardTypeEmailAddress;
+        weakUac.alertStyler.firstResponder = textField;
     }];
+    
     
     [uac show];
 }
@@ -301,7 +316,7 @@
 #pragma mark - Getters
 - (UIView *)customView {
     if (!_customView) {
-        _customView = [[UIView alloc] init];
+        _customView = [[CustomView alloc] init];
         _customView.backgroundColor = [UIColor greenColor];
         
         UIImageView *imgView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beagle"]];
@@ -310,9 +325,16 @@
         imgView.backgroundColor = [UIColor redColor];
         [_customView addSubview:imgView];
         
-        NSDictionary *views = NSDictionaryOfVariableBindings(imgView);
+        _customView.customTextField = [UITextField new];
+        _customView.customTextField.translatesAutoresizingMaskIntoConstraints = NO;
+        _customView.customTextField.backgroundColor = [UIColor whiteColor];
+        _customView.customTextField.borderStyle = UITextBorderStyleRoundedRect;
+        [_customView addSubview:_customView.customTextField];
+        
+        NSDictionary *views = @{@"imgView" : imgView, @"textField" : _customView.customTextField};
         [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[imgView]-|" options:0 metrics:nil views:views]];
-        [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[imgView]-|" options:0 metrics:nil views:views]];
+        [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[textField]-|" options:0 metrics:nil views:views]];
+        [_customView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[textField]-[imgView]-|" options:0 metrics:nil views:views]];
     }
     
     return _customView;

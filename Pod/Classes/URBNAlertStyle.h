@@ -254,6 +254,12 @@
 @property (nonatomic, strong) UIFont *errorTextFont;
 
 /**
+ * The view you want to become the first responder when the alert view is finished presenting
+ * The alert position will adjust for the keyboard when using this property
+ */
+@property (nonatomic, weak) UIView *firstResponder;
+
+/**
  *  Returns the correct background color for given an actionType
  *
  *  @param actionType Action type associated with the button
