@@ -16,6 +16,14 @@
 #import <URBNConvenience/URBNTextField.h>
 #import "URBNAlertAction.h"
 
+@interface URBNAlertController(Private)
+
+- (void)dismissingAlert;
+- (void)addAlertToQueueWithAlertViewController:(URBNAlertViewController *)avc;
+@property (nonatomic, strong, readonly) UIWindow *presentingWindow;
+
+@end
+
 @interface URBNAlertViewController ()
 
 @property (nonatomic, strong) URBNAlertController *alertController;
@@ -282,7 +290,7 @@
 #pragma mark - Action
 - (void)dismissAlert:(id)sender {
     [self.view endEditing:YES];
-    [self.alertController dismissAlert];
+    [self.alertController dismissingAlert];
     
     __weak typeof(self) weakSelf = self;
     [self setVisible:NO animated:YES completion:^(URBNAlertViewController *alertVC, BOOL finished) {

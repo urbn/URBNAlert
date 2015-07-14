@@ -73,8 +73,9 @@
     uac.alertStyler.buttonShadowRadius = @2;
     uac.alertStyler.buttonShadowOffset = CGSizeMake(2.0, 2.0);
     
-    [uac addAction:[URBNAlertAction actionWithTitle:@"#1" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
-           // Do something
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Submit" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
+        // Alternate way to dismiss the currently active alert
+        [[URBNAlertController sharedInstance] dismissAlert];
     }]];
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {

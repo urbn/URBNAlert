@@ -29,9 +29,9 @@ static const NSTimeInterval URBNConvenienceWeekThreshold   = 604800;  // < 1 wee
     
     NSString *string;
     NSDate *currentDate = [NSDate date];
-    NSTimeInterval timeSince = [self timeIntervalSinceDate:currentDate];
+    NSTimeInterval timeSince = [currentDate timeIntervalSinceDate:self];
     NSDateComponents *components = [[NSDateComponents alloc] init];
-    
+
     if (timeSince < URBNConvenienceMinuteThreshold) {
         string = [self localizedStringForKey:@"urbnconvenience.now" withDefault:@"now"];
     }
