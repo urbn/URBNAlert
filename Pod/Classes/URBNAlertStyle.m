@@ -74,11 +74,11 @@
 }
 
 - (UIColor *)cancelButtonBackgroundColor {
-    return _destructionButtonBackgroundColor ?: [UIColor lightGrayColor];
+    return _cancelButtonBackgroundColor ?: [UIColor lightGrayColor];
 }
 
 - (UIColor *)cancelButtonTitleColor {
-    return _destructiveButtonTitleColor ?: [UIColor whiteColor];
+    return _cancelButtonTitleColor ?: [UIColor whiteColor];
 }
 
 - (NSNumber *)buttonCornerRadius {
