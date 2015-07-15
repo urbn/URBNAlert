@@ -112,10 +112,14 @@
     [self showNextAlert];
 }
 
-- (void)dismissAlert {
+- (void)dismissingAlert {
     self.alertIsVisible = NO;
     [self popQueue];
     [self showNextAlert];
+}
+
+- (void)dismissAlert {
+    [self dismissAlertViewController:[self peekQueue]];
 }
 
 #pragma mark - Methods

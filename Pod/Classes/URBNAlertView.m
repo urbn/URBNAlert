@@ -13,6 +13,7 @@
 #import <URBNConvenience/UITextField+URBNLoadingIndicator.h>
 #import <URBNConvenience/UIView+URBNLayout.h>
 #import <URBNConvenience/URBNMacros.h>
+#import <URBNConvenience/URBNTextField.h>
 
 @implementation URBNAlertActionButton
 
@@ -51,7 +52,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         }
         
         self.customView.translatesAutoresizingMaskIntoConstraints = NO;
-
+        
         self.backgroundColor = self.alertStyler.backgroundColor ?: [UIColor whiteColor];
         self.layer.cornerRadius = self.alertStyler.alertCornerRadius.floatValue;
         
@@ -64,11 +65,12 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         [self addSubview:self.customView];
         
         NSMutableDictionary *mutableViews = [NSMutableDictionary dictionaryWithDictionary:@{@"_customView" : _customView, @"_titleLabel" : _titleLabel, @"_messageTextView" : _messageTextView, @"buttonContainer" : buttonContainer, @"_errorLabel" : _errorLabel}];
-
+        
         if (self.alertConfig.inputs && self.alertConfig.inputs.count > 0) {
             __weak typeof(self) weakSelf = self;
             
-            [self.alertConfig.inputs enumerateObjectsUsingBlock:^(UITextField *tf, NSUInteger idx, BOOL *stop) {
+            [self.alertConfig.inputs enumerateObjectsUsingBlock:^(URBNTextField *tf, NSUInteger idx, BOOL *stop) {
+                tf.edgeInsets = alertStyler.textFieldEdgeInsets;
                 tf.translatesAutoresizingMaskIntoConstraints = NO;
                 [mutableViews setObject:tf forKey:[NSString stringWithFormat:@"textField%lu", (unsigned long)idx]];
                 weakSelf.sectionCount++;
@@ -105,13 +107,16 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         if (msgMargin.floatValue > 0) {
             self.sectionCount++;
         }
-
+        
         NSDictionary *metrics = @{@"sectionMargin" : self.alertStyler.sectionVerticalMargin,
                                   @"btnH" : self.alertStyler.buttonHeight,
                                   @"lblHMargin" : self.alertStyler.labelHorizontalMargin,
                                   @"titleVMargin" : titleMargin,
                                   @"msgVMargin" : msgMargin,
-                                  @"btnMargin" : self.alertStyler.buttonHorizontalMargin,
+                                  @"btnTopMargin" : @(self.alertStyler.buttonMarginEdgeInsets.top),
+                                  @"btnLeftMargin" : @(self.alertStyler.buttonMarginEdgeInsets.left),
+                                  @"btnBottomMargin" : @(self.alertStyler.buttonMarginEdgeInsets.bottom),
+                                  @"btnRightMargin" : @(self.alertStyler.buttonMarginEdgeInsets.right),
                                   @"cvMargin" : self.alertStyler.customViewMargin,
                                   @"tfVMargin": self.alertStyler.textFieldVerticalMargin};
         
@@ -124,7 +129,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         
         if (!self.alertConfig.inputs && self.alertConfig.inputs.count == 0) {
             if (self.alertConfig.isActiveAlert) {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-5-[_errorLabel]-cvMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-5-[_errorLabel]-cvMargin-[buttonContainer]|" options:0 metrics:metrics views:views]];
             }
             // Passive alert, dont added margins for buttonContainer
             else {
@@ -133,13 +138,13 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         }
         else {
             NSMutableString *vertVfl = [NSMutableString stringWithString:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-"];
-          
+            
             [self.alertConfig.inputs enumerateObjectsUsingBlock:^(UITextField *tf, NSUInteger idx, BOOL *stop) {
                 [vertVfl appendString:[NSString stringWithFormat:@"[textField%lu]-tfVMargin-", (unsigned long)idx]];
                 [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:[NSString stringWithFormat:@"H:|-lblHMargin-[textField%lu]-lblHMargin-|", (unsigned long)idx] options:0 metrics:metrics views:views]];
             }];
             
-            [vertVfl appendString:@"[_errorLabel]-btnMargin-[buttonContainer]-btnMargin-|"];
+            [vertVfl appendString:@"[_errorLabel][buttonContainer]|"];
             
             [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:vertVfl options:0 metrics:metrics views:views]];
         }
@@ -148,18 +153,18 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         self.buttons = [btns copy];
         if (self.buttons.count == 1) {
             self.sectionCount++;
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[btnOne]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnOne(btnH)]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnOne(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
         }
         else if (self.buttons.count == 2) {
             self.sectionCount++;
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[btnOne]-[btnTwo(==btnOne)]|" options:0 metrics:nil views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons[1]}]];
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnOne(btnH)]|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[btnTwo(btnH)]|" options:0 metrics:metrics views:@{@"btnTwo" : self.buttons[1]}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnRightMargin-[btnTwo(==btnOne)]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons[1]}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnOne(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
+            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnTwo(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnTwo" : self.buttons[1]}]];
         }
         // TODO: Handle 3+ buttons with a vertical layout
         
-        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnMargin-[buttonContainer]-btnMargin-|" options:0 metrics:metrics views:views]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[buttonContainer]|" options:0 metrics:metrics views:views]];
         
         // If passive alert & a passive action was added, need call back when alertview is touched
         if (!self.alertConfig.isActiveAlert && self.alertConfig.actions.count > 0) {
@@ -193,6 +198,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     if (self.messageTextView.text.length > 0) {
         if (self.messageTextView.contentSize.height > maxHeight) {
             self.messageTextView.urbn_heightLayoutConstraint.constant = maxHeight;
+            self.messageTextView.scrollEnabled = YES;
         }
         else {
             self.messageTextView.urbn_heightLayoutConstraint.constant = self.messageTextView.contentSize.height;
@@ -234,7 +240,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         _messageTextView.textColor = self.alertStyler.messageColor;
         _messageTextView.text = self.alertConfig.message;
         _messageTextView.textAlignment = self.alertStyler.messageAlignment;
-        _messageTextView.scrollEnabled = YES;
+        _messageTextView.scrollEnabled = NO;
         _messageTextView.editable = NO;
         [_messageTextView setContentInset:UIEdgeInsetsZero];
         [_messageTextView scrollRangeToVisible:NSMakeRange(0, 0)];
@@ -274,6 +280,10 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     btn.backgroundColor = bgColor;
     btn.titleLabel.font = self.alertStyler.buttonFont;
     btn.layer.cornerRadius = self.alertStyler.buttonCornerRadius.floatValue;
+    btn.layer.shadowColor = self.alertStyler.buttonShadowColor.CGColor;
+    btn.layer.shadowOpacity = self.alertStyler.buttonShadowOpacity.floatValue;
+    btn.layer.shadowRadius = self.alertStyler.buttonShadowRadius.floatValue;
+    btn.layer.shadowOffset = self.alertStyler.buttonShadowOffset;
     btn.tag = index;
     btn.actionType = action.actionType;
     btn.alertStyler = self.alertStyler;
@@ -293,18 +303,15 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
 }
 
 - (void)setLoadingState:(BOOL)newState forTextFieldAtIndex:(NSUInteger)index {
+    [self setButtonsEnabled:!newState];
     if (index < self.alertConfig.inputs.count) {
         UITextField *textField = [self.alertConfig.inputs objectAtIndex:index];
         
         if (newState) {
             // Disable buttons, show loading
-            [self setButtonsEnabled:NO];
-            
             [textField urbn_showLoading:YES animated:YES spinnerInsets:UIEdgeInsetsMake(0, 0, 0, 8)];
         }
         else {
-            [self setButtonsEnabled:YES];
-            
             if (textField) {
                 [textField urbn_showLoading:NO animated:YES];
             }

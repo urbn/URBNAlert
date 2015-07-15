@@ -13,7 +13,16 @@
 #import <URBNConvenience/UIImage+URBN.h>
 #import <URBNConvenience/UIView+URBNLayout.h>
 #import <URBNConvenience/UIView+URBNAnimations.h>
+#import <URBNConvenience/URBNTextField.h>
 #import "URBNAlertAction.h"
+
+@interface URBNAlertController(Private)
+
+- (void)dismissingAlert;
+- (void)addAlertToQueueWithAlertViewController:(URBNAlertViewController *)avc;
+@property (nonatomic, strong, readonly) UIWindow *presentingWindow;
+
+@end
 
 @interface URBNAlertViewController ()
 
@@ -86,6 +95,10 @@
     }
     
     self.viewControllerVisible = YES;
+    
+    if (self.alertStyler.firstResponder) {
+        [self.alertStyler.firstResponder becomeFirstResponder];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -137,7 +150,7 @@
 - (void)addTextFieldWithConfigurationHandler:(void (^)(UITextField *textField))configurationHandler {
     NSMutableArray *inputs = [self.alertConfig.inputs mutableCopy] ?: [NSMutableArray new];
     
-    UITextField *textField = [UITextField new];
+    UITextField *textField = [URBNTextField new];
     if (configurationHandler) {
         configurationHandler(textField);
     }
@@ -152,21 +165,32 @@
     self.alertView.translatesAutoresizingMaskIntoConstraints = NO;
     
     CGFloat screenWidth;
-    
     if (self.alertConfig.presentationView) {
         screenWidth = self.alertConfig.presentationView.frame.size.width;
-    }
-    else if ([[UIScreen mainScreen] respondsToSelector:@selector(nativeBounds)]) {
-        screenWidth = [UIScreen mainScreen].nativeBounds.size.width;
     }
     else {
         screenWidth = [UIScreen mainScreen].bounds.size.width;
     }
     
     CGFloat sideMargins = screenWidth * 0.05;
-    
     NSDictionary *metrics = @{@"sideMargins" : @(sideMargins)};
-    [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-sideMargins-[_alertView]-sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
+
+    if (self.alertStyler.alertMinWidth && self.alertStyler.alertMaxWidth) {
+        CGFloat minWidth = self.alertStyler.alertMinWidth.floatValue;
+        CGFloat maxWidthPossible = (screenWidth - (sideMargins * 2));
+        if (minWidth > maxWidthPossible) {
+            minWidth = maxWidthPossible;
+        }
+        
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:minWidth]];
+        
+        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationLessThanOrEqual toItem:nil attribute:NSLayoutAttributeWidth multiplier:1.0 constant:self.alertStyler.alertMaxWidth.floatValue]];
+        
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|->=sideMargins-[_alertView]->=sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
+    }
+    else {
+        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-sideMargins-[_alertView]-sideMargins-|" options:0 metrics:metrics views:NSDictionaryOfVariableBindings(_alertView)]];
+    }
     
     self.yPosConstraint = [NSLayoutConstraint constraintWithItem:self.alertView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0];
     [self.view addConstraint:self.yPosConstraint];
@@ -266,7 +290,7 @@
 #pragma mark - Action
 - (void)dismissAlert:(id)sender {
     [self.view endEditing:YES];
-    [self.alertController dismissAlert];
+    [self.alertController dismissingAlert];
     
     __weak typeof(self) weakSelf = self;
     [self setVisible:NO animated:YES completion:^(URBNAlertViewController *alertVC, BOOL finished) {

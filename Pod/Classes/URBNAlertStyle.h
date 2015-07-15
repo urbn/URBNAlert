@@ -107,6 +107,16 @@
 @property (nonatomic, strong) NSNumber *alertCornerRadius;
 
 /**
+ *  Minimum width the alert view can be. Note if using, alertMaxWidth must also be set
+ */
+@property (nonatomic, strong) NSNumber *alertMinWidth;
+
+/**
+ *  Maximum width the alert view can be. Note if using, alertMinWidth must also be set
+ */
+@property (nonatomic, strong) NSNumber *alertMaxWidth;
+
+/**
  * Max input length for the text field when enabled
  */
 @property (nonatomic, strong) NSNumber *textFieldMaxLength;
@@ -115,6 +125,11 @@
  *  Vertical margin between textfields
  */
 @property (nonatomic, strong) NSNumber *textFieldVerticalMargin;
+
+/**
+ *  Text Insets for input text fields on alerts
+ */
+@property (nonatomic, assign) UIEdgeInsets textFieldEdgeInsets;
 
 /**
  * Height of the alert's buttons
@@ -132,9 +147,36 @@
 @property (nonatomic, strong) NSNumber *labelHorizontalMargin;
 
 /**
- * Left & Right margins of the alert's buttons
+ * UIEdgeInsets used at the margins for the buttons of the alert's buttons
  */
-@property (nonatomic, strong) NSNumber *buttonHorizontalMargin;
+@property (nonatomic, assign) UIEdgeInsets buttonMarginEdgeInsets;
+
+/** 
+ * !!! DO NOT USE! Use buttonMarginEdgeInsets instead. This is depricated but left for backwards compabaility !!!
+ * Left & Right margins of the alert's buttons. Also used for top & bottom margins (poor naming, but dont use it)
+ *
+ */
+@property (nonatomic, strong) NSNumber *buttonHorizontalMargin __attribute__((deprecated("Replaced by buttonMarginEdgeInsets")));
+
+/**
+ * Opacity of the alert's button's shadows
+ */
+@property (nonatomic, strong) NSNumber *buttonShadowOpacity;
+
+/**
+ * Radius of the alert's button's shadows
+ */
+@property (nonatomic, strong) NSNumber *buttonShadowRadius;
+
+/**
+ * Color of the alert's button's shadows
+ */
+@property (nonatomic, strong) UIColor *buttonShadowColor;
+
+/**
+ * Offset of the alert's button's shadows
+ */
+@property (nonatomic, assign) CGSize buttonShadowOffset;
 
 /**
  * Margin around the custom view if supplied
@@ -210,6 +252,12 @@
  * Text color of the error label text
  */
 @property (nonatomic, strong) UIFont *errorTextFont;
+
+/**
+ * The view you want to become the first responder when the alert view is finished presenting
+ * The alert position will adjust for the keyboard when using this property
+ */
+@property (nonatomic, weak) UIView *firstResponder;
 
 /**
  *  Returns the correct background color for given an actionType
