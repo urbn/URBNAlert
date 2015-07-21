@@ -87,7 +87,6 @@ uac.alertStyler.blurEnabled = @NO;
 #####Limitations
 At the moment, URBNAlert only supports the following:
 - Up to 2 buttons for an active alert
-- One input textfield
 
 Please create an issue for any additional support needed.
 
