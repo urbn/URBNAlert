@@ -115,7 +115,7 @@
     NSMutableArray *actions = [self.alertConfig.actions mutableCopy] ?: [NSMutableArray new];
     [actions addObject:action];
     
-    NSAssert(actions.count <= 2, @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment. Please create an issue if you want more!");
+//    NSAssert(actions.count <= 2, @"URBNAlertController: Active alerts only supports up to 2 buttons at the moment. Please create an issue if you want more!");
     
     self.alertConfig.actions = [actions copy];
     
