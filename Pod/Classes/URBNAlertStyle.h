@@ -132,6 +132,21 @@
 @property (nonatomic, assign) UIEdgeInsets textFieldEdgeInsets;
 
 /**
+ *  Height of separator between buttons (as in native UIAlertController). Default is nil for compatibility
+ */
+@property (nonatomic, strong) NSNumber *separatorHeight;
+
+/**
+ * Color of the separator between buttons. Default is buttonTitleColor
+ */
+@property (nonatomic, strong) UIColor *separatorColor;
+
+/**
+ *  Boolean flag if to use vertical layout for 2 buttons (for 3+ always vertical being used). Default is nil for compatibility
+ */
+@property (nonatomic, strong) NSNumber *useVerticalLayoutForTwoButtons;
+
+/**
  * Height of the alert's buttons
  */
 @property (nonatomic, strong) NSNumber *buttonHeight;
@@ -140,6 +155,11 @@
  * Margin between sections in the alert. ie margin between the title and the message; message and the buttons, etc.
  */
 @property (nonatomic, strong) NSNumber *sectionVerticalMargin;
+
+/**
+ * Top margin
+ */
+@property (nonatomic, strong) NSNumber *topMargin;
 
 /**
  * Left & Right margins of the title & message labels
