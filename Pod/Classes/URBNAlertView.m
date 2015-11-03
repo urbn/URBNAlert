@@ -82,11 +82,19 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         
         // Add some buttons
         NSMutableArray *btns = [NSMutableArray new];
+        NSMutableArray *separators = [NSMutableArray new];
         buttonContainer.translatesAutoresizingMaskIntoConstraints = NO;
         
         __weak typeof(self) weakSelf = self;
         [self.alertConfig.actions enumerateObjectsUsingBlock:^(URBNAlertAction *action, NSUInteger idx, BOOL *stop) {
             if (action.isButton) {
+                if ([self.alertStyler.separatorHeight boolValue]) {
+                    UIView *sepatator = [UIView new];
+                    sepatator.backgroundColor = self.alertStyler.separatorColor;
+                    sepatator.translatesAutoresizingMaskIntoConstraints = NO;
+                    [buttonContainer addSubview:sepatator];
+                    [separators addObject:sepatator];
+                }
                 URBNAlertActionButton *btn = [weakSelf createAlertViewButtonWithAction:action atIndex:idx];
                 [buttonContainer addSubview:btn];
                 [btns addObject:btn];
@@ -111,12 +119,14 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         NSDictionary *metrics = @{@"sectionMargin" : self.alertStyler.sectionVerticalMargin,
                                   @"btnH" : self.alertStyler.buttonHeight,
                                   @"lblHMargin" : self.alertStyler.labelHorizontalMargin,
-                                  @"titleVMargin" : titleMargin,
+                                  @"topVMargin" : titleMargin,
                                   @"msgVMargin" : msgMargin,
+                                  @"sprHeight"  : self.alertStyler.separatorHeight,
                                   @"btnTopMargin" : @(self.alertStyler.buttonMarginEdgeInsets.top),
                                   @"btnLeftMargin" : @(self.alertStyler.buttonMarginEdgeInsets.left),
                                   @"btnBottomMargin" : @(self.alertStyler.buttonMarginEdgeInsets.bottom),
                                   @"btnRightMargin" : @(self.alertStyler.buttonMarginEdgeInsets.right),
+                                  @"btnVInterval" : @(self.alertStyler.buttonMarginEdgeInsets.top + self.alertStyler.buttonMarginEdgeInsets.bottom),
                                   @"cvMargin" : self.alertStyler.customViewMargin,
                                   @"tfVMargin": self.alertStyler.textFieldVerticalMargin};
         
@@ -129,15 +139,15 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         
         if (!self.alertConfig.inputs && self.alertConfig.inputs.count == 0) {
             if (self.alertConfig.isActiveAlert) {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-5-[_errorLabel]-cvMargin-[buttonContainer]|" options:0 metrics:metrics views:views]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-topVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-5-[_errorLabel]-cvMargin-[buttonContainer]|" options:0 metrics:metrics views:views]];
             }
             // Passive alert, dont added margins for buttonContainer
             else {
-                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-|" options:0 metrics:metrics views:views]];
+                [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-topVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-|" options:0 metrics:metrics views:views]];
             }
         }
         else {
-            NSMutableString *vertVfl = [NSMutableString stringWithString:@"V:|-titleVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-"];
+            NSMutableString *vertVfl = [NSMutableString stringWithString:@"V:|-topVMargin-[_titleLabel]-msgVMargin-[_messageTextView]-cvMargin-[_customView]-cvMargin-"];
             
             [self.alertConfig.inputs enumerateObjectsUsingBlock:^(UITextField *tf, NSUInteger idx, BOOL *stop) {
                 [vertVfl appendString:[NSString stringWithFormat:@"[textField%lu]-tfVMargin-", (unsigned long)idx]];
@@ -151,18 +161,43 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         
         // Button Constraints
         self.buttons = [btns copy];
+        self.sectionCount++;
         if (self.buttons.count == 1) {
-            self.sectionCount++;
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnOne(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
         }
-        else if (self.buttons.count == 2) {
-            self.sectionCount++;
+        else if (self.buttons.count == 2 && !self.alertStyler.useVerticalLayoutForTwoButtons.boolValue) {
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnRightMargin-[btnTwo(==btnOne)]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons[1]}]];
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnOne(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnTwo(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnTwo" : self.buttons[1]}]];
         }
-        // TODO: Handle 3+ buttons with a vertical layout
+        else {
+            NSMutableDictionary *viewsDictionary = [NSMutableDictionary new];
+            NSMutableString *verticalConstraintsFormat = [NSMutableString stringWithString:@"V:|"];
+            for (int i = 0; i < self.buttons.count; i++) {
+                NSString *buttonName = [NSString stringWithFormat:@"btn%d", i];
+                [viewsDictionary setValue:self.buttons[i] forKey:buttonName];
+                if ([separators count]) {
+                    NSString *separatorName = [NSString stringWithFormat:@"spr%d", i];
+                    [verticalConstraintsFormat appendFormat:@"[%@(sprHeight)]-btnTopMargin-", separatorName];
+                    [viewsDictionary setValue:separators[i] forKey:separatorName];
+                    [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[separator]-btnRightMargin-|" options:0 metrics:metrics views:@{@"separator" : separators[i]}]];
+                }
+                else if (i == 0) {
+                    [verticalConstraintsFormat appendString:@"-btnTopMargin-"];
+                }
+                else {
+                    [verticalConstraintsFormat appendString:@"-btnVInterval-"];
+                }
+                [verticalConstraintsFormat appendFormat:@"[%@(btnH)]", buttonName];
+                [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[button]-btnRightMargin-|" options:0 metrics:metrics views:@{@"button" : self.buttons[i]}]];
+            }
+            if (self.buttons.count) {
+                [verticalConstraintsFormat appendString:@"-btnBottomMargin-|"];
+                [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:verticalConstraintsFormat options:0 metrics:metrics views:viewsDictionary]];
+            }
+            
+        }
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[buttonContainer]|" options:0 metrics:metrics views:views]];
         
@@ -181,6 +216,15 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     [self.messageTextView layoutIfNeeded];
     
     CGFloat buttonHeight = self.buttons.count == 0 ? 0 : self.alertStyler.buttonHeight.floatValue;
+    CGFloat numberOfVerticalButtons;
+    
+    if (self.buttons.count == 2 && !self.alertStyler.useVerticalLayoutForTwoButtons.boolValue) {
+        numberOfVerticalButtons = 1;
+    }
+    else {
+        numberOfVerticalButtons = self.buttons.count;
+    }
+    
     CGFloat screenHeight = SCREEN_HEIGHT;
     
     // Need this check because before iOS 8 screen.bounes.size is NOT orientation dependent
@@ -189,7 +233,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         screenHeight = screenSize.width;
     }
     
-    CGFloat maxHeight = screenHeight - self.titleLabel.intrinsicContentSize.height - (self.alertStyler.sectionVerticalMargin.floatValue * self.sectionCount) - buttonHeight - kURBNAlertViewHeightPadding;
+    CGFloat maxHeight = screenHeight - self.titleLabel.intrinsicContentSize.height - (self.alertStyler.sectionVerticalMargin.floatValue * self.sectionCount) - buttonHeight * numberOfVerticalButtons - kURBNAlertViewHeightPadding;
     
     if (!self.messageTextView.urbn_heightLayoutConstraint) {
         [self.messageTextView urbn_addHeightLayoutConstraintWithConstant:0];

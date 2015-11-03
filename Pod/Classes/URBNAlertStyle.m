@@ -52,7 +52,20 @@
     return _errorTextFont ?: [UIFont boldSystemFontOfSize:14];
 }
 
+#pragma mark - Separators
+- (NSNumber *)separatorHeight {
+    return _separatorHeight ?: @0;
+}
+
+- (UIColor *)separatorColor {
+    return _separatorColor ?: [self buttonTitleColor];
+}
+
 #pragma mark - Buttons
+- (NSNumber *)useVerticalLayoutForTwoButtons {
+    return _useVerticalLayoutForTwoButtons ?: @0;
+}
+
 - (UIColor *)buttonTitleColor {
     return _buttonTitleColor ?: [UIColor whiteColor];
 }
@@ -306,6 +319,9 @@
     styler.blurSaturationDelta = self.blurSaturationDelta;
     styler.errorTextColor = self.errorTextColor;
     styler.errorTextFont = self.errorTextFont;
+    styler.separatorColor = self.separatorColor;
+    styler.separatorHeight = self.separatorHeight;
+    styler.useVerticalLayoutForTwoButtons = self.useVerticalLayoutForTwoButtons;
     
     return styler;
 }
