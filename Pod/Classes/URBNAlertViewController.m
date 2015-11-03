@@ -114,7 +114,7 @@
 - (void)addAction:(URBNAlertAction *)action {
     NSMutableArray *actions = [self.alertConfig.actions mutableCopy] ?: [NSMutableArray new];
     [actions addObject:action];
-        
+    
     self.alertConfig.actions = [actions copy];
     
     if (action.actionType != URBNAlertActionTypePassive) {
