@@ -58,7 +58,7 @@
     uac.alertStyler.blurTintColor = [[UIColor orangeColor] colorWithAlphaComponent:0.4];
     uac.alertStyler.messageAlignment = NSTextAlignmentCenter;
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
-          // Do something
+        // Do something
     }]];
     [uac show];
 }
@@ -79,7 +79,7 @@
     }]];
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
-          // Do something
+        // Do something
     }]];
     
     [uac show];
@@ -110,7 +110,7 @@
     uac.alertStyler.buttonMarginEdgeInsets = UIEdgeInsetsMake(20, 5, 5, 5);
     uac.alertStyler.alertMinWidth = @150;
     uac.alertStyler.alertMaxWidth = @200;
-
+    
     [uac addAction:[URBNAlertAction actionWithTitle:@"Cancel" actionType:URBNAlertActionTypeCancel actionCompleted:^(URBNAlertAction *action) {
         // Do something
     }]];
@@ -144,14 +144,14 @@
     [self activeAlertTouch:nil];
     [self activeAlertCustomViewTouch:nil];
     [self activeAlertTouch:nil];
-
+    
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title" message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
     [uac addAction:[URBNAlertAction actionWithTitle:@"Done" actionType:URBNAlertActionTypeNormal actionCompleted:^(URBNAlertAction *action) {
         // Do something
     }]];
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Start Over" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
-
+        
         [self activeAlertMultipleAlertsTouch:nil];
     }]];
     
@@ -199,6 +199,31 @@
 }
 
 
+- (IBAction)activeAlertMultipleButtons:(id)sender {
+    URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Multiple Buttons" message:@"When 3 or more buttons are added to the alert, they then align in a vertical layout."];
+    
+    uac.alertStyler.separatorHeight = @1;
+    uac.alertStyler.separatorColor = [UIColor darkGrayColor];
+    
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Submit" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
+        // Alternate way to dismiss the currently active alert
+        [[URBNAlertController sharedInstance] dismissAlert];
+    }]];
+    
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
+        // Do something
+    }]];
+    
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Button Three" actionType:URBNAlertActionTypeCancel actionCompleted:^(URBNAlertAction *action) {
+        // Do something
+    }]];
+    
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Button Four" actionType:URBNAlertActionTypeCancel actionCompleted:^(URBNAlertAction *action) {
+        // Do something
+    }]];
+    
+    [uac show];
+}
 
 
 - (IBAction)activeAlertValidateInput:(id)sender {
@@ -247,7 +272,7 @@
     uac.alertConfig.touchOutsideViewToDismiss = YES;
     uac.alertStyler.blurEnabled = @NO;
     uac.alertStyler.backgroundViewTintColor = [[UIColor whiteColor] colorWithAlphaComponent:0.4f];
-
+    
     [uac addAction:[URBNAlertAction actionWithTitle:nil actionType:URBNAlertActionTypePassive actionCompleted:^(URBNAlertAction *action) {
         // Do something
     }]];

@@ -56,7 +56,7 @@
     uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
     [uac addAction:[URBNAlertAction actionWithTitle:@"btn1" actionType:URBNAlertActionTypeNormal actionCompleted:nil]];
     [uac addAction:[URBNAlertAction actionWithTitle:@"btn2" actionType:URBNAlertActionTypeNormal actionCompleted:nil]];
-    XCTAssertThrows([uac addAction:[URBNAlertAction actionWithTitle:@"btn3" actionType:URBNAlertActionTypeNormal actionCompleted:nil]]);
+    XCTAssertNoThrow([uac addAction:[URBNAlertAction actionWithTitle:@"btn3" actionType:URBNAlertActionTypeNormal actionCompleted:nil]]);
     
     //Test 2 buttons
     uac = [[URBNAlertViewController alloc] initWithTitle:@"Title" message:@"Message"];
