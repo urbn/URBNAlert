@@ -88,7 +88,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         __weak typeof(self) weakSelf = self;
         [self.alertConfig.actions enumerateObjectsUsingBlock:^(URBNAlertAction *action, NSUInteger idx, BOOL *stop) {
             if (action.isButton) {
-                if (self.alertStyler.separatorHeight && self.alertStyler.separatorHeight > 0) {
+                if (self.alertStyler.separatorHeight && self.alertStyler.separatorHeight.floatValue > 0) {
                     UIView *sepatator = [UIView new];
                     sepatator.backgroundColor = self.alertStyler.separatorColor;
                     sepatator.translatesAutoresizingMaskIntoConstraints = NO;
@@ -235,7 +235,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     
     CGFloat verticalSectionMarginsHeight = (self.alertStyler.sectionVerticalMargin.floatValue * self.sectionCount);
     CGFloat buttonsHeight = (buttonHeight * numberOfVerticalButtons);
-    CGFloat buttonsSeperatorHieght  = (numberOfVerticalButtons > 1) ?(self.alertStyler.separatorHeight.floatValue * (numberOfVerticalButtons - 1)) : 0;
+    CGFloat buttonsSeperatorHieght  = (numberOfVerticalButtons > 1) ? (self.alertStyler.separatorHeight.floatValue * numberOfVerticalButtons) : 0;
     CGFloat maxHeight = screenHeight - self.titleLabel.intrinsicContentSize.height - verticalSectionMarginsHeight - buttonsHeight - buttonsSeperatorHieght - kURBNAlertViewHeightPadding;
     
     if (!self.messageTextView.urbn_heightLayoutConstraint) {
