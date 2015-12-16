@@ -355,4 +355,8 @@
     }];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return self.alertController.presentingWindow.rootViewController.preferredStatusBarStyle;
+}
+
 @end
