@@ -6,9 +6,9 @@
 # URBNAlert
 ![enter image description here](http://i.imgur.com/ld1gOPNm.png?1)![enter image description here](http://i.imgur.com/CkRD0OLm.png?1)![enter image description here](http://i.imgur.com/XcitAMzm.png?1)![enter image description here](http://i.imgur.com/RTsTzI4m.png?1)
 
-URBNAlert is a customizable alert view based off of iOS's UIAlertController.
+URBNAlert is a customizable alert view based on iOS's UIAlertController.
 
-UIAlertController was a great improvement over UIAlertView, but you still cannot apply custom fonts, colors, or other styles to the alerts. URBNAlert gives you that flexability.
+UIAlertController was a great improvement over UIAlertView, but you still cannot apply custom fonts, colors, or other styles to the alerts. URBNAlert gives you that flexibility.
 
 You can also pass custom `UIView`'s into a URBNAlert, and create passive alerts with no buttons that dismiss after a period of time.
 
@@ -21,7 +21,7 @@ After adding URBNALERT to your projects Podfile, import URBNAlert using the foll
 Checkout & run the pod's example project to see what URBNAlert is capable of.
 
 ### Special Note: To support background blur on iPhone 6 or 6+, you need to include a Launch image or xib that supports those devices.
-During bluring of the background, there seems to be an issue with Apple’s `drawViewHierarchyInRect:afterScreenUpdates:` when `afterScreenUpdates = YES`. If no launch image or xib is supplied for the iPhone 6 or 6+, `drawViewHierarchyInRect:afterScreenUpdates:` will resize the view briefly and cause an animation artifact. To properly support background blur on those devices, a Launch image or xib must be included.
+During blurring of the background, there seems to be an issue with Apple’s `drawViewHierarchyInRect:afterScreenUpdates:` when `afterScreenUpdates = YES`. If no launch image or xib is supplied for the iPhone 6 or 6+, `drawViewHierarchyInRect:afterScreenUpdates:` will resize the view briefly and cause an animation artifact. To properly support background blur on those devices, a Launch image or xib must be included.
 
 #####Setting a global alert stlyle:
 ```objective-c
@@ -30,7 +30,7 @@ URBNAlertController *alertController = [URBNAlertController sharedInstance];
 alertController.alertStyler.buttonBackgroundColor = [UIColor blueColor];
 alertController.alertStyler.buttonDestructionBackgroundColor = [UIColor greenColor];
 alertController.alertStyler.backgroundColor = [UIColor greyColor];
-alertController.alertStyler.titleFont = [UIFont fontWithName@"" size:14.f]; 
+alertController.alertStyler.titleFont = [UIFont fontWithName:@"" size:14.f]; 
 ```
 
 #####Basic Active Alert (2 buttons)
