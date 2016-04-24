@@ -174,6 +174,17 @@
 @property (nonatomic, strong) NSNumber *buttonHorizontalMargin __attribute__((deprecated("Replaced by buttonMarginEdgeInsets")));
 
 /**
+ * Width of the alert's button's border layer
+ */
+@property (nonatomic, strong) NSNumber *buttonBorderWidth;
+
+/**
+ * UIColor of the alert's button's border
+ */
+
+@property (nonatomic, strong) UIColor *buttonBorderColor;
+
+/**
  * Opacity of the alert's button's shadows
  */
 @property (nonatomic, strong) NSNumber *buttonShadowOpacity;

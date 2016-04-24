@@ -135,6 +135,14 @@
     return _buttonShadowColor ?: [UIColor clearColor];
 }
 
+- (NSNumber *)buttonBorderWidth {
+    return _buttonBorderWidth ?: @0;
+}
+
+- (UIColor *)buttonBorderColor {
+    return _buttonBorderColor ?: [UIColor clearColor];
+}
+
 #pragma mark - Alert View
 - (NSNumber *)alertCornerRadius {
     return _alertCornerRadius ?: @8;

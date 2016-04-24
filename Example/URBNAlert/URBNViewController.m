@@ -99,6 +99,8 @@
     uac.alertStyler.titleFont = [UIFont fontWithName:@"Chalkduster" size:30];
     uac.alertStyler.messageColor = [UIColor blackColor];
     uac.alertStyler.buttonCornerRadius = @2;
+    uac.alertStyler.buttonBorderWidth = @4;
+    uac.alertStyler.buttonBorderColor = [UIColor cyanColor];
     uac.alertStyler.alertCornerRadius = @2;
     uac.alertStyler.buttonHeight = @30;
     uac.alertStyler.animationDuration = @0.5f;
