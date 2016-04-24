@@ -333,6 +333,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     btn.layer.shadowOffset = self.alertStyler.buttonShadowOffset;
     btn.layer.borderColor = self.alertStyler.buttonBorderColor.CGColor;
     btn.layer.borderWidth = self.alertStyler.buttonBorderWidth.floatValue;
+    btn.contentEdgeInsets = self.alertStyler.buttonContentInsets;
     btn.tag = index;
     btn.actionType = action.actionType;
     btn.alertStyler = self.alertStyler;

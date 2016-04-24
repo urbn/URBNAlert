@@ -12,6 +12,7 @@
 
 // Need to store this so we know when to use the default values since UIEdgeInsets is not an object
 @property (nonatomic, copy) NSString *buttontnEdgeInsetsString;
+@property (nonatomic, copy) NSString *buttonContentInsetsString;
 
 @end
 
@@ -121,6 +122,14 @@
     // Using buttonHorizontalMargin for all values to be backwards compatiable. Originally named poorly
     return UIEdgeInsetsMake(self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue, self.buttonHorizontalMargin.floatValue);
 #pragma clang diagnostic pop
+}
+
+- (void)setButtonContentInsets:(UIEdgeInsets)buttonContentInsets {
+    self.buttonContentInsetsString = NSStringFromUIEdgeInsets(buttonContentInsets);
+}
+
+- (UIEdgeInsets)buttonContentInsets {
+    return UIEdgeInsetsFromString(self.buttonContentInsetsString);
 }
 
 - (NSNumber *)buttonShadowOpacity {
@@ -303,9 +312,12 @@
     styler.buttonShadowRadius = self.buttonShadowRadius;
     styler.buttonShadowColor = self.buttonShadowColor;
     styler.buttonShadowOffset = self.buttonShadowOffset;
+    styler.buttonBorderColor = self.buttonBorderColor;
+    styler.buttonBorderWidth = self.buttonBorderWidth;
     
     styler.sectionVerticalMargin = self.sectionVerticalMargin;
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
+    styler.buttonContentInsets = self.buttonContentInsets;
     styler.buttonMarginEdgeInsets = self.buttonMarginEdgeInsets;
     styler.buttontnEdgeInsetsString = self.buttontnEdgeInsetsString;
 #pragma clang diagnostic push
