@@ -99,15 +99,18 @@
     uac.alertStyler.titleFont = [UIFont fontWithName:@"Chalkduster" size:30];
     uac.alertStyler.messageColor = [UIColor blackColor];
     uac.alertStyler.buttonCornerRadius = @2;
+    uac.alertStyler.buttonBorderWidth = @4;
+    uac.alertStyler.buttonBorderColor = [UIColor cyanColor];
     uac.alertStyler.alertCornerRadius = @2;
-    uac.alertStyler.buttonHeight = @30;
+    uac.alertStyler.buttonHeight = @45;
     uac.alertStyler.animationDuration = @0.5f;
     uac.alertStyler.animationDamping = @0.9f;
     uac.alertStyler.alertShadowOffset = CGSizeMake(6, 6);
     uac.alertStyler.alertViewShadowColor = [UIColor greenColor];
     uac.alertStyler.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     uac.alertStyler.messageAlignment = NSTextAlignmentRight;
-    uac.alertStyler.buttonMarginEdgeInsets = UIEdgeInsetsMake(20, 5, 5, 5);
+    uac.alertStyler.buttonMarginEdgeInsets = UIEdgeInsetsMake(20, 1, 1, 1);
+    uac.alertStyler.buttonContentInsets = UIEdgeInsetsMake(15, 0, 30, 0);
     uac.alertStyler.alertMinWidth = @150;
     uac.alertStyler.alertMaxWidth = @200;
     

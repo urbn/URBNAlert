@@ -12,6 +12,7 @@
 
 // Need to store this so we know when to use the default values since UIEdgeInsets is not an object
 @property (nonatomic, copy) NSString *buttontnEdgeInsetsString;
+@property (nonatomic, copy) NSString *buttonContentInsetsString;
 
 @end
 
@@ -123,6 +124,14 @@
 #pragma clang diagnostic pop
 }
 
+- (void)setButtonContentInsets:(UIEdgeInsets)buttonContentInsets {
+    self.buttonContentInsetsString = NSStringFromUIEdgeInsets(buttonContentInsets);
+}
+
+- (UIEdgeInsets)buttonContentInsets {
+    return UIEdgeInsetsFromString(self.buttonContentInsetsString);
+}
+
 - (NSNumber *)buttonShadowOpacity {
     return _buttonShadowOpacity ?: @0;
 }
@@ -133,6 +142,14 @@
 
 - (UIColor *)buttonShadowColor {
     return _buttonShadowColor ?: [UIColor clearColor];
+}
+
+- (NSNumber *)buttonBorderWidth {
+    return _buttonBorderWidth ?: @0;
+}
+
+- (UIColor *)buttonBorderColor {
+    return _buttonBorderColor ?: [UIColor clearColor];
 }
 
 #pragma mark - Alert View
@@ -295,9 +312,12 @@
     styler.buttonShadowRadius = self.buttonShadowRadius;
     styler.buttonShadowColor = self.buttonShadowColor;
     styler.buttonShadowOffset = self.buttonShadowOffset;
+    styler.buttonBorderColor = self.buttonBorderColor;
+    styler.buttonBorderWidth = self.buttonBorderWidth;
     
     styler.sectionVerticalMargin = self.sectionVerticalMargin;
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
+    styler.buttonContentInsets = self.buttonContentInsets;
     styler.buttonMarginEdgeInsets = self.buttonMarginEdgeInsets;
     styler.buttontnEdgeInsetsString = self.buttontnEdgeInsetsString;
 #pragma clang diagnostic push

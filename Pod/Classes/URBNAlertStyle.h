@@ -162,9 +162,14 @@
 @property (nonatomic, strong) NSNumber *labelHorizontalMargin;
 
 /**
- * UIEdgeInsets used at the margins for the buttons of the alert's buttons
+ * UIEdgeInsets used at the external margins for the buttons of the alert's buttons
  */
 @property (nonatomic, assign) UIEdgeInsets buttonMarginEdgeInsets;
+
+/**
+ * UIEdgeInsets used for internal content for the buttons of the alert's buttons
+ */
+@property (nonatomic, assign) UIEdgeInsets buttonContentInsets;
 
 /**
  * !!! DO NOT USE! Use buttonMarginEdgeInsets instead. This is depricated but left for backwards compabaility !!!
@@ -172,6 +177,17 @@
  *
  */
 @property (nonatomic, strong) NSNumber *buttonHorizontalMargin __attribute__((deprecated("Replaced by buttonMarginEdgeInsets")));
+
+/**
+ * Width of the alert's button's border layer
+ */
+@property (nonatomic, strong) NSNumber *buttonBorderWidth;
+
+/**
+ * UIColor of the alert's button's border
+ */
+
+@property (nonatomic, strong) UIColor *buttonBorderColor;
 
 /**
  * Opacity of the alert's button's shadows
