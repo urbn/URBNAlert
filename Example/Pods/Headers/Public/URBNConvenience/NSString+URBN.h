@@ -1,1 +1,0 @@
-../../../URBNConvenience/Pod/Classes/NSString+URBN.h
