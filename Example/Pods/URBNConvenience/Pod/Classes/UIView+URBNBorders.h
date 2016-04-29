@@ -28,6 +28,14 @@
  */
 - (void)urbn_resetBorders;
 
+/**
+ * Creates a border around the whole view
+ *
+ * @param color   border color
+ * @param width   border width (in screen pixels)
+ */
+- (void)urbn_setBorderWithColor:(UIColor *)color width:(CGFloat)width;
+
 @end
 
 

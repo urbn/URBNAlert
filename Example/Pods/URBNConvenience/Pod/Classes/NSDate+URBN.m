@@ -7,6 +7,7 @@
 //
 
 #import "NSDate+URBN.h"
+#import <URBNConvenience/URBNTextField.h>
 
 // In seconds
 static const NSTimeInterval URBNConvenienceMinuteThreshold = 60;      // < 1 min
@@ -63,8 +64,11 @@ static const NSTimeInterval URBNConvenienceWeekThreshold   = 604800;  // < 1 wee
     static NSBundle *bundle = nil;
     if (bundle == nil) {
         NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"URBNConvenience" ofType:@"bundle"];
+        if (!bundlePath) {
+            bundlePath = [[NSBundle bundleForClass:[URBNTextField class]] pathForResource:@"URBNConvenience" ofType:@"bundle"];
+        }
         bundle = [NSBundle bundleWithPath:bundlePath];
-
+        
         NSString *language = [[NSLocale preferredLanguages] count]? [NSLocale preferredLanguages][0]: @"en";
         
         if (![[bundle localizations] containsObject:language]) {

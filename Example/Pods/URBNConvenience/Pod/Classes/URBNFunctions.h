@@ -1,9 +1,14 @@
-
+#import <URBNConvenience/URBNTextField.h>
 
 #pragma mark - App Version
 static inline NSString *applicationVersion() {
-	NSDictionary *bundleInfo = [[NSBundle mainBundle] infoDictionary];
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"URBNConvenience" ofType:@"bundle"];
+    if (!bundlePath) {
+        bundlePath = [[NSBundle bundleForClass:[URBNTextField class]] pathForResource:@"URBNConvenience" ofType:@"bundle"];
+    }
+    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
     
+    NSDictionary *bundleInfo = [bundle infoDictionary];
 	return [NSString stringWithFormat:@"%@ (%@)", [bundleInfo objectForKey:@"CFBundleShortVersionString"], [bundleInfo objectForKey:@"CFBundleVersion"]];
 }
 

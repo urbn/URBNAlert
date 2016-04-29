@@ -10,6 +10,43 @@
 
 @implementation UIImage (URBN)
 
+// Note : Sourced from https://github.com/vilanovi/UIImage-Additions
+
+- (UIImage *)urbn_tintedImageWithColor:(UIColor *)color {
+    if (!color) {
+        return self;
+    }
+    
+    CGFloat scale = self.scale;
+    CGSize size = CGSizeMake(scale * self.size.width, scale * self.size.height);
+    
+    UIGraphicsBeginImageContext(size);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextTranslateCTM(context, 0, size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    
+    // draw alpha-mask
+    CGContextSetBlendMode(context, kCGBlendModeNormal);
+    CGContextDrawImage(context, rect, self.CGImage);
+    
+    CGContextSetBlendMode(context, kCGBlendModeSourceIn);
+    [color setFill];
+    CGContextFillRect(context, rect);
+    
+    CGImageRef bitmapContext = CGBitmapContextCreateImage(context);
+    
+    UIImage *coloredImage = [UIImage imageWithCGImage:bitmapContext scale:scale orientation:UIImageOrientationUp];
+    
+    CGImageRelease(bitmapContext);
+    
+    UIGraphicsEndImageContext();
+    
+    return coloredImage;
+}
+
 + (UIImage *)urbn_imageDrawnWithKey:(NSString *)key size:(CGSize)size drawBlock:(URBNConvenienceImageDrawBlock)drawBlock {
     NSAssert((key != nil), @"Key must be non-nil");
     NSAssert((size.width > 0) && (size.height > 0), @"Invalid image size (both dimensions must be greater than zero");

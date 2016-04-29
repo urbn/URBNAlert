@@ -1,6 +1,6 @@
 {
   "name": "URBNAlert",
-  "version": "1.8.2",
+  "version": "1.9.3",
   "summary": "A custom alert view based off of UIAlertController but highly customizable.",
   "homepage": "https://github.com/urbn/URBNAlert",
   "license": "MIT",
@@ -9,7 +9,7 @@
   },
   "source": {
     "git": "https://github.com/urbn/URBNAlert.git",
-    "tag": "1.8.2"
+    "tag": "1.9.3"
   },
   "platforms": {
     "ios": "7.0"
@@ -17,7 +17,7 @@
   "requires_arc": true,
   "dependencies": {
     "URBNConvenience": [
-      "~> 0.8.2"
+      "> 0.8.2"
     ]
   },
   "source_files": "Pod/Classes/**/*",

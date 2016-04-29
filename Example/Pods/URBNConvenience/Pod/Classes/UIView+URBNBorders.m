@@ -63,6 +63,17 @@ static const char kURBNBorderViewKey;
     [[self urbn_borderView] urbn_resetBorders];
 }
 
+- (void)urbn_setBorderWithColor:(UIColor *)color width:(CGFloat)width {
+    self.urbn_bottomBorder.width = width;
+    self.urbn_topBorder.width = width;
+    self.urbn_leftBorder.width = width;
+    self.urbn_rightBorder.width = width;
+    self.urbn_bottomBorder.color = color;
+    self.urbn_topBorder.color = color;
+    self.urbn_leftBorder.color = color;
+    self.urbn_rightBorder.color = color;
+}
+
 #pragma mark - Getters
 - (URBNBorder *)urbn_bottomBorder {
     return [self urbn_borderView].urbn_bottomBorder;

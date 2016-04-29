@@ -25,6 +25,7 @@
 #define IS_IPHONE_6 (SCREEN_HEIGHT == 667.0)
 #define IS_IPHONE_6P (SCREEN_HEIGHT == 736.0)
 #define IS_4IN (SCREEN_HEIGHT == 568)
+#define IS_3_5IN (SCREEN_HEIGHT == 480)
 
 #pragma mark - System Version
 #define VERSION_GREATER_THAN(v1, v2)               ([v1 compare:v2 options:NSNumericSearch] == NSOrderedDescending)
