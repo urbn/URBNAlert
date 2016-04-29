@@ -293,11 +293,12 @@
     __weak typeof(self) weakSelf = self;
     [self setVisible:NO animated:YES completion:^(URBNAlertViewController *alertVC, BOOL finished) {
         // Must let the controller know if alert was dismissed via touching outside
+        [weakSelf dismissViewControllerAnimated:NO completion:nil];
+
         if (weakSelf.finishedDismissingBlock) {
             BOOL wasTouchedOutside = [sender isKindOfClass:[UITapGestureRecognizer class]];
             weakSelf.finishedDismissingBlock(wasTouchedOutside);
         }
-        [weakSelf dismissViewControllerAnimated:NO completion:nil];
     }];
 }
 

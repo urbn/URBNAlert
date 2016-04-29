@@ -1,1 +1,0 @@
-../../../URBNConvenience/Pod/Classes/UIImage+ImageEffects.h
