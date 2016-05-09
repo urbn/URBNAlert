@@ -42,6 +42,12 @@
 @property (nonatomic, strong) UIColor *disabledButtonBackgroundColor;
 
 /**
+ * Background color of a highlighted button for an active alert
+ */
+
+@property (nonatomic, strong) UIColor *highlightedButtonBackgroundColor;
+
+/**
  * Text color of a disabled button
  */
 @property (nonatomic, strong) UIColor *disabledButtonTitleColor;

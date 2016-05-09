@@ -17,6 +17,10 @@
 
 @implementation URBNAlertActionButton
 
+- (void)setHighlighted:(BOOL)highlighted {
+    self.backgroundColor = highlighted ? self.alertStyler.highlightedButtonBackgroundColor : self.alertStyler.buttonBackgroundColor;
+}
+
 @end
 
 static NSInteger const kURBNAlertViewHeightPadding = 80.f;
