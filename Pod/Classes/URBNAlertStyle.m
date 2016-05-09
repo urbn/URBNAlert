@@ -103,6 +103,10 @@
     return _buttonHeight ?: @44;
 }
 
+- (UIColor *)highlightedButtonBackgroundColor {
+    return _highlightedButtonBackgroundColor ?: [self buttonBackgroundColor];
+}
+
 // TODO: Delete when buttonHorizontalMargin property goes away
 - (NSNumber *)buttonHorizontalMargin {
     return _buttonHorizontalMargin ?: @8;
