@@ -18,12 +18,7 @@
 @implementation URBNAlertActionButton
 
 - (void)setHighlighted:(BOOL)highlighted {
-    if (highlighted) {
-        self.backgroundColor = self.alertStyler.highlightedButtonBackgroundColor;
-    }
-    else {
-        self.backgroundColor = self.alertStyler.buttonBackgroundColor;
-    }
+    self.backgroundColor = highlighted ? self.alertStyler.highlightedButtonBackgroundColor : self.alertStyler.buttonBackgroundColor;
 }
 
 @end
