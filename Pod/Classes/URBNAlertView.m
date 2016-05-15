@@ -179,17 +179,14 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnRightMargin-[btnTwo(==btnOne)]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons.lastObject}]];
             }
             else {
-                
                 UIView *verticalSeparator = [UIView new];
                 verticalSeparator.backgroundColor = self.alertStyler.buttonVerticalSeparatorColor;
                 verticalSeparator.translatesAutoresizingMaskIntoConstraints = NO;
                 [buttonContainer addSubview:verticalSeparator];
                 
                 [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnVSepMargin-[vertSep(btnVSepW)]-btnVSepMargin-[btnTwo(==btnOne)]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons.lastObject, @"vertSep": verticalSeparator}]];
-                
                 [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[vertSep(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"vertSep": verticalSeparator}]];
             }
-
             
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnOne(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnTwo(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnTwo" : self.buttons[1]}]];
