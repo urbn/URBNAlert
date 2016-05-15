@@ -54,6 +54,14 @@
 }
 
 #pragma mark - Separators
+- (NSNumber *)buttonVerticalSeparatorWidth {
+    return _buttonVerticalSeparatorWidth ?: @0;
+}
+
+- (UIColor *)buttonVerticalSeparatorColor {
+    return _buttonVerticalSeparatorColor ?: [self buttonBackgroundColor];
+}
+
 - (NSNumber *)separatorHeight {
     return _separatorHeight ?: @0;
 }

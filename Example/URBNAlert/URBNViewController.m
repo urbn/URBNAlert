@@ -99,7 +99,7 @@
     uac.alertStyler.titleFont = [UIFont fontWithName:@"Chalkduster" size:30];
     uac.alertStyler.messageColor = [UIColor blackColor];
     uac.alertStyler.buttonCornerRadius = @2;
-    uac.alertStyler.buttonBorderWidth = @4;
+    uac.alertStyler.buttonBorderWidth = @2;
     uac.alertStyler.buttonBorderColor = [UIColor cyanColor];
     uac.alertStyler.highlightedButtonBackgroundColor = [UIColor magentaColor];
     uac.alertStyler.alertCornerRadius = @2;
@@ -110,10 +110,12 @@
     uac.alertStyler.alertViewShadowColor = [UIColor greenColor];
     uac.alertStyler.blurTintColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
     uac.alertStyler.messageAlignment = NSTextAlignmentRight;
-    uac.alertStyler.buttonMarginEdgeInsets = UIEdgeInsetsMake(20, 1, 1, 1);
+    uac.alertStyler.buttonMarginEdgeInsets = UIEdgeInsetsMake(20, 8, 8, 8);
     uac.alertStyler.buttonContentInsets = UIEdgeInsetsMake(15, 0, 30, 0);
     uac.alertStyler.alertMinWidth = @150;
     uac.alertStyler.alertMaxWidth = @200;
+    uac.alertStyler.buttonVerticalSeparatorColor = [UIColor blackColor];
+    uac.alertStyler.buttonVerticalSeparatorWidth = @3;
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Cancel" actionType:URBNAlertActionTypeCancel actionCompleted:^(URBNAlertAction *action) {
         // Do something
