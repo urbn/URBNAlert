@@ -137,13 +137,26 @@
  */
 @property (nonatomic, assign) UIEdgeInsets textFieldEdgeInsets;
 
+
 /**
- *  Height of separator between buttons (as in native UIAlertController). Default is nil for compatibility
+ *  Width of vertical separator between buttons that are laid out horiztonally
+ */
+
+@property (nonatomic, strong) NSNumber *buttonVerticalSeparatorWidth;
+
+/**
+ *  Color of vertical separator between buttons that are laid out horiztonally
+ */
+
+@property (nonatomic, strong) UIColor *buttonVerticalSeparatorColor;
+
+/**
+ *  Height of horizontal separator between buttons (as in native UIAlertController). Default is nil for compatibility
  */
 @property (nonatomic, strong) NSNumber *separatorHeight;
 
 /**
- * Color of the separator between buttons. Default is buttonTitleColor
+ * Color of the horizontal separator between buttons. Default is buttonTitleColor
  */
 @property (nonatomic, strong) UIColor *separatorColor;
 

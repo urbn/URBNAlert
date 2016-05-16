@@ -54,6 +54,14 @@
 }
 
 #pragma mark - Separators
+- (NSNumber *)buttonVerticalSeparatorWidth {
+    return _buttonVerticalSeparatorWidth ?: @0;
+}
+
+- (UIColor *)buttonVerticalSeparatorColor {
+    return _buttonVerticalSeparatorColor ?: [self buttonBackgroundColor];
+}
+
 - (NSNumber *)separatorHeight {
     return _separatorHeight ?: @0;
 }
@@ -318,6 +326,8 @@
     styler.buttonShadowOffset = self.buttonShadowOffset;
     styler.buttonBorderColor = self.buttonBorderColor;
     styler.buttonBorderWidth = self.buttonBorderWidth;
+    styler.buttonVerticalSeparatorWidth = self.buttonVerticalSeparatorWidth;
+    styler.buttonVerticalSeparatorColor = self.buttonVerticalSeparatorColor;
     
     styler.sectionVerticalMargin = self.sectionVerticalMargin;
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
