@@ -176,7 +176,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         else if (self.buttons.count == 2 && !self.alertStyler.useVerticalLayoutForTwoButtons.boolValue) {
             
             if (self.alertStyler.buttonVerticalSeparatorWidth.integerValue == 0) {
-            [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnRightMargin-[btnTwo(==btnOne)]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons.lastObject}]];
+                [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnRightMargin-[btnTwo(==btnOne)]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons.lastObject}]];
             }
             else {
                 UIView *verticalSeparator = [UIView new];
@@ -216,7 +216,6 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
                 [verticalConstraintsFormat appendString:@"-btnBottomMargin-|"];
                 [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:verticalConstraintsFormat options:0 metrics:metrics views:viewsDictionary]];
             }
-            
         }
         
         [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[buttonContainer]|" options:0 metrics:metrics views:views]];

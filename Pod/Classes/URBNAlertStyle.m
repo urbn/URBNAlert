@@ -326,6 +326,8 @@
     styler.buttonShadowOffset = self.buttonShadowOffset;
     styler.buttonBorderColor = self.buttonBorderColor;
     styler.buttonBorderWidth = self.buttonBorderWidth;
+    styler.buttonVerticalSeparatorWidth = self.buttonVerticalSeparatorWidth;
+    styler.buttonVerticalSeparatorColor = self.buttonVerticalSeparatorColor;
     
     styler.sectionVerticalMargin = self.sectionVerticalMargin;
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
