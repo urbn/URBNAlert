@@ -79,6 +79,10 @@
     return _buttonTitleColor ?: [UIColor whiteColor];
 }
 
+- (UIColor *)buttonHighlightTitleColor {
+    return _buttonHighlightTitleColor ?: [self buttonTitleColor];
+}
+
 - (UIFont *)buttonFont {
     return _buttonFont ?: [UIFont boldSystemFontOfSize:14];
 }
@@ -328,6 +332,8 @@
     styler.buttonBorderWidth = self.buttonBorderWidth;
     styler.buttonVerticalSeparatorWidth = self.buttonVerticalSeparatorWidth;
     styler.buttonVerticalSeparatorColor = self.buttonVerticalSeparatorColor;
+    styler.highlightedButtonBackgroundColor = self.highlightedButtonBackgroundColor;
+    styler.buttonHighlightTitleColor = self.buttonHighlightTitleColor;
     
     styler.sectionVerticalMargin = self.sectionVerticalMargin;
     styler.labelHorizontalMargin = self.labelHorizontalMargin;

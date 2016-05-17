@@ -1,5 +1,10 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-link_with 'URBNAlert', 'Tests'
+target 'URBNAlert' do
+    target 'Tests' do
+    inherit! :search_paths
+    end 
+end
+
 
 pod "URBNAlert", :path => "../"

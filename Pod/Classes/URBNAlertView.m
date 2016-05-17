@@ -18,6 +18,7 @@
 @implementation URBNAlertActionButton
 
 - (void)setHighlighted:(BOOL)highlighted {
+    [super setHighlighted:highlighted];
     self.backgroundColor = highlighted ? self.alertStyler.highlightedButtonBackgroundColor : self.alertStyler.buttonBackgroundColor;
 }
 
@@ -174,8 +175,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnOne(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
         }
         else if (self.buttons.count == 2 && !self.alertStyler.useVerticalLayoutForTwoButtons.boolValue) {
-            
-            if (self.alertStyler.buttonVerticalSeparatorWidth.integerValue == 0) {
+            if (!self.alertStyler.buttonVerticalSeparatorWidth) {
                 [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnRightMargin-[btnTwo(==btnOne)]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons.lastObject}]];
             }
             else {
@@ -353,12 +353,14 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     btn.layer.borderColor = self.alertStyler.buttonBorderColor.CGColor;
     btn.layer.borderWidth = self.alertStyler.buttonBorderWidth.floatValue;
     btn.contentEdgeInsets = self.alertStyler.buttonContentInsets;
+    
     btn.tag = index;
     btn.actionType = action.actionType;
     btn.alertStyler = self.alertStyler;
     
     [btn setTitle:action.title forState:UIControlStateNormal];
     [btn setTitleColor:titleColor forState:UIControlStateNormal];
+    [btn setTitleColor:self.alertStyler.buttonHighlightTitleColor forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(buttonTouch:) forControlEvents:UIControlEventTouchUpInside];
     
     return btn;

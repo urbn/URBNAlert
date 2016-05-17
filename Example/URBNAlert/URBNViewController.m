@@ -91,7 +91,6 @@
 - (IBAction)activeAlertColoredTouch:(id)sender {
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom Styled Alert" message:@"You can change the fonts, colors, button size, corner radius, and much more."];
     uac.alertStyler.buttonBackgroundColor = [UIColor greenColor];
-    uac.alertStyler.cancelButtonTitleColor = [UIColor redColor];
     uac.alertStyler.cancelButtonTitleColor = [UIColor whiteColor];
     uac.alertStyler.backgroundColor = [UIColor orangeColor];
     uac.alertStyler.buttonTitleColor = [UIColor blackColor];
@@ -115,7 +114,8 @@
     uac.alertStyler.alertMinWidth = @150;
     uac.alertStyler.alertMaxWidth = @200;
     uac.alertStyler.buttonVerticalSeparatorColor = [UIColor blackColor];
-    uac.alertStyler.buttonVerticalSeparatorWidth = @3;
+    uac.alertStyler.buttonVerticalSeparatorWidth = @.5f;
+    uac.alertStyler.buttonHighlightTitleColor = [UIColor redColor];
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Cancel" actionType:URBNAlertActionTypeCancel actionCompleted:^(URBNAlertAction *action) {
         // Do something

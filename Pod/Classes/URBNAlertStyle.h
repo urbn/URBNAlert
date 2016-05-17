@@ -47,6 +47,12 @@
 
 @property (nonatomic, strong) UIColor *highlightedButtonBackgroundColor;
 
+
+/**
+ * Button title color on highlight
+*/
+@property (nonatomic, strong) UIColor *buttonHighlightTitleColor;
+
 /**
  * Text color of a disabled button
  */
