@@ -331,14 +331,17 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
 - (URBNAlertActionButton *)createAlertViewButtonWithAction:(URBNAlertAction *)action atIndex:(NSInteger)index {
     UIColor *bgColor = self.alertStyler.buttonBackgroundColor;
     UIColor *titleColor = self.alertStyler.buttonTitleColor;
+    UIColor *highlightColor = self.alertStyler.buttonHighlightTitleColor;
     
     if (action.actionType == URBNAlertActionTypeDestructive) {
         titleColor = self.alertStyler.destructiveButtonTitleColor;
         bgColor = self.alertStyler.destructionButtonBackgroundColor;
+        highlightColor = self.alertStyler.destructiveButtonTitleHighlightColor;
     }
     else if (action.actionType == URBNAlertActionTypeCancel) {
         titleColor = self.alertStyler.cancelButtonTitleColor;
         bgColor = self.alertStyler.cancelButtonBackgroundColor;
+        highlightColor = self.alertStyler.cancelButtonTitleHighlightColor;
     }
     
     URBNAlertActionButton *btn = [URBNAlertActionButton buttonWithType:UIButtonTypeCustom];
@@ -360,7 +363,8 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     
     [btn setTitle:action.title forState:UIControlStateNormal];
     [btn setTitleColor:titleColor forState:UIControlStateNormal];
-    [btn setTitleColor:self.alertStyler.buttonHighlightTitleColor forState:UIControlStateHighlighted];
+    [btn setTitleColor:highlightColor forState:UIControlStateHighlighted];
+    
     [btn addTarget:self action:@selector(buttonTouch:) forControlEvents:UIControlEventTouchUpInside];
     
     return btn;

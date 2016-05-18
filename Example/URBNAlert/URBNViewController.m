@@ -92,6 +92,7 @@
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom Styled Alert" message:@"You can change the fonts, colors, button size, corner radius, and much more."];
     uac.alertStyler.buttonBackgroundColor = [UIColor greenColor];
     uac.alertStyler.cancelButtonTitleColor = [UIColor whiteColor];
+    uac.alertStyler.cancelButtonTitleHighlightColor = [UIColor yellowColor];
     uac.alertStyler.backgroundColor = [UIColor orangeColor];
     uac.alertStyler.buttonTitleColor = [UIColor blackColor];
     uac.alertStyler.titleColor = [UIColor purpleColor];
@@ -210,13 +211,14 @@
     
     uac.alertStyler.separatorHeight = @1;
     uac.alertStyler.separatorColor = [UIColor darkGrayColor];
+    uac.alertStyler.destructiveButtonTitleHighlightColor = [UIColor magentaColor];
     
     [uac addAction:[URBNAlertAction actionWithTitle:@"Submit" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
         // Alternate way to dismiss the currently active alert
         [[URBNAlertController sharedInstance] dismissAlert];
     }]];
     
-    [uac addAction:[URBNAlertAction actionWithTitle:@"Button Two" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
+    [uac addAction:[URBNAlertAction actionWithTitle:@"Button Two: Destructive" actionType:URBNAlertActionTypeDestructive actionCompleted:^(URBNAlertAction *action) {
         // Do something
     }]];
     
