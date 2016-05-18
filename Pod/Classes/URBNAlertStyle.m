@@ -79,6 +79,10 @@
     return _buttonTitleColor ?: [UIColor whiteColor];
 }
 
+- (UIColor *)buttonHighlightTitleColor {
+    return _buttonHighlightTitleColor ?: [self buttonTitleColor];
+}
+
 - (UIFont *)buttonFont {
     return _buttonFont ?: [UIFont boldSystemFontOfSize:14];
 }
@@ -99,8 +103,16 @@
     return _cancelButtonBackgroundColor ?: [UIColor lightGrayColor];
 }
 
+- (UIColor *)destructiveButtonTitleHighlightColor {
+    return _destructiveButtonTitleHighlightColor ?: [self destructiveButtonTitleColor];
+}
+
 - (UIColor *)cancelButtonTitleColor {
     return _cancelButtonTitleColor ?: [UIColor whiteColor];
+}
+
+- (UIColor *)cancelButtonTitleHighlightColor {
+    return _cancelButtonTitleHighlightColor ?: [self cancelButtonTitleColor];
 }
 
 - (NSNumber *)buttonCornerRadius {
@@ -302,7 +314,9 @@
     styler.buttonBackgroundColor = self.buttonBackgroundColor;
     styler.destructionButtonBackgroundColor = self.destructionButtonBackgroundColor;
     styler.destructiveButtonTitleColor = self.destructiveButtonTitleColor;
+    styler.destructiveButtonTitleHighlightColor = self.destructiveButtonTitleHighlightColor;
     styler.cancelButtonBackgroundColor = self.cancelButtonBackgroundColor;
+    styler.cancelButtonTitleHighlightColor = self.cancelButtonTitleHighlightColor;
     styler.cancelButtonTitleColor = self.cancelButtonTitleColor;
     styler.buttonTitleColor = self.buttonTitleColor;
     styler.backgroundColor = self.backgroundColor;
@@ -328,6 +342,8 @@
     styler.buttonBorderWidth = self.buttonBorderWidth;
     styler.buttonVerticalSeparatorWidth = self.buttonVerticalSeparatorWidth;
     styler.buttonVerticalSeparatorColor = self.buttonVerticalSeparatorColor;
+    styler.highlightedButtonBackgroundColor = self.highlightedButtonBackgroundColor;
+    styler.buttonHighlightTitleColor = self.buttonHighlightTitleColor;
     
     styler.sectionVerticalMargin = self.sectionVerticalMargin;
     styler.labelHorizontalMargin = self.labelHorizontalMargin;
