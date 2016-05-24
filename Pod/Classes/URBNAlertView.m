@@ -20,10 +20,10 @@
 - (void)setHighlighted:(BOOL)highlighted {
     [super setHighlighted:highlighted];
     if (self.actionType == URBNAlertActionTypeDestructive) {
-        self.backgroundColor = highlighted ? self.alertStyler.destructiveButtonHighlightedBackgroundColor : self.alertStyler.buttonBackgroundColor;
+        self.backgroundColor = highlighted ? self.alertStyler.destructiveButtonHighlightedBackgroundColor : self.alertStyler.destructionButtonBackgroundColor;
     }
     else if (self.actionType == URBNAlertActionTypeCancel) {
-        self.backgroundColor = highlighted ? self.alertStyler.cancelButtonHighlightedBackgroundColor : self.alertStyler.buttonBackgroundColor;
+        self.backgroundColor = highlighted ? self.alertStyler.cancelButtonHighlightedBackgroundColor : self.alertStyler.cancelButtonBackgroundColor;
     }
     else {
         self.backgroundColor = highlighted ? self.alertStyler.buttonHighlightedBackgroundColor : self.alertStyler.buttonBackgroundColor;
