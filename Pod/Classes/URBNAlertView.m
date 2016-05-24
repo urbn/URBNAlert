@@ -19,7 +19,15 @@
 
 - (void)setHighlighted:(BOOL)highlighted {
     [super setHighlighted:highlighted];
-    self.backgroundColor = highlighted ? self.alertStyler.highlightedButtonBackgroundColor : self.alertStyler.buttonBackgroundColor;
+    if (self.actionType == URBNAlertActionTypeDestructive) {
+        self.backgroundColor = highlighted ? self.alertStyler.destructiveButtonHighlightedBackgroundColor : self.alertStyler.buttonBackgroundColor;
+    }
+    else if (self.actionType == URBNAlertActionTypeCancel) {
+        self.backgroundColor = highlighted ? self.alertStyler.cancelButtonHighlightedBackgroundColor : self.alertStyler.buttonBackgroundColor;
+    }
+    else {
+        self.backgroundColor = highlighted ? self.alertStyler.buttonHighlightedBackgroundColor : self.alertStyler.buttonBackgroundColor;
+    }
 }
 
 @end

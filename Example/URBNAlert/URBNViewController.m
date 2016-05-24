@@ -101,7 +101,7 @@
     uac.alertStyler.buttonCornerRadius = @2;
     uac.alertStyler.buttonBorderWidth = @2;
     uac.alertStyler.buttonBorderColor = [UIColor cyanColor];
-    uac.alertStyler.highlightedButtonBackgroundColor = [UIColor magentaColor];
+    uac.alertStyler.buttonHighlightedBackgroundColor = [UIColor magentaColor];
     uac.alertStyler.alertCornerRadius = @2;
     uac.alertStyler.buttonHeight = @45;
     uac.alertStyler.animationDuration = @0.5f;

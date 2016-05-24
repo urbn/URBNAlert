@@ -123,8 +123,16 @@
     return _buttonHeight ?: @44;
 }
 
-- (UIColor *)highlightedButtonBackgroundColor {
-    return _highlightedButtonBackgroundColor ?: [self buttonBackgroundColor];
+- (UIColor *)buttonHighlightedBackgroundColor {
+    return _buttonHighlightedBackgroundColor ?: [self buttonBackgroundColor];
+}
+
+- (UIColor *)cancelButtonHighlightedBackgroundColor {
+    return _cancelButtonHighlightedBackgroundColor ?: [self buttonBackgroundColor];
+}
+
+- (UIColor *)destructiveButtonHighlightedBackgroundColor {
+    return _destructiveButtonHighlightedBackgroundColor ?: [self buttonBackgroundColor];
 }
 
 // TODO: Delete when buttonHorizontalMargin property goes away
@@ -342,7 +350,9 @@
     styler.buttonBorderWidth = self.buttonBorderWidth;
     styler.buttonVerticalSeparatorWidth = self.buttonVerticalSeparatorWidth;
     styler.buttonVerticalSeparatorColor = self.buttonVerticalSeparatorColor;
-    styler.highlightedButtonBackgroundColor = self.highlightedButtonBackgroundColor;
+    styler.buttonHighlightedBackgroundColor = self.buttonHighlightedBackgroundColor;
+    styler.cancelButtonHighlightedBackgroundColor = self.cancelButtonHighlightedBackgroundColor;
+    styler.destructiveButtonHighlightedBackgroundColor = self.destructiveButtonHighlightedBackgroundColor;
     styler.buttonHighlightTitleColor = self.buttonHighlightTitleColor;
     
     styler.sectionVerticalMargin = self.sectionVerticalMargin;

@@ -57,8 +57,19 @@
  * Background color of a highlighted button for an active alert
  */
 
-@property (nonatomic, strong) UIColor *highlightedButtonBackgroundColor;
+@property (nonatomic, strong) UIColor *buttonHighlightedBackgroundColor;
 
+/**
+ * Background color of a highlighted button for a cancel action
+ */
+
+@property (nonatomic, strong) UIColor *cancelButtonHighlightedBackgroundColor;
+
+/**
+ * Background color of a highlighted button for a destructive action
+ */
+
+@property (nonatomic, strong) UIColor *destructiveButtonHighlightedBackgroundColor;
 
 /**
  * Button title color on highlight
