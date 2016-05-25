@@ -30,7 +30,7 @@
 /**
  * Text color of destructive button title when highlighted
  */
-@property (nonatomic, strong) UIColor *destructiveButtonTitleHighlightColor;
+@property (nonatomic, strong) UIColor *destructiveButtonHighlightTitleColor;
 
 /**
  * Background color of the cancel button for an active alert
@@ -46,7 +46,7 @@
  * Text color of cancel button title when highlighted
  */
 
-@property (nonatomic, strong) UIColor *cancelButtonTitleHighlightColor;
+@property (nonatomic, strong) UIColor *cancelButtonHighlightTitleColor;
 
 /**
  * Background color of a disabled button for an active alert
@@ -57,19 +57,19 @@
  * Background color of a highlighted button for an active alert
  */
 
-@property (nonatomic, strong) UIColor *buttonHighlightedBackgroundColor;
+@property (nonatomic, strong) UIColor *buttonHighlightBackgroundColor;
 
 /**
  * Background color of a highlighted button for a cancel action
  */
 
-@property (nonatomic, strong) UIColor *cancelButtonHighlightedBackgroundColor;
+@property (nonatomic, strong) UIColor *cancelButtonHighlightBackgroundColor;
 
 /**
  * Background color of a highlighted button for a destructive action
  */
 
-@property (nonatomic, strong) UIColor *destructiveButtonHighlightedBackgroundColor;
+@property (nonatomic, strong) UIColor *destructiveButtonHighlightBackgroundColor;
 
 /**
  * Button title color on highlight

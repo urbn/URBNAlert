@@ -116,9 +116,9 @@
     uac.alertStyler.buttonVerticalSeparatorWidth = @.5f;
 
     uac.alertStyler.buttonHighlightTitleColor = [UIColor redColor];
-    uac.alertStyler.buttonHighlightedBackgroundColor = [UIColor magentaColor];
-    uac.alertStyler.cancelButtonTitleHighlightColor = [UIColor yellowColor];
-    uac.alertStyler.cancelButtonHighlightedBackgroundColor = [UIColor orangeColor];
+    uac.alertStyler.buttonHighlightBackgroundColor = [UIColor magentaColor];
+    uac.alertStyler.cancelButtonHighlightTitleColor = [UIColor yellowColor];
+    uac.alertStyler.cancelButtonHighlightBackgroundColor = [UIColor orangeColor];
 
     [uac addAction:[URBNAlertAction actionWithTitle:@"Cancel" actionType:URBNAlertActionTypeCancel actionCompleted:^(URBNAlertAction *action) {
         // Do something
@@ -213,8 +213,8 @@
     
     uac.alertStyler.separatorHeight = @1;
     uac.alertStyler.separatorColor = [UIColor darkGrayColor];
-    uac.alertStyler.destructiveButtonTitleHighlightColor = [UIColor magentaColor];
-    uac.alertStyler.destructiveButtonHighlightedBackgroundColor = [UIColor orangeColor];
+    uac.alertStyler.destructiveButtonHighlightTitleColor = [UIColor magentaColor];
+    uac.alertStyler.destructiveButtonHighlightBackgroundColor = [UIColor orangeColor];
 
     [uac addAction:[URBNAlertAction actionWithTitle:@"Submit" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
         // Alternate way to dismiss the currently active alert
