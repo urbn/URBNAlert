@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "URBNAlert"
-  s.version          = "1.9.7"
+  s.version          = "2.0.0"
   s.summary          = "A custom alert view based off of UIAlertController but highly customizable."
   s.homepage         = "https://github.com/urbn/URBNAlert"
   s.license          = 'MIT'
