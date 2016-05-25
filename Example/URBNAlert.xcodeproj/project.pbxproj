@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		303F8CBB1AAE5F180066F48B /* URBNAlertTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 303F8CBA1AAE5F180066F48B /* URBNAlertTests.m */; };
 		324673CF1AE54F63000A3D15 /* Launch Screen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 324673CE1AE54F63000A3D15 /* Launch Screen.xib */; };
-		452B1A63FF01456AB2010E7A /* libPods-URBNAlert.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41FBAAB2CC3C4A2310CD848F /* libPods-URBNAlert.a */; };
-		522C0C1664C2DC56F622A185 /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DFED6056D3E340F7C9D6183 /* libPods-Tests.a */; };
+		38C1CDA0A2836E3FA4100DD0 /* Pods_URBNAlert.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B782B80E2F688E1EA0605143 /* Pods_URBNAlert.framework */; };
+		4198045AEA9A7BDCD35A9A1F /* Pods_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E18ECD0530BD533F5E99B196 /* Pods_Tests.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -42,7 +42,6 @@
 		1E32F66FAFC86334578AC0FD /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		303F8CBA1AAE5F180066F48B /* URBNAlertTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URBNAlertTests.m; sourceTree = "<group>"; };
 		324673CE1AE54F63000A3D15 /* Launch Screen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = "Launch Screen.xib"; sourceTree = "<group>"; };
-		41FBAAB2CC3C4A2310CD848F /* libPods-URBNAlert.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-URBNAlert.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5EEAA59720050D1064BDBFC0 /* Pods-URBNAlert.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URBNAlert.release.xcconfig"; path = "Pods/Target Support Files/Pods-URBNAlert/Pods-URBNAlert.release.xcconfig"; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* URBNAlert.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = URBNAlert.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -63,9 +62,10 @@
 		6003F5B7195388D20070C39A /* Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Tests-Info.plist"; sourceTree = "<group>"; };
 		6003F5B9195388D20070C39A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		606FC2411953D9B200FFA9A0 /* Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Prefix.pch"; sourceTree = "<group>"; };
-		6DFED6056D3E340F7C9D6183 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7F52FE1D59B870516EAE7E93 /* Pods-Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.release.xcconfig"; sourceTree = "<group>"; };
+		B782B80E2F688E1EA0605143 /* Pods_URBNAlert.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_URBNAlert.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD762E09CB21347620A6D3DB /* URBNAlert.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = URBNAlert.podspec; path = ../URBNAlert.podspec; sourceTree = "<group>"; };
+		E18ECD0530BD533F5E99B196 /* Pods_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F369C9C27DC90E49608CF204 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -77,7 +77,7 @@
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
-				452B1A63FF01456AB2010E7A /* libPods-URBNAlert.a in Frameworks */,
+				38C1CDA0A2836E3FA4100DD0 /* Pods_URBNAlert.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +88,7 @@
 				6003F5B0195388D20070C39A /* XCTest.framework in Frameworks */,
 				6003F5B2195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F5B1195388D20070C39A /* Foundation.framework in Frameworks */,
-				522C0C1664C2DC56F622A185 /* libPods-Tests.a in Frameworks */,
+				4198045AEA9A7BDCD35A9A1F /* Pods_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,8 +123,8 @@
 				6003F58F195388D20070C39A /* CoreGraphics.framework */,
 				6003F591195388D20070C39A /* UIKit.framework */,
 				6003F5AF195388D20070C39A /* XCTest.framework */,
-				6DFED6056D3E340F7C9D6183 /* libPods-Tests.a */,
-				41FBAAB2CC3C4A2310CD848F /* libPods-URBNAlert.a */,
+				E18ECD0530BD533F5E99B196 /* Pods_Tests.framework */,
+				B782B80E2F688E1EA0605143 /* Pods_URBNAlert.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -477,7 +477,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -510,7 +510,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
