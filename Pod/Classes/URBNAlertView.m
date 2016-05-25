@@ -19,7 +19,15 @@
 
 - (void)setHighlighted:(BOOL)highlighted {
     [super setHighlighted:highlighted];
-    self.backgroundColor = highlighted ? self.alertStyler.highlightedButtonBackgroundColor : self.alertStyler.buttonBackgroundColor;
+    if (self.actionType == URBNAlertActionTypeDestructive) {
+        self.backgroundColor = highlighted ? self.alertStyler.destructiveButtonHighlightBackgroundColor : self.alertStyler.destructionButtonBackgroundColor;
+    }
+    else if (self.actionType == URBNAlertActionTypeCancel) {
+        self.backgroundColor = highlighted ? self.alertStyler.cancelButtonHighlightBackgroundColor : self.alertStyler.cancelButtonBackgroundColor;
+    }
+    else {
+        self.backgroundColor = highlighted ? self.alertStyler.buttonHighlightBackgroundColor : self.alertStyler.buttonBackgroundColor;
+    }
 }
 
 @end
@@ -336,12 +344,12 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     if (action.actionType == URBNAlertActionTypeDestructive) {
         titleColor = self.alertStyler.destructiveButtonTitleColor;
         bgColor = self.alertStyler.destructionButtonBackgroundColor;
-        highlightColor = self.alertStyler.destructiveButtonTitleHighlightColor;
+        highlightColor = self.alertStyler.destructiveButtonHighlightTitleColor;
     }
     else if (action.actionType == URBNAlertActionTypeCancel) {
         titleColor = self.alertStyler.cancelButtonTitleColor;
         bgColor = self.alertStyler.cancelButtonBackgroundColor;
-        highlightColor = self.alertStyler.cancelButtonTitleHighlightColor;
+        highlightColor = self.alertStyler.cancelButtonHighlightTitleColor;
     }
     
     URBNAlertActionButton *btn = [URBNAlertActionButton buttonWithType:UIButtonTypeCustom];
