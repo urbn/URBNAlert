@@ -7,12 +7,9 @@ Pod::Spec.new do |s|
   s.author           = { "urbn" => "jgrandelli@urbn.com" }
   s.source           = { :git => "https://github.com/urbn/URBNAlert.git", :tag => s.version.to_s }
 
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios, '8.0'
   s.requires_arc = true
   s.dependency 'URBNConvenience', '> 0.8.2'
 
   s.source_files = 'Pod/Classes/**/*'
-  s.resource_bundles = {
-    'URBNAlert' => ['Pod/Assets/*.png']
-  }
 end
