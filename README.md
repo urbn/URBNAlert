@@ -91,8 +91,7 @@ At the moment, URBNAlert only supports the following:
 Please create an issue for any additional support needed.
 
 ## Requirements
-
-- iOS 7+
+- As of v2.0.0, URBNAlert is iOS 8+. To use in iOS 7 you can lock down to v1.9.7
 
 ## Installation
 
