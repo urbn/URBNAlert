@@ -92,7 +92,6 @@
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom Styled Alert" message:@"You can change the fonts, colors, button size, corner radius, and much more."];
     uac.alertStyler.buttonBackgroundColor = [UIColor greenColor];
     uac.alertStyler.cancelButtonTitleColor = [UIColor whiteColor];
-    uac.alertStyler.cancelButtonTitleHighlightColor = [UIColor yellowColor];
     uac.alertStyler.backgroundColor = [UIColor orangeColor];
     uac.alertStyler.buttonTitleColor = [UIColor blackColor];
     uac.alertStyler.titleColor = [UIColor purpleColor];
@@ -101,7 +100,6 @@
     uac.alertStyler.buttonCornerRadius = @2;
     uac.alertStyler.buttonBorderWidth = @2;
     uac.alertStyler.buttonBorderColor = [UIColor cyanColor];
-    uac.alertStyler.buttonHighlightedBackgroundColor = [UIColor magentaColor];
     uac.alertStyler.alertCornerRadius = @2;
     uac.alertStyler.buttonHeight = @45;
     uac.alertStyler.animationDuration = @0.5f;
@@ -116,8 +114,12 @@
     uac.alertStyler.alertMaxWidth = @200;
     uac.alertStyler.buttonVerticalSeparatorColor = [UIColor blackColor];
     uac.alertStyler.buttonVerticalSeparatorWidth = @.5f;
+
     uac.alertStyler.buttonHighlightTitleColor = [UIColor redColor];
-    
+    uac.alertStyler.buttonHighlightedBackgroundColor = [UIColor magentaColor];
+    uac.alertStyler.cancelButtonTitleHighlightColor = [UIColor yellowColor];
+    uac.alertStyler.cancelButtonHighlightedBackgroundColor = [UIColor orangeColor];
+
     [uac addAction:[URBNAlertAction actionWithTitle:@"Cancel" actionType:URBNAlertActionTypeCancel actionCompleted:^(URBNAlertAction *action) {
         // Do something
     }]];
@@ -212,7 +214,8 @@
     uac.alertStyler.separatorHeight = @1;
     uac.alertStyler.separatorColor = [UIColor darkGrayColor];
     uac.alertStyler.destructiveButtonTitleHighlightColor = [UIColor magentaColor];
-    
+    uac.alertStyler.destructiveButtonHighlightedBackgroundColor = [UIColor orangeColor];
+
     [uac addAction:[URBNAlertAction actionWithTitle:@"Submit" actionType:URBNAlertActionTypeNormal dismissOnActionComplete:NO actionCompleted:^(URBNAlertAction *action) {
         // Alternate way to dismiss the currently active alert
         [[URBNAlertController sharedInstance] dismissAlert];
