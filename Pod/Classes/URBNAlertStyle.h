@@ -263,6 +263,16 @@
 @property (nonatomic, strong) NSNumber *customViewMargin;
 
 /**
+ * Color of the border around a custom view via layer
+ */
+@property (nonatomic, strong) UIColor *customViewBorderColor;
+
+/**
+ * Width of the border around a custom view via layer
+ */
+@property (nonatomic, strong) NSNumber *customViewBorderWidth;
+
+/**
  * Duration of the presenting and dismissing of the alert view
  */
 @property (nonatomic, strong) NSNumber *animationDuration;
