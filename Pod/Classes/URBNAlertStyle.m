@@ -213,6 +213,14 @@
     return _customViewMargin ?: @8;
 }
 
+- (UIColor *)customViewBorderColor {
+    return _customViewBorderColor ?: [UIColor clearColor];
+}
+
+- (NSNumber *)customViewBorderWidth {
+    return _customViewBorderWidth ?: @(0);
+}
+
 - (UIColor *)backgroundColor {
     return _backgroundColor ?: [UIColor whiteColor];
 }
@@ -365,6 +373,8 @@
     styler.buttonHorizontalMargin = self.buttonHorizontalMargin;
 #pragma clang diagnostic pop
     styler.customViewMargin = self.customViewMargin;
+    styler.customViewBorderWidth = self.customViewBorderWidth;
+    styler.customViewBorderColor = self.customViewBorderColor;
     styler.animationDuration = self.animationDuration;
     styler.animationDamping = self.animationDamping;
     styler.animationInitialVelocity = self.animationInitialVelocity;

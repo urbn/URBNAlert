@@ -135,6 +135,9 @@
 
 
 - (IBAction)activeAlertCustomViewTouch:(id)sender {
+    self.alertController.alertStyler.customViewBorderWidth = @(1);
+    self.alertController.alertStyler.customViewBorderColor = [UIColor purpleColor];
+    
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom View" message:nil view:self.customView];
     
     uac.alertStyler.firstResponder = self.customView.customTextField;

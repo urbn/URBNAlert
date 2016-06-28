@@ -64,6 +64,9 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
             self.sectionCount++;
         }
         
+        self.customView.layer.borderWidth = self.alertStyler.customViewBorderWidth.floatValue;
+        self.customView.layer.borderColor = self.alertStyler.customViewBorderColor.CGColor;
+        
         self.customView.translatesAutoresizingMaskIntoConstraints = NO;
         
         self.backgroundColor = self.alertStyler.backgroundColor ?: [UIColor whiteColor];
