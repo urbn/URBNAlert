@@ -14,6 +14,7 @@
 #import <URBNConvenience/UIView+URBNLayout.h>
 #import <URBNConvenience/URBNMacros.h>
 #import <URBNConvenience/URBNTextField.h>
+#import <URBNConvenience/UIView+URBNBorders.h>
 
 @implementation URBNAlertActionButton
 
@@ -30,6 +31,10 @@
     }
 }
 
+@end
+
+@interface UIView (URBNBorderConfig)
+- (void)setURBNBorder:(URBNBorder *)border withColor:(UIColor *)color andWidth:(NSNumber *)width;
 @end
 
 static NSInteger const kURBNAlertViewHeightPadding = 80.f;
@@ -74,6 +79,13 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         self.layer.cornerRadius = self.alertStyler.alertCornerRadius.floatValue;
         
         UIView *buttonContainer = [UIView new];
+
+        // If specified, set the border colors
+        [buttonContainer setURBNBorder: buttonContainer.urbn_topBorder withColor:self.alertStyler.buttonContainerTopBorderColor andWidth:self.alertStyler.buttonContainerTopBorderWidth];
+        [buttonContainer setURBNBorder: buttonContainer.urbn_bottomBorder withColor:self.alertStyler.buttonContainerBottomBorderColor andWidth:self.alertStyler.buttonContainerBottomBorderWidth];
+        [buttonContainer setURBNBorder: buttonContainer.urbn_rightBorder withColor:self.alertStyler.buttonContainerRightBorderColor andWidth:self.alertStyler.buttonContainerRightBorderWidth];
+        [buttonContainer setURBNBorder: buttonContainer.urbn_leftBorder withColor:self.alertStyler.buttonContainerLeftBorderColor andWidth:self.alertStyler.buttonContainerLeftBorderWidth];
+        
         NSDictionary *views;
         
         [self addSubview:self.titleLabel];
@@ -101,6 +113,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         NSMutableArray *btns = [NSMutableArray new];
         NSMutableArray *separators = [NSMutableArray new];
         buttonContainer.translatesAutoresizingMaskIntoConstraints = NO;
+        
         
         __weak typeof(self) weakSelf = self;
         [self.alertConfig.actions enumerateObjectsUsingBlock:^(URBNAlertAction *action, NSUInteger idx, BOOL *stop) {
@@ -443,6 +456,20 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     [textField resignFirstResponder];
     
     return NO;
+}
+
+@end
+
+#pragma mark - Helper for Button Container Style
+@implementation UIView (URBNBorderConfig)
+
+- (void)setURBNBorder:(URBNBorder *)border withColor:(UIColor *)color andWidth:(NSNumber *)width {
+    if (!color || !width) {
+        return;
+    }
+    
+    border.color = color;
+    border.width = width.floatValue;
 }
 
 @end
