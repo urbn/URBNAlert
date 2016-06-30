@@ -114,7 +114,6 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
         NSMutableArray *separators = [NSMutableArray new];
         buttonContainer.translatesAutoresizingMaskIntoConstraints = NO;
         
-        
         __weak typeof(self) weakSelf = self;
         [self.alertConfig.actions enumerateObjectsUsingBlock:^(URBNAlertAction *action, NSUInteger idx, BOOL *stop) {
             if (action.isButton) {
