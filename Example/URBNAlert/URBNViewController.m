@@ -135,8 +135,22 @@
 
 
 - (IBAction)activeAlertCustomViewTouch:(id)sender {
+    // test custom view borders
     self.alertController.alertStyler.customViewBorderWidth = @(1);
     self.alertController.alertStyler.customViewBorderColor = [UIColor purpleColor];
+    
+    // test button container borders
+    self.alertController.alertStyler.buttonContainerTopBorderColor = [UIColor greenColor];
+    self.alertController.alertStyler.buttonContainerTopBorderWidth = @(1);
+    
+    self.alertController.alertStyler.buttonContainerBottomBorderColor = [UIColor yellowColor];
+    self.alertController.alertStyler.buttonContainerBottomBorderWidth = @(2);
+    
+    self.alertController.alertStyler.buttonContainerRightBorderColor = [UIColor redColor];
+    self.alertController.alertStyler.buttonContainerRightBorderWidth = @(3);
+    
+    // should not be displayed since width is not provided
+    self.alertController.alertStyler.buttonContainerLeftBorderColor = [UIColor blueColor];
     
     URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Custom View" message:nil view:self.customView];
     

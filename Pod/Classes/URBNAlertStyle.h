@@ -343,6 +343,62 @@
 @property (nonatomic, strong) UIFont *errorTextFont;
 
 /**
+ * Color for the top border of the button container
+ * No default provided
+ * Must be used with a non-nil BorderWidth
+ */
+@property (nonatomic, strong) UIColor *buttonContainerTopBorderColor;
+
+/**
+ * Width(thickness) for the top border of the button container
+ * No default provided
+ * Must be used with a non-nil BorderColor
+ */
+@property (nonatomic, strong) NSNumber *buttonContainerTopBorderWidth;
+
+/**
+ * Color for the Bottom border of the button container
+ * No default provided
+ * Must be used with a non-nil BorderWidth
+ */
+@property (nonatomic, strong) UIColor *buttonContainerBottomBorderColor;
+
+/**
+ * Width(thickness) for the Bottom border of the button container
+ * No default provided
+ * Must be used with a non-nil BorderColor
+ */
+@property (nonatomic, strong) NSNumber *buttonContainerBottomBorderWidth;
+
+/**
+ * Color for the Right border of the button container
+ * No default provided
+ * Must be used with a non-nil BorderWidth
+ */
+@property (nonatomic, strong) UIColor *buttonContainerRightBorderColor;
+
+/**
+ * Width(thickness) for the Right border of the button container
+ * No default provided
+ * Must be used with a non-nil BorderColor
+ */
+@property (nonatomic, strong) NSNumber *buttonContainerRightBorderWidth;
+
+/**
+ * Color for the Left border of the button container
+ * No default provided
+ * Must be used with a non-nil BorderWidth
+ */
+@property (nonatomic, strong) UIColor *buttonContainerLeftBorderColor;
+
+/**
+ * Width(thickness) for the Left border of the button container
+ * No default provided
+ * Must be used with a non-nil BorderColor
+ */
+@property (nonatomic, strong) NSNumber *buttonContainerLeftBorderWidth;
+
+/**
  * The view you want to become the first responder when the alert view is finished presenting
  * The alert position will adjust for the keyboard when using this property
  */

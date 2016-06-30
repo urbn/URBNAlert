@@ -393,6 +393,18 @@
     styler.separatorHeight = self.separatorHeight;
     styler.useVerticalLayoutForTwoButtons = self.useVerticalLayoutForTwoButtons;
     
+    styler.buttonContainerTopBorderColor = self.buttonContainerTopBorderColor;
+    styler.buttonContainerTopBorderWidth = self.buttonContainerTopBorderWidth;
+    
+    styler.buttonContainerBottomBorderColor = self.buttonContainerBottomBorderColor;
+    styler.buttonContainerBottomBorderWidth = self.buttonContainerBottomBorderWidth;
+    
+    styler.buttonContainerRightBorderColor = self.buttonContainerRightBorderColor;
+    styler.buttonContainerRightBorderWidth = self.buttonContainerRightBorderWidth;
+    
+    styler.buttonContainerLeftBorderColor = self.buttonContainerLeftBorderColor;
+    styler.buttonContainerLeftBorderWidth = self.buttonContainerLeftBorderWidth;
+    
     return styler;
 }
 
