@@ -185,7 +185,8 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
                 [buttonContainer addSubview:verticalSeparator];
                 
                 [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-btnLeftMargin-[btnOne]-btnVSepMargin-[vertSep(btnVSepW)]-btnVSepMargin-[btnTwo(==btnOne)]-btnRightMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject, @"btnTwo" : self.buttons.lastObject, @"vertSep": verticalSeparator}]];
-                [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[vertSep(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"vertSep": verticalSeparator}]];
+                
+                [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[vertSep(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"vertSep": verticalSeparator}]];
             }
             
             [buttonContainer addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-btnTopMargin-[btnOne(btnH)]-btnBottomMargin-|" options:0 metrics:metrics views:@{@"btnOne" : self.buttons.firstObject}]];
