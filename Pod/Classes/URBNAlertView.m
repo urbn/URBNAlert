@@ -362,7 +362,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
 
 #pragma mark - Methods
 - (URBNAlertActionButton *)createAlertViewButtonWithAction:(URBNAlertAction *)action atIndex:(NSInteger)index {
-    UIColor *bgColor = self.alertStyler.buttonBackgroundColor;
+    UIColor *bgColor = action.isSelected ? self.alertStyler.buttonSelectedBackgroundColor : self.alertStyler.buttonBackgroundColor;
     UIColor *titleColor = self.alertStyler.buttonTitleColor;
     UIColor *highlightColor = self.alertStyler.buttonHighlightTitleColor;
     UIColor *selectedColor = self.alertStyler.buttonSelectedTitleColor;
@@ -390,7 +390,7 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     btn.layer.borderColor = self.alertStyler.buttonBorderColor.CGColor;
     btn.layer.borderWidth = self.alertStyler.buttonBorderWidth.floatValue;
     btn.contentEdgeInsets = self.alertStyler.buttonContentInsets;
-    
+
     btn.tag = index;
     btn.actionType = action.actionType;
     btn.alertStyler = self.alertStyler;
@@ -401,6 +401,8 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     [btn setTitleColor:selectedColor forState:UIControlStateSelected];
 
     [btn addTarget:self action:@selector(buttonTouch:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [btn setSelected:action.isSelected];
     
     return btn;
 }

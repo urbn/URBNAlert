@@ -345,6 +345,8 @@
     styler.buttonTitleColor = self.buttonTitleColor;
     styler.backgroundColor = self.backgroundColor;
     styler.titleColor = self.titleColor;
+    styler.buttonSelectedTitleColor = self.buttonSelectedTitleColor;
+    styler.buttonSelectedBackgroundColor = self.buttonSelectedBackgroundColor;
     styler.messageColor = self.messageColor;
     styler.titleFont = self.titleFont;
     styler.titleAlignment = self.titleAlignment;

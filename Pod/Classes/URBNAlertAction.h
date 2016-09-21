@@ -23,6 +23,7 @@ typedef void(^URBNAlertCompletion)(URBNAlertAction *action);
 
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, assign) BOOL dismissOnCompletion;
+@property (nonatomic, assign) BOOL isSelected;
 @property (nonatomic, assign) URBNAlertActionType actionType;
 @property (nonatomic, weak) URBNAlertActionButton *actionButton;
 
