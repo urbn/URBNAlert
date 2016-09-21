@@ -20,15 +20,24 @@
 
 - (void)setHighlighted:(BOOL)highlighted {
     [super setHighlighted:highlighted];
-    if (self.actionType == URBNAlertActionTypeDestructive) {
-        self.backgroundColor = highlighted ? self.alertStyler.destructiveButtonHighlightBackgroundColor : self.alertStyler.destructionButtonBackgroundColor;
+    
+    if (!self.isSelected) {
+        if (self.actionType == URBNAlertActionTypeDestructive) {
+            self.backgroundColor = highlighted ? self.alertStyler.destructiveButtonHighlightBackgroundColor : self.alertStyler.destructionButtonBackgroundColor;
+        }
+        else if (self.actionType == URBNAlertActionTypeCancel) {
+            self.backgroundColor = highlighted ? self.alertStyler.cancelButtonHighlightBackgroundColor : self.alertStyler.cancelButtonBackgroundColor;
+        }
+        else {
+            self.backgroundColor = highlighted ? self.alertStyler.buttonHighlightBackgroundColor : self.alertStyler.buttonBackgroundColor;
+        }
     }
-    else if (self.actionType == URBNAlertActionTypeCancel) {
-        self.backgroundColor = highlighted ? self.alertStyler.cancelButtonHighlightBackgroundColor : self.alertStyler.cancelButtonBackgroundColor;
-    }
-    else {
-        self.backgroundColor = highlighted ? self.alertStyler.buttonHighlightBackgroundColor : self.alertStyler.buttonBackgroundColor;
-    }
+}
+
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+    
+    self.backgroundColor = selected ? self.alertStyler.buttonSelectedBackgroundColor : self.alertStyler.buttonBackgroundColor;
 }
 
 @end
@@ -356,7 +365,8 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     UIColor *bgColor = self.alertStyler.buttonBackgroundColor;
     UIColor *titleColor = self.alertStyler.buttonTitleColor;
     UIColor *highlightColor = self.alertStyler.buttonHighlightTitleColor;
-    
+    UIColor *selectedColor = self.alertStyler.buttonSelectedTitleColor;
+
     if (action.actionType == URBNAlertActionTypeDestructive) {
         titleColor = self.alertStyler.destructiveButtonTitleColor;
         bgColor = self.alertStyler.destructionButtonBackgroundColor;
@@ -388,7 +398,8 @@ static NSInteger const kURBNAlertViewHeightPadding = 80.f;
     [btn setTitle:action.title forState:UIControlStateNormal];
     [btn setTitleColor:titleColor forState:UIControlStateNormal];
     [btn setTitleColor:highlightColor forState:UIControlStateHighlighted];
-    
+    [btn setTitleColor:selectedColor forState:UIControlStateSelected];
+
     [btn addTarget:self action:@selector(buttonTouch:) forControlEvents:UIControlEventTouchUpInside];
     
     return btn;
