@@ -1,5 +1,5 @@
 PODS:
-  - URBNAlert (2.1):
+  - URBNAlert (2.2):
     - URBNConvenience (> 0.8.2)
   - URBNConvenience (1.0.0)
 
@@ -11,9 +11,9 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  URBNAlert: e7261a4b5c3299457611d629a7eabb89fc5edae4
+  URBNAlert: 2765d96a07ebce8ec5a4d3fbaf7d39db8f465e3a
   URBNConvenience: 46437a01fa6b138791b1856d8d3f78154c2f1912
 
 PODFILE CHECKSUM: ee38b8556e71654bf3472f1a8899c93a824572dc
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.1.0.rc.2
