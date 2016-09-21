@@ -37,7 +37,7 @@
 - (void)setSelected:(BOOL)selected {
     [super setSelected:selected];
     
-    self.backgroundColor = selected ? self.alertStyler.buttonSelectedBackgroundColor : [self.alertStyler buttonBackgroundColorForActionType:self.actionType isEnabled:self.enabled];
+    self.backgroundColor = selected ? self.alertStyler.buttonSelectedBackgroundColor : [self.alertStyler buttonBackgroundColorForActionType:self.actionType isEnabled:self.enabled]; 
 }
 
 @end
