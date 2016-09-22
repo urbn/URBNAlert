@@ -6,4 +6,4 @@ before_install:
 
 script:
 - xcodebuild -workspace Example/URBNAlert.xcworkspace -scheme URBNAlert-Example clean build -destination "platform=iOS Simulator,name=iPhone 6,OS=latest" -destination-timeout 120 test
-- pod lib lint --quick
+- pod lib lint
