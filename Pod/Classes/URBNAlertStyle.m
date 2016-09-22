@@ -83,6 +83,10 @@
     return _buttonHighlightTitleColor ?: [self buttonTitleColor];
 }
 
+- (UIColor *)buttonSelectedTitleColor {
+    return _buttonSelectedTitleColor ?: [self buttonTitleColor];
+}
+
 - (UIFont *)buttonFont {
     return _buttonFont ?: [UIFont boldSystemFontOfSize:14];
 }
@@ -125,6 +129,10 @@
 
 - (UIColor *)buttonHighlightBackgroundColor {
     return _buttonHighlightBackgroundColor ?: [self buttonBackgroundColor];
+}
+
+- (UIColor *)buttonSelectedBackgroundColor {
+    return _buttonSelectedBackgroundColor ?: [self buttonBackgroundColor];
 }
 
 - (UIColor *)cancelButtonHighlightBackgroundColor {
@@ -337,6 +345,8 @@
     styler.buttonTitleColor = self.buttonTitleColor;
     styler.backgroundColor = self.backgroundColor;
     styler.titleColor = self.titleColor;
+    styler.buttonSelectedTitleColor = self.buttonSelectedTitleColor;
+    styler.buttonSelectedBackgroundColor = self.buttonSelectedBackgroundColor;
     styler.messageColor = self.messageColor;
     styler.titleFont = self.titleFont;
     styler.titleAlignment = self.titleAlignment;
