@@ -249,6 +249,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Ryan Garchinsky";
 				TargetAttributes = {
+					6003F589195388D20070C39A = {
+						LastSwiftMigration = 0800;
+					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
 					};
@@ -527,6 +530,7 @@
 				GCC_PREFIX_HEADER = "URBNAlert/URBNAlert-Prefix.pch";
 				INFOPLIST_FILE = "URBNAlert/URBNAlert-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -541,6 +545,7 @@
 				GCC_PREFIX_HEADER = "URBNAlert/URBNAlert-Prefix.pch";
 				INFOPLIST_FILE = "URBNAlert/URBNAlert-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
