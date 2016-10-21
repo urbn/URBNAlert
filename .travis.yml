@@ -7,7 +7,7 @@ language: objective-c
 
 before_install:
  - sudo gem install cocoapods -v '1.1.1'
- - cd Example && rm -rf Pods && pod install && cd -
+ - cd Example && rm -rf Pods && rm -rf Podfile.lock && pod install && cd -
 
 script:
 - xcodebuild -workspace Example/URBNAlert.xcworkspace -scheme URBNAlert-Example clean build -destination "platform=iOS Simulator,name=iPhone 6,OS=latest" -destination-timeout 120 test
