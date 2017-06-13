@@ -23,7 +23,7 @@ Checkout & run the pod's example project to see what URBNAlert is capable of.
 ### Special Note: To support background blur on iPhone 6 or 6+, you need to include a Launch image or xib that supports those devices.
 During blurring of the background, there seems to be an issue with Apple’s `drawViewHierarchyInRect:afterScreenUpdates:` when `afterScreenUpdates = YES`. If no launch image or xib is supplied for the iPhone 6 or 6+, `drawViewHierarchyInRect:afterScreenUpdates:` will resize the view briefly and cause an animation artifact. To properly support background blur on those devices, a Launch image or xib must be included.
 
-#####Setting a global alert stlyle:
+##### Setting a global alert stlyle:
 ```objective-c
 // Set global stlying. This can be done sometime during app launch. You can change style options per alert as well.
 URBNAlertController *alertController = [URBNAlertController sharedInstance];
@@ -33,7 +33,7 @@ alertController.alertStyler.backgroundColor = [UIColor greyColor];
 alertController.alertStyler.titleFont = [UIFont fontWithName:@"" size:14.f]; 
 ```
 
-#####Basic Active Alert (2 buttons)
+##### Basic Active Alert (2 buttons)
 ```objective-c
 URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
 
@@ -52,7 +52,7 @@ uac.alertStyler.backgroundColor = [UIColor orangeColor];
 [uac show];
 ```
 
-#####Active Alert with UITextField
+##### Active Alert with UITextField
 ```objective-c
 URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"Input Alert" message:@"Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. Message and message and message and going on forever and ever. and message and message and going on forever and ever." view:nil];
     
@@ -70,7 +70,7 @@ URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"
 [uac show];
 ```
 
-#####Basic Passive Alert
+##### Basic Passive Alert
 ```objective-c
 URBNAlertViewController *uac = [[URBNAlertViewController alloc] initWithTitle:@"The Title of my message can be up to 2 lines long. It wraps and centers." message:@"And the message that is a bunch of text. And the message that is a bunch of text. And the message that is a bunch of text."];
 uac.alertConfig.touchOutsideViewToDismiss = YES; // Touching outside the alert view will dismiss the alert (only for passive alerts)
@@ -84,7 +84,7 @@ uac.alertStyler.blurEnabled = @NO;
 [uac show];
 ```
 
-#####Limitations
+##### Limitations
 At the moment, URBNAlert only supports the following:
 - Up to 2 buttons for an active alert
 
