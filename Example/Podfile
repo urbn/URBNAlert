@@ -1,12 +1,13 @@
-source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '10.0'
+
 use_frameworks!
 
-target 'URBNAlert' do
-    target 'Tests' do
+target 'URBNSwiftAlert_Example' do
+  pod 'URBNAlert', :path => '../'
+
+  target 'URBNSwiftAlert_Tests' do
     inherit! :search_paths
-    end 
+
+
+  end
 end
-
-
-pod "URBNAlert", :path => "../"
