@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:URBNSwiftAlert.xcodeproj">
+      location = "group:/Users/garchinskyr1/Documents/URBN-Git/~URBNAlert/Example/URBNAlert.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

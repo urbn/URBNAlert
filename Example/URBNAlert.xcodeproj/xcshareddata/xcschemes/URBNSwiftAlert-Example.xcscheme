@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-               BuildableName = "URBNSwiftAlert_Example.app"
-               BlueprintName = "URBNSwiftAlert_Example"
+               BuildableName = "URBNAlert_Example.app"
+               BlueprintName = "URBNAlert_Example"
                ReferencedContainer = "container:URBNSwiftAlert.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "URBNSwiftAlert_Tests.xctest"
-               BlueprintName = "URBNSwiftAlert_Tests"
+               BuildableName = "URBNAlert_Tests.xctest"
+               BlueprintName = "URBNAlert_Tests"
                ReferencedContainer = "container:URBNSwiftAlert.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "607FACE41AFB9204008FA782"
-               BuildableName = "URBNSwiftAlert_Tests.xctest"
-               BlueprintName = "URBNSwiftAlert_Tests"
+               BuildableName = "URBNAlert_Tests.xctest"
+               BlueprintName = "URBNAlert_Tests"
                ReferencedContainer = "container:URBNSwiftAlert.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -57,8 +57,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "URBNSwiftAlert_Example.app"
-            BlueprintName = "URBNSwiftAlert_Example"
+            BuildableName = "URBNAlert_Example.app"
+            BlueprintName = "URBNAlert_Example"
             ReferencedContainer = "container:URBNSwiftAlert.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -80,8 +80,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "URBNSwiftAlert_Example.app"
-            BlueprintName = "URBNSwiftAlert_Example"
+            BuildableName = "URBNAlert_Example.app"
+            BlueprintName = "URBNAlert_Example"
             ReferencedContainer = "container:URBNSwiftAlert.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -99,8 +99,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "607FACCF1AFB9204008FA782"
-            BuildableName = "URBNSwiftAlert_Example.app"
-            BlueprintName = "URBNSwiftAlert_Example"
+            BuildableName = "URBNAlert_Example.app"
+            BlueprintName = "URBNAlert_Example"
             ReferencedContainer = "container:URBNSwiftAlert.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
