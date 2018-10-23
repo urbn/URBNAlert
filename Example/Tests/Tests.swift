@@ -1,6 +1,6 @@
 import UIKit
 import XCTest
-import URBNSwiftAlert
+import URBNAlert
 
 class Tests: XCTestCase {
     
