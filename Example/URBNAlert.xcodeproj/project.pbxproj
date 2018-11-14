@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30AFB810219C9CAC00FCBF4B /* URBNAlert.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 30AFB80F219C9CAC00FCBF4B /* URBNAlert.podspec */; };
 		3CAA97A6E9F73EC35627862E /* Pods_URBNAlert_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E405F70983FEA70C09C4994 /* Pods_URBNAlert_Tests.framework */; };
-		48A00E8722D71BCA6E6778BA /* Pods_URBNSwiftAlert_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AEB30107A800EAB8C5E74846 /* Pods_URBNSwiftAlert_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ExampleViewController.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		DE7C2D64FFD119FFB1FD2B56 /* Pods_URBNSwiftAlert_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8739468AA4C73F23C3E5FE5B /* Pods_URBNSwiftAlert_Tests.framework */; };
 		F28C7609746CE3F4AF3448B1 /* Pods_URBNAlert_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E303E9F8B45E014B0B02F1 /* Pods_URBNAlert_Example.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +31,7 @@
 		1B58523F91BC0F4AAE1FE3F4 /* Pods-URBNAlert_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URBNAlert_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URBNAlert_Example/Pods-URBNAlert_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		2631954B1F0598FCEDAF5BDF /* Pods-URBNAlert_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URBNAlert_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-URBNAlert_Example/Pods-URBNAlert_Example.release.xcconfig"; sourceTree = "<group>"; };
 		303E469A80FEB0A13C49660A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		30AFB80F219C9CAC00FCBF4B /* URBNAlert.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = URBNAlert.podspec; path = ../URBNAlert.podspec; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* URBNAlert_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = URBNAlert_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -41,18 +41,11 @@
 		607FACE51AFB9204008FA782 /* URBNAlert_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = URBNAlert_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		695FD8FED605ECFA1CEE8ED7 /* Pods-URBNSwiftAlert_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URBNSwiftAlert_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-URBNSwiftAlert_Tests/Pods-URBNSwiftAlert_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		699979A486344A36AA9DAA53 /* Pods-URBNSwiftAlert_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URBNSwiftAlert_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URBNSwiftAlert_Example/Pods-URBNSwiftAlert_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		6E405F70983FEA70C09C4994 /* Pods_URBNAlert_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_URBNAlert_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		782107166694F1D9B87A38D1 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		7AD62C4137C820B2F3A17C32 /* URBNSwiftAlert.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = URBNSwiftAlert.podspec; path = ../URBNSwiftAlert.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		8739468AA4C73F23C3E5FE5B /* Pods_URBNSwiftAlert_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_URBNSwiftAlert_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8FB2459DE3DC76259F8A534D /* Pods-URBNSwiftAlert_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URBNSwiftAlert_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-URBNSwiftAlert_Example/Pods-URBNSwiftAlert_Example.release.xcconfig"; sourceTree = "<group>"; };
 		911290D74CFCB26E9CBD1E11 /* Pods-URBNAlert_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URBNAlert_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-URBNAlert_Tests/Pods-URBNAlert_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		A0A4845F5D21D28D6623E713 /* Pods-URBNSwiftAlert_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URBNSwiftAlert_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URBNSwiftAlert_Tests/Pods-URBNSwiftAlert_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		A1E303E9F8B45E014B0B02F1 /* Pods_URBNAlert_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_URBNAlert_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACCD91E7E027C73E03C6BFC0 /* Pods-URBNAlert_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-URBNAlert_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-URBNAlert_Tests/Pods-URBNAlert_Tests.debug.xcconfig"; sourceTree = "<group>"; };
-		AEB30107A800EAB8C5E74846 /* Pods_URBNSwiftAlert_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_URBNSwiftAlert_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				48A00E8722D71BCA6E6778BA /* Pods_URBNSwiftAlert_Example.framework in Frameworks */,
 				F28C7609746CE3F4AF3448B1 /* Pods_URBNAlert_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -69,7 +61,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE7C2D64FFD119FFB1FD2B56 /* Pods_URBNSwiftAlert_Tests.framework in Frameworks */,
 				3CAA97A6E9F73EC35627862E /* Pods_URBNAlert_Tests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -139,7 +130,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				7AD62C4137C820B2F3A17C32 /* URBNSwiftAlert.podspec */,
+				30AFB80F219C9CAC00FCBF4B /* URBNAlert.podspec */,
 				782107166694F1D9B87A38D1 /* README.md */,
 				303E469A80FEB0A13C49660A /* LICENSE */,
 			);
@@ -149,8 +140,6 @@
 		78782D090C88B19946783621 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				AEB30107A800EAB8C5E74846 /* Pods_URBNSwiftAlert_Example.framework */,
-				8739468AA4C73F23C3E5FE5B /* Pods_URBNSwiftAlert_Tests.framework */,
 				A1E303E9F8B45E014B0B02F1 /* Pods_URBNAlert_Example.framework */,
 				6E405F70983FEA70C09C4994 /* Pods_URBNAlert_Tests.framework */,
 			);
@@ -160,10 +149,6 @@
 		ED5D3DA05B0FD943D114D83D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				699979A486344A36AA9DAA53 /* Pods-URBNSwiftAlert_Example.debug.xcconfig */,
-				8FB2459DE3DC76259F8A534D /* Pods-URBNSwiftAlert_Example.release.xcconfig */,
-				A0A4845F5D21D28D6623E713 /* Pods-URBNSwiftAlert_Tests.debug.xcconfig */,
-				695FD8FED605ECFA1CEE8ED7 /* Pods-URBNSwiftAlert_Tests.release.xcconfig */,
 				1B58523F91BC0F4AAE1FE3F4 /* Pods-URBNAlert_Example.debug.xcconfig */,
 				2631954B1F0598FCEDAF5BDF /* Pods-URBNAlert_Example.release.xcconfig */,
 				ACCD91E7E027C73E03C6BFC0 /* Pods-URBNAlert_Tests.debug.xcconfig */,
@@ -259,6 +244,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30AFB810219C9CAC00FCBF4B /* URBNAlert.podspec in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
 			);
