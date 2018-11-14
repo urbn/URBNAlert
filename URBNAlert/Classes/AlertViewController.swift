@@ -100,9 +100,9 @@ open class AlertViewController: UIViewController {
             return
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notif:)), name: .UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notif:)), name: .UIKeyboardWillHide, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notif:)), name: .UIKeyboardDidChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notif:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notif:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notif:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
         
         setUpBackground()
         layout(alertContainer: ac)
@@ -331,7 +331,7 @@ extension AlertViewController {
 // MARK: Keyboard management
 extension AlertViewController {
     @objc func keyboardWillShow(notif: Notification) {
-        if let value = notif.userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue, let av = alertView  {
+        if let value = notif.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue, let av = alertView  {
             let kbFrame = value.cgRectValue
             let alertViewBottomYPos = av.frame.height + av.frame.origin.y
             let offSet = -(alertViewBottomYPos - kbFrame.origin.y)

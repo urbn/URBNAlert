@@ -267,7 +267,7 @@ extension AlertStyler {
         /**
          *  Layout axis for buttons (for 3+ always vertical always used)
          */
-        public var layoutAxis = UILayoutConstraintAxis.horizontal
+        public var layoutAxis = NSLayoutConstraint.Axis.horizontal
         
         /**
          * Alpha value of a button

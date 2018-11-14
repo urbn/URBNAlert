@@ -68,7 +68,7 @@ public class AlertController: NSObject {
         if alertWindow == nil {
             alertWindow = UIWindow(frame: UIScreen.main.bounds)
         }
-        alertWindow?.windowLevel = UIWindowLevelAlert
+        alertWindow?.windowLevel = UIWindow.Level.alert
         alertWindow?.isHidden = false
         alertWindow?.accessibilityIdentifier = "alertWindow"
         
