@@ -1,23 +1,28 @@
 PODS:
   - URBNAlert (3.0):
     - URBNSwiftyConvenience (~> 1.0)
-  - URBNSwiftyConvenience (1.4.0)
+  - URBNSwiftyConvenience (1.5.0)
 
 DEPENDENCIES:
   - URBNAlert (from `../`)
-
-SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
-    - URBNSwiftyConvenience
+  - URBNSwiftyConvenience (from `https://github.com/urbn/URBNSwiftyConvenience.git`, branch `master`)
 
 EXTERNAL SOURCES:
   URBNAlert:
     :path: "../"
+  URBNSwiftyConvenience:
+    :branch: master
+    :git: https://github.com/urbn/URBNSwiftyConvenience.git
+
+CHECKOUT OPTIONS:
+  URBNSwiftyConvenience:
+    :commit: e18cba315a4ef88c83aa7a458b6863643c59acdc
+    :git: https://github.com/urbn/URBNSwiftyConvenience.git
 
 SPEC CHECKSUMS:
   URBNAlert: cf9b096558e94fb6963d6291135b114eed6c9068
-  URBNSwiftyConvenience: 7dbe6eb2cd76755f48864640a8c7f4fada45667b
+  URBNSwiftyConvenience: 6f35fa8fa3bd52d2efeedc67ff056320eac171e8
 
-PODFILE CHECKSUM: f564a2f0e23561d571b612d4a88345eba971424e
+PODFILE CHECKSUM: 3de99085e5d1cc9bee053e4069b73fff89094ec4
 
 COCOAPODS: 1.5.3
