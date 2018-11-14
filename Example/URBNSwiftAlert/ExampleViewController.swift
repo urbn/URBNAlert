@@ -299,7 +299,7 @@ extension ExampleViewController: UICollectionViewDelegate, UICollectionViewDeleg
         collectionView?.delegate = self
         collectionView?.dataSource = self
         collectionView?.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        collectionView?.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header")
+        collectionView?.register(UICollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         collectionView?.backgroundColor = UIColor.lightGray
         
         if let cv = collectionView {
@@ -315,7 +315,7 @@ extension ExampleViewController: UICollectionViewDelegate, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "header", for: indexPath)
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header", for: indexPath)
         if let label = exampleSectionLabels?[indexPath.section][indexPath.row] {
             label.backgroundColor = .white
             label.textAlignment = .center
