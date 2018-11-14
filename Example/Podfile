@@ -7,7 +7,7 @@ target 'URBNAlert_Example' do
 
   target 'URBNAlert_Tests' do
     inherit! :search_paths
-
+	pod 'URBNSwiftyConvenience', :git => 'https://github.com/urbn/URBNSwiftyConvenience.git', :branch => 'master'
 
   end
 end
