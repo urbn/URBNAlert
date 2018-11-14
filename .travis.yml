@@ -12,3 +12,4 @@ before_install:
 
 script:
 - set -o pipefail && xcodebuild test -workspace Example/URBNAlert.xcworkspace -scheme URBNAlert_Example -sdk iphonesimulator12.1 ONLY_ACTIVE_ARCH=NO | xcpretty
+- pod lib lint
