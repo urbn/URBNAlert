@@ -152,7 +152,8 @@ extension AlertView {
     }
     
     func addButtons() {
-        guard configuration.actions.count > 0 else { return }
+        // Only add the container if we have non-passive actions added
+        guard configuration.actions.filter( { $0.type != AlertAction.ActionType.passive } ).count > 0 else { return }
         
         buttonsSV.axis = configuration.actions.count < 3 ? configuration.styler.button.layoutAxis : .vertical
         buttonsSV.distribution = .fillEqually
