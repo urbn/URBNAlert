@@ -45,7 +45,7 @@ class ExampleViewController: UIViewController {
         customStyleAlert.alertStyler.message.font = UIFont(name: "AmericanTypewriter-Bold", size: 15)
         
         customStyleAlert.alertStyler.alert.labelVerticalSpacing = 0
-        customStyleAlert.alertStyler.alert.cornerRadius = 5.0
+        customStyleAlert.alertStyler.alert.cornerRadius = 10
         customStyleAlert.alertStyler.alert.horizontalMargin = 30
         customStyleAlert.alertStyler.alert.insets = UIEdgeInsets(top: 30, left: 0, bottom: 0, right: 0)
         
@@ -148,7 +148,6 @@ class ExampleViewController: UIViewController {
                 return
             }
             validateAlert.showTextFieldError(message: "Error! You must enter more than 4 characters.  You must now cancel to close.")
-            action.button?.isEnabled = false
         }
         
         validateAlert.addActions(validateCancelAction, validateDoneAction)

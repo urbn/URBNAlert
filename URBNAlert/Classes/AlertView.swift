@@ -152,12 +152,17 @@ extension AlertView {
     }
     
     func addButtons() {
+        guard configuration.actions.count > 0 else { return }
+        
         buttonsSV.axis = configuration.actions.count < 3 ? configuration.styler.button.layoutAxis : .vertical
         buttonsSV.distribution = .fillEqually
         buttonsSV.spacing = configuration.styler.button.spacing
         
         let buttonContainer = UIView()
         buttonContainer.backgroundColor = configuration.styler.button.buttonContainerBackgroundColor
+        // Ensure the button container corner radius matches the base alerts radius
+        buttonContainer.layer.cornerRadius = configuration.styler.alert.cornerRadius
+
         buttonsSV.wrap(in: buttonContainer, with: configuration.styler.button.containerInsetConstraints)
         let borderButtonSV = UIStackView(arrangedSubviews: [separatorBorderView, buttonContainer])
         borderButtonSV.axis = .vertical
