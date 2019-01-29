@@ -6,6 +6,7 @@
 [![Platform](https://img.shields.io/cocoapods/p/URBNAlert.svg?style=flat)](http://cocoadocs.org/docsets/URBNAlert)
 
 ## !!!Updated v3.0 Readme coming soon!!!! 
+In the mean time, run the Example project and see [ExampleViewController.swift](https://github.com/urbn/URBNAlert/blob/master/Example/URBNSwiftAlert/ExampleViewController.swift)
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
