@@ -5,7 +5,7 @@
 [![License](https://img.shields.io/cocoapods/l/URBNSwiftAlert.svg?style=flat)](http://cocoapods.org/pods/URBNSwiftAlert)
 [![Platform](https://img.shields.io/cocoapods/p/URBNSwiftAlert.svg?style=flat)](http://cocoapods.org/pods/URBNSwiftAlert)
 
-## Example
+## !!!Updated v3.0 Readme coming soon!!!! 
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
@@ -22,7 +22,7 @@ pod "URBNSwiftAlert"
 
 ## Author
 
-Kevin Taniguchi, ktaniguchi@urbn.com
+URBN Mobile Team, mobileteam@urbn.com
 
 ## License
 
