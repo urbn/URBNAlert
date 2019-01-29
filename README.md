@@ -1,9 +1,9 @@
-# URBNSwiftAlert
+# URBNAlert
 
-[![CI Status](http://img.shields.io/travis/Kevin Taniguchi/URBNSwiftAlert.svg?style=flat)](https://travis-ci.org/Kevin Taniguchi/URBNSwiftAlert)
-[![Version](https://img.shields.io/cocoapods/v/URBNSwiftAlert.svg?style=flat)](http://cocoapods.org/pods/URBNSwiftAlert)
-[![License](https://img.shields.io/cocoapods/l/URBNSwiftAlert.svg?style=flat)](http://cocoapods.org/pods/URBNSwiftAlert)
-[![Platform](https://img.shields.io/cocoapods/p/URBNSwiftAlert.svg?style=flat)](http://cocoapods.org/pods/URBNSwiftAlert)
+[![CI Status](http://img.shields.io/travis/urbn/URBNAlert.svg?style=flat)](https://travis-ci.org/urbn/URBNAlert)
+[![Version](https://img.shields.io/cocoapods/v/URBNAlert.svg?style=flat)](http://cocoadocs.org/docsets/URBNAlert)
+[![License](https://img.shields.io/cocoapods/l/URBNAlert.svg?style=flat)](http://cocoadocs.org/docsets/URBNAlert)
+[![Platform](https://img.shields.io/cocoapods/p/URBNAlert.svg?style=flat)](http://cocoadocs.org/docsets/URBNAlert)
 
 ## !!!Updated v3.0 Readme coming soon!!!! 
 
