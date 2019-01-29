@@ -2,12 +2,15 @@
 # * http://www.objc.io/issue-6/travis-ci.html
 # * https://github.com/supermarin/xcpretty#usage
 
-osx_image: xcode8
-language: objective-c
-
+osx_image: xcode10.1
+language: swift
+# cache: cocoapods
+# podfile: Example/Podfile
 before_install:
- - sudo gem install cocoapods -v '1.1.1'
- - cd Example && rm -rf Pods && rm -rf Podfile.lock && pod install && cd -
+# - gem install cocoapods # Since Travis is not always on latest version
+- pod repo update
+- pod install --project-directory=Example/
 
 script:
-- xcodebuild -workspace Example/URBNAlert.xcworkspace -scheme URBNAlert-Example clean build -destination "platform=iOS Simulator,name=iPhone 6,OS=latest" -destination-timeout 120 test
+- set -o pipefail && xcodebuild test -workspace Example/URBNAlert.xcworkspace -scheme URBNAlert_Example -sdk iphonesimulator12.1 ONLY_ACTIVE_ARCH=NO | xcpretty
+- pod lib lint --allow-warnings
