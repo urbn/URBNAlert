@@ -1,7 +1,7 @@
 PODS:
-  - URBNAlert (3.0):
-    - URBNSwiftyConvenience (~> 1.5.0)
-  - URBNSwiftyConvenience (1.5.0)
+  - URBNAlert (3.0.1):
+    - URBNSwiftyConvenience (~> 1.5)
+  - URBNSwiftyConvenience (1.6.0)
 
 DEPENDENCIES:
   - URBNAlert (from `../`)
@@ -15,8 +15,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  URBNAlert: 6663c4a1f9862c608c7368ddda4b93eb3543118d
-  URBNSwiftyConvenience: 6f35fa8fa3bd52d2efeedc67ff056320eac171e8
+  URBNAlert: fe4e56f661ed2c4f57a55880f075f3cce36350cf
+  URBNSwiftyConvenience: e583864a1a78703c5c4733e41ec54c76ec287e87
 
 PODFILE CHECKSUM: 87e3881e2b100a66f2819cf0b176b293a7deaf61
 
