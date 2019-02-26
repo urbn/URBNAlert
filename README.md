@@ -35,7 +35,7 @@ alert.alertStyler = alertStyler
 ```
 
 1 Action Alert Example:
-![Alt text](https://imgur.com/a/q0AVpDn.png)
+![Alt text](https://imgur.com/q0AVpDn.png)
 ```
 let alert = AlertViewController(message: “Alert Title”)
 
@@ -71,7 +71,7 @@ containerView.embed(subview: stackView, insets: UIEdgeInsets(top: 0, left: 18, b
 ```
 
 Textfield Alert Example:
-![Alt text](https://imgur.com/MDwHzw3.png)
+![Alt text](https://imgur.com/MDwHzw3)
 ```
 let alert = AlertViewController(title: "Alert Title", message: sampleMessage)
 
