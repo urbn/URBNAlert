@@ -35,7 +35,7 @@ alert.alertStyler = alertStyler
 ```
 
 1 Action Alert Example:
-![Alt text](https://imgur.com/a/q0AVpDn)
+![Alt text](https://imgur.com/a/q0AVpDn.png)
 ```
 let alert = AlertViewController(message: “Alert Title”)
 
@@ -49,13 +49,13 @@ alert.show()
 ```
 
 2 Action Alert Example:
-![Alt text](https://imgur.com/65JHhII)
+![Alt text](https://imgur.com/65JHhII.png)
 
 3+ Action Alert Example:
-![Alt text](https://imgur.com/dRXt6J5)
+![Alt text](https://imgur.com/dRXt6J5.png)
 
 Custom View Alert Example:
-![Alt text](https://imgur.com/HnZbmK9)
+![Alt text](https://imgur.com/HnZbmK9.png)
 ```
 let imageView = UIImageView(image: UIImage.stretchableImage(color: .blue))
 imageView.contentMode = .scaleAspectFit
@@ -71,7 +71,7 @@ containerView.embed(subview: stackView, insets: UIEdgeInsets(top: 0, left: 18, b
 ```
 
 Textfield Alert Example:
-![Alt text](https://imgur.com/MDwHzw3)
+![Alt text](https://imgur.com/MDwHzw3.png)
 ```
 let alert = AlertViewController(title: "Alert Title", message: sampleMessage)
 
