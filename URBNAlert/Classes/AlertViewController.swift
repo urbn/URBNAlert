@@ -5,6 +5,7 @@
 //  Created by Kevin Taniguchi on 5/22/17.
 //
 //
+import UIKit
 import URBNSwiftyConvenience
 
 open class AlertViewController: UIViewController {

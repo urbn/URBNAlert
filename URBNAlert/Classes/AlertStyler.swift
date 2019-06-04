@@ -5,7 +5,8 @@
 //  Created by Kevin Taniguchi on 5/22/17.
 //
 //
-import Foundation
+import CoreGraphics
+import UIKit
 import URBNSwiftyConvenience
 
 public struct AlertStyler {

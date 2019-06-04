@@ -5,7 +5,7 @@
 //  Created by Kevin Taniguchi on 5/22/17.
 //
 //
-import Foundation
+import UIKit
 import URBNSwiftyConvenience
 
 public typealias EmptyHandler = () -> Void

@@ -5,7 +5,8 @@
 //  Created by Kevin Taniguchi on 5/23/17.
 //
 //
-import Foundation
+import CoreGraphics
+import UIKit
 
 /**
  *  Conform a UIView to this protocol to generate a custom view that holds custom buttons

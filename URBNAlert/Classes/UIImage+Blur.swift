@@ -6,14 +6,12 @@
 //
 //
 
-import Foundation
-
 import UIKit
 import Accelerate
 
 public extension UIImage {
     
-    public func applyBlurWithRadius(_ blurRadius: CGFloat, tintColor: UIColor?, saturationDeltaFactor: CGFloat, maskImage: UIImage? = nil) -> UIImage? {
+    func applyBlurWithRadius(_ blurRadius: CGFloat, tintColor: UIColor?, saturationDeltaFactor: CGFloat, maskImage: UIImage? = nil) -> UIImage? {
         // Check pre-conditions.
         if (size.width < 1 || size.height < 1) {
             print("*** error: invalid size: \(size.width) x \(size.height). Both dimensions must be >= 1: \(self)")
@@ -34,7 +32,7 @@ public extension UIImage {
         var effectImage = self
         
         let hasBlur = blurRadius > __FLT_EPSILON__
-        let hasSaturationChange = fabs(saturationDeltaFactor - 1.0) > __FLT_EPSILON__
+        let hasSaturationChange = abs(saturationDeltaFactor - 1.0) > __FLT_EPSILON__
         
         if hasBlur || hasSaturationChange {
             func createEffectBuffer(_ context: CGContext) -> vImage_Buffer {
