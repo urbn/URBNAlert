@@ -245,7 +245,7 @@ extension ExampleViewController: UICollectionViewDelegate, UICollectionViewDeleg
                 btn.backgroundColor = color
                 btn.layoutMargins = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
                 return btn
-            }).sorted{$0.titleLabel?.text?.count ?? 0 < $1.titleLabel?.text?.characters.count ?? 1}
+            }).sorted{$0.titleLabel?.text?.count ?? 0 < $1.titleLabel?.text?.count ?? 1}
         }
         
         let allActiveExampleButtons = btnsMapper(["1 Button": #selector(ExampleViewController.showOneButtonAlert),
