@@ -209,12 +209,12 @@ extension AlertView: AlertButtonContainer {
 
 extension AlertView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let charCount = textField.text?.count ?? 0
+        let charCount = textField.text?.utf16.count ?? 0
         if let charCount = textField.text?.count, range.length + range.location > charCount {
             return false
         }
         
-        let newLength = charCount + string.count - range.length
+        let newLength = charCount + string.utf16.count - range.length
         
         return newLength < configuration.styler.textField.maxLength
     }
