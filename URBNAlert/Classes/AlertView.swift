@@ -210,7 +210,7 @@ extension AlertView: AlertButtonContainer {
 extension AlertView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let charCount = textField.text?.utf16.count ?? 0
-        if let charCount = textField.text?.count, range.length + range.location > charCount {
+        if let charCount = textField.text?.utf16.count, range.length + range.location > charCount {
             return false
         }
         
