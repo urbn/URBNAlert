@@ -13,7 +13,7 @@ let package = Package(
             targets: ["URBNAlert"]),
     ],
     dependencies: [
-    .package(url: "https://github.com/urbn/URBNSwiftyConvenience.git", from: Version(1, 7, 0))
+    .package(url: "https://github.com/urbn/URBNSwiftyConvenience.git", from: "1.7.0")
 
     ],
     targets: [
