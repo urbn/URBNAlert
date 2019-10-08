@@ -13,7 +13,8 @@ let package = Package(
             targets: ["URBNAlert"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/urbn/URBNSwiftyConvenience.git", .branch("swift5+SPM"))
+    .package(url: "https://github.com/urbn/URBNSwiftyConvenience.git", from: Version(1, 7, 0))
+
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
