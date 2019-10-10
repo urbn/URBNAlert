@@ -5,7 +5,7 @@
 //  Created by Kevin Taniguchi on 5/23/17.
 //
 //
-import Foundation
+import UIKit
 
 public class AlertAction: NSObject {
     

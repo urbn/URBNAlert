@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "URBNSwiftyConvenience",
+        "repositoryURL": "https://github.com/urbn/URBNSwiftyConvenience.git",
+        "state": {
+          "branch": null,
+          "revision": "595306502e475d308ecb4cf07672e63565306557",
+          "version": "1.7.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

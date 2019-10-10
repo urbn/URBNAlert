@@ -10,6 +10,7 @@ s.author           = { 'Kevin Taniguchi' => 'ktaniguchi@urbn.com' }
 s.source           = { :git => 'https://github.com/urbn/URBNAlert.git', :tag => s.version.to_s }
 s.platform         = :ios, '10.0'
 s.requires_arc     = true
-s.source_files     = 'URBNAlert/Classes/**/*'
+s.swift_version    = "5.0"
+s.source_files     = 'Sources/URBNAlert/*.swift'
 s.dependency 'URBNSwiftyConvenience', '~> 1.5'
 end

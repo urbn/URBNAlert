@@ -5,7 +5,7 @@
 //  Created by Kevin Taniguchi on 5/22/17.
 //
 //
-import Foundation
+import UIKit
 
 public class AlertController: NSObject {
     public static let shared = AlertController()
