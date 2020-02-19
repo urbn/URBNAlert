@@ -33,9 +33,10 @@ public class AlertController: NSObject {
             }
             
             if strongSelf.queue.isEmpty {
-                strongSelf.presentingWindow.makeKeyAndVisible()
+                strongSelf.alertWindow?.resignKey()
                 strongSelf.alertWindow?.isHidden = true
                 strongSelf.alertWindow = nil
+                strongSelf.presentingWindow.makeKey()
             }
             
             if nextAVC.alertConfiguration.presentationView != nil {
