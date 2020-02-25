@@ -113,6 +113,6 @@ public class AlertController: NSObject {
 extension UIApplication {
     
     var currentWindow: UIWindow? {
-        windows.first(where: { $0.isKeyWindow })
+        return windows.first(where: { $0.isKeyWindow })
     }
 }
