@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name             = 'URBNAlert'
-s.version          = '3.0.2'
+s.version          = '3.1.0'
 s.summary          = 'A swift version of URBNAlert by Ryan Garchinsky.'
 
 

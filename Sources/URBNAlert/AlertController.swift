@@ -14,7 +14,7 @@ public class AlertController: NSObject {
     private var alertIsVisible = false
     private var queue: [AlertViewController] = []
     private var alertWindow: UIWindow?
-    public var presentingWindow = UIApplication.shared.windows.first ?? UIWindow(frame: UIScreen.main.bounds)
+    public var presentingWindow = UIApplication.shared.currentWindow ?? UIWindow(frame: UIScreen.main.bounds)
     
     // MARK: Queueing
     public func addAlertToQueue(avc: AlertViewController) {
@@ -33,9 +33,10 @@ public class AlertController: NSObject {
             }
             
             if strongSelf.queue.isEmpty {
-                strongSelf.presentingWindow.makeKeyAndVisible()
+                strongSelf.alertWindow?.resignKey()
                 strongSelf.alertWindow?.isHidden = true
                 strongSelf.alertWindow = nil
+                strongSelf.presentingWindow.makeKey()
             }
             
             if nextAVC.alertConfiguration.presentationView != nil {
@@ -105,5 +106,13 @@ public class AlertController: NSObject {
         if let nextAVC = queue.first {
             dismiss(alertViewController: nextAVC)
         }
+    }
+}
+
+
+extension UIApplication {
+    
+    var currentWindow: UIWindow? {
+        return windows.first(where: { $0.isKeyWindow })
     }
 }
