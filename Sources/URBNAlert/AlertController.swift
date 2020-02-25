@@ -14,7 +14,7 @@ public class AlertController: NSObject {
     private var alertIsVisible = false
     private var queue: [AlertViewController] = []
     private var alertWindow: UIWindow?
-    public var presentingWindow = UIApplication.shared.keyWindow ?? UIWindow(frame: UIScreen.main.bounds)
+    public var presentingWindow = UIApplication.shared.currentWindow ?? UIWindow(frame: UIScreen.main.bounds)
     
     // MARK: Queueing
     public func addAlertToQueue(avc: AlertViewController) {
@@ -106,5 +106,13 @@ public class AlertController: NSObject {
         if let nextAVC = queue.first {
             dismiss(alertViewController: nextAVC)
         }
+    }
+}
+
+
+extension UIApplication {
+    
+    var currentWindow: UIWindow? {
+        windows.first(where: { $0.isKeyWindow })
     }
 }
