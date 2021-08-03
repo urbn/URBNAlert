@@ -7,6 +7,7 @@
 //
 import UIKit
 
+@available(iOSApplicationExtension, unavailable)
 public class AlertController: NSObject {
     public static let shared = AlertController()
     public var alertStyler = AlertStyler()
@@ -15,7 +16,6 @@ public class AlertController: NSObject {
     private var queue: [AlertViewController] = []
     private var alertWindow: UIWindow?
     
-    @available(iOSApplicationExtension, unavailable)
     public var presentingWindow = UIApplication.shared.currentWindow ?? UIWindow(frame: UIScreen.main.bounds)
     
     // MARK: Queueing
