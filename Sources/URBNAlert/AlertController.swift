@@ -14,6 +14,8 @@ public class AlertController: NSObject {
     private var alertIsVisible = false
     private var queue: [AlertViewController] = []
     private var alertWindow: UIWindow?
+    
+    @available(iOSApplicationExtension, unavailable)
     public var presentingWindow = UIApplication.shared.currentWindow ?? UIWindow(frame: UIScreen.main.bounds)
     
     // MARK: Queueing
